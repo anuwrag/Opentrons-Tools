@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Opentrons Fields.json CSV Converter</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .output-container {
+      overflow: auto; 
+      background-color: #f8f9fa; 
+      padding: 1rem;
+      border-radius: .25rem;
+      position: relative; 
+      white-space: pre-wrap;
+    }
+
+    .copy-button {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="card mt-5">
+    <div class="card-body">
+      <h2 class="card-title">Opentrons Fields.json CSV Default Content Creator</h2>
+
+      <div class="custom-file"> 
+        <input type="file" class="custom-file-input" id="csvFile" accept=".csv">
+        <label class="custom-file-label" for="csvFile">Choose file</label>
+      </div>
+
+      <div id="outputArea">
+        <pre class="output-container" id="outputContent">
+          <button class="btn btn-secondary btn-sm copy-button">Copy</button>
+        </pre>
+        <p class="mt-2">Copy the content of the text file to a fields.json file</p> 
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const fileInput = document.getElementById('csvFile');
+  const fileLabel = document.querySelector('.custom-file-label');
+  const outputContent = document.getElementById('outputContent');
+  const copyButton = document.querySelector('.copy-button');
+
+  fileInput.addEventListener('change', () => {
+    const file = fileInput.files[0];
+
+    if (fileInput.files.length > 0) {
+      fileLabel.textContent = fileInput.files[0].name;
+    } else {
+      fileLabel.textContent = 'Choose file';
+    }
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        const csvData = e.target.result;
+        const formattedOutput = `[
+    {
+        "type": "textFile",
+        "label": ".csv input file",
+        "name": "input_csv",
+        "default": ${JSON.stringify(csvData)}
+    }
+]`;
+
+        // Set textContent of the pre element, excluding the button
+        outputContent.firstChild.textContent = formattedOutput;
+      };
+
+      reader.readAsText(file);
+    }
+  });
+
+  copyButton.addEventListener('click', () => {
+    // Get text content excluding the button's text
+    const textToCopy = outputContent.firstChild.textContent; 
+    
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      alert('Copied to clipboard!');
+    }).catch(err => {
+      console.error('Failed to copy: ', err);
+    });
+  });
+</script>
+
+</body>
+</html>
