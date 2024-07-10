@@ -61,7 +61,7 @@
             downloadBtn.style.display = 'none';
             errorMessage.textContent = '';
 
-            fetch(`https://${ipAddress}:31950/camera/picture`, {
+            fetch(`http://${ipAddress}:31950/camera/picture`, {
                 method: 'POST',
                 headers: {
                     'opentrons-version': '*'
