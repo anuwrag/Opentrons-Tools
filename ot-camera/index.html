@@ -33,9 +33,9 @@
         </div>
         <div class="row mt-5">
             <div class="col-md-8">
-                <h3>Download Image Using Command Line</h3>
+                <h3>How it Works: Download Image Using Command Line</h3>
                 <p>If you want to download an image using your computer, use the following code:</p>
-                <pre><code>wget --method=POST --header='opentrons-version: *' 'http://192.168.1.250:31950/camera/picture' -O 'testcamerafile.jpg'</code></pre>
+                <pre><code>curl -o 'testcamerafile.jpg' --location --request POST 'http://192.168.1.250:31950/camera/picture' --header 'opentrons-version: *'</code></pre>
             </div>
         </div>
     </div>
