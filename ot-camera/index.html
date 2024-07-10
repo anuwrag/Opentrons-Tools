@@ -9,11 +9,16 @@
 </head>
 <body>
     <div class="container mt-5">
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <button class="btn btn-info" onclick="downloadHTMLPage()">Download HTML Page to Take Picture</button>
+            </div>
+        </div>
         <h1 class="mb-4">Opentrons Camera Viewer</h1>
         <div class="row">
             <div class="col-md-6">
                 <div class="input-group mb-3">
-                    <input type="text" id="ipAddress" class="form-control" placeholder="Enter Robot IP Address (e.g. 192.168.1.1)">
+                    <input type="text" id="ipAddress" class="form-control" placeholder="Enter IP Address">
                     <button class="btn btn-primary" type="button" onclick="fetchImage()">Fetch Image</button>
                 </div>
             </div>
@@ -30,10 +35,7 @@
             <div class="col-md-8">
                 <h3>Download Image Using Command Line</h3>
                 <p>If you want to download an image using your computer, use the following code:</p>
-                <p>On windows please use <a href="https://git-scm.com/downloads">Git Bash</a></p>
-                <p>On Mac and Linux, the command can be directly run in the terminal</p>
-                <pre><code>curl -o 'testcamerafile.jpg' --location --request POST 'http://192.168.1.250:31950/camera/picture' --header 'opentrons-version: *'</code></pre>
-                <pre>Make sure you change the IP address in the code above.</pre>
+                <pre><code>wget --method=POST --header='opentrons-version: *' 'http://192.168.1.250:31950/camera/picture' -O 'testcamerafile.jpg'</code></pre>
             </div>
         </div>
     </div>
@@ -94,6 +96,17 @@
             const link = document.createElement('a');
             link.href = URL.createObjectURL(imageBlob);
             link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function downloadHTMLPage() {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'opentrons_camera_viewer.html';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
