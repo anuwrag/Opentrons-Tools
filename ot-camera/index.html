@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opentrons Camera Viewer</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Opentrons Camera Viewer</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <input type="text" id="ipAddress" class="form-control" placeholder="Enter Robot IP Address (e.g. 192.168.1.1)">
+                    <button class="btn btn-primary" type="button" onclick="fetchImage()">Fetch Image</button>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <img id="cameraImage" class="img-fluid" style="display: none;" alt="Camera Image">
+                <div id="loadingIndicator" class="d-none">Loading...</div>
+                <div id="errorMessage" class="text-danger"></div>
+                <button id="downloadBtn" class="btn btn-success mt-3" style="display: none;" onclick="downloadImage()">Download Image</button>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-8">
+                <h3>Download Image Using Command Line</h3>
+                <p>If you want to download an image using your computer, use the following code:</p>
+                <p>On windows please use <a href="https://git-scm.com/downloads">Git Bash</a></p>
+                <p>On Mac and Linux, the command can be directly run in the terminal</p>
+                <pre><code>curl -o 'testcamerafile.jpg' --location --request POST 'http://192.168.1.250:31950/camera/picture' --header 'opentrons-version: *'</code></pre>
+                <pre>Make sure you change the IP address in the code above.</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        let imageBlob;
+
+        function fetchImage() {
+            const ipAddress = document.getElementById('ipAddress').value;
+            const imageElement = document.getElementById('cameraImage');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const errorMessage = document.getElementById('errorMessage');
+            const downloadBtn = document.getElementById('downloadBtn');
+
+            if (!ipAddress) {
+                errorMessage.textContent = "Please enter an IP address.";
+                return;
+            }
+
+            loadingIndicator.classList.remove('d-none');
+            imageElement.style.display = 'none';
+            downloadBtn.style.display = 'none';
+            errorMessage.textContent = '';
+
+            fetch(`http://${ipAddress}:31950/camera/picture`, {
+                method: 'POST',
+                headers: {
+                    'opentrons-version': '*'
+                }
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                imageBlob = blob;
+                const imageUrl = URL.createObjectURL(blob);
+                imageElement.src = imageUrl;
+                imageElement.style.display = 'block';
+                downloadBtn.style.display = 'block';
+                loadingIndicator.classList.add('d-none');
+            })
+            .catch(error => {
+                errorMessage.textContent = "Error fetching image: " + error.message;
+                loadingIndicator.classList.add('d-none');
+            });
+        }
+
+        function downloadImage() {
+            if (!imageBlob) {
+                console.error('No image available for download');
+                return;
+            }
+
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            const fileName = `camera_image_${timestamp}.jpg`;
+
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(imageBlob);
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
