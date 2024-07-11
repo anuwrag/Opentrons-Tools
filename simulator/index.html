@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opentrons 2D Visual Simulator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        #canvas-container {
+            width: 100%; 
+            overflow-x: auto; 
+        }
+        #mainCanvas {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1>Opentrons 2D Visual Simulator</h1>
+
+    <input type="file" id="jsonFile" accept=".json" class="form-control-file mb-3">
+
+    <div id="canvas-container">
+        <canvas id="mainCanvas" width="620" height="407"></canvas> 
+    </div>
+    
+    <input type="range" id="stepSlider" min="0" max="0" value="0" class="form-range mt-3">
+
+    <div class="mt-3 text-center">
+        <button id="prevStep" class="btn btn-secondary">Previous Step</button>
+        <button id="playPause" class="btn btn-primary">Play</button>
+        <button id="nextStep" class="btn btn-secondary">Next Step</button>
+    </div>
+</div>
+
+<script>
+    const jsonFile = document.getElementById('jsonFile');
+    const canvasContainer = document.getElementById('canvas-container');
+    const mainCanvas = document.getElementById('mainCanvas');
+    const playPauseButton = document.getElementById('playPause');
+    const nextStepButton = document.getElementById('nextStep');
+    const prevStepButton = document.getElementById('prevStep');
+    const stepSlider = document.getElementById('stepSlider');
+
+    let data = [];
+    let currentStep = 0;
+    let isPlaying = false;
+
+    // Slot definitions (adjusted for origin at bottom-left)
+    const slots = {
+        D1: [[0.0, 321.0], [128.0, 86.0]],  // Flipped y-coordinate
+        D2: [[164.0, 321.0], [128.0, 86.0]],
+        D3: [[328.0, 321.0], [128.0, 86.0]],
+        C1: [[0.0, 214.0], [128.0, 86.0]],
+        C2: [[164.0, 214.0], [128.0, 86.0]],
+        C3: [[328.0, 214.0], [128.0, 86.0]],
+        B1: [[0.0, 107.0], [128.0, 86.0]],
+        B2: [[164.0, 107.0], [128.0, 86.0]],
+        B3: [[328.0, 107.0], [128.0, 86.0]],
+        A1: [[0.0, 0.0], [128.0, 86.0]],
+        A2: [[164.0, 0.0], [128.0, 86.0]],
+        A3: [[328.0, 0.0], [128.0, 86.0]],
+        D4: [[492.0, 321.0], [128.0, 86.0]],
+        C4: [[492.0, 214.0], [128.0, 86.0]],
+        B4: [[492.0, 107.0], [128.0, 86.0]],
+        A4: [[492.0, 0.0], [128.0, 86.0]]
+    };
+
+    // Draw the rounded rectangles and labels
+    function drawSlots() {
+        const ctx = mainCanvas.getContext('2d');
+        for (const [slotName, [startPos, size]] of Object.entries(slots)) {
+            drawRoundedRect(ctx, startPos[0], startPos[1], size[0], size[1], 10);
+            ctx.font = "14px Arial";
+            ctx.fillText(slotName, startPos[0] + 5, startPos[1] - 5); // Adjusted label position
+        }
+    }
+
+    // Initial drawing of slots
+    drawSlots(); 
+
+    jsonFile.addEventListener('change', async (event) => {
+        const file = event.target.files[0];
+        const text = await file.text();
+
+        // Clear the canvas and reset data when loading a new file
+        const ctx = mainCanvas.getContext('2d');
+        ctx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+        
+        // Redraw the rounded rectangles and labels
+        drawSlots();
+        
+        data = [];
+        currentStep = 0;
+
+        data = JSON.parse(text).commands.filter(c => c.result && c.result.position);
+        // Update slider range and value after data is loaded
+        stepSlider.max = data.length - 1; 
+        stepSlider.value = currentStep;
+
+        // Draw the initial step
+        if (data.length > 0) {
+            drawStep(currentStep);
+        }
+    });
+
+    stepSlider.addEventListener('input', () => {
+        currentStep = parseInt(stepSlider.value);
+        const ctx = mainCanvas.getContext('2d');
+        ctx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+
+        // Redraw the rounded rectangles and labels
+        drawSlots();
+        
+        for (let i = 0; i <= currentStep; i++) {
+            drawStep(i);
+        }
+    });
+
+    playPauseButton.addEventListener('click', () => {
+        isPlaying = !isPlaying;
+        playPauseButton.textContent = isPlaying ? 'Pause' : 'Play';
+        if (isPlaying) playAnimation();
+    });
+
+    nextStepButton.addEventListener('click', () => {
+        if (currentStep < data.length - 1) {
+            currentStep++;
+            drawStep(currentStep);
+            stepSlider.value = currentStep; // Update the slider
+        }
+    });
+
+    prevStepButton.addEventListener('click', () => {
+        if (currentStep > 0) {
+            currentStep--;
+            const ctx = mainCanvas.getContext('2d');
+            ctx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+
+            // Redraw the rounded rectangles and labels
+            drawSlots();
+            
+            for (let i = 0; i <= currentStep; i++) {
+                drawStep(i);
+            }
+            stepSlider.value = currentStep; // Update the slider
+        }
+    });
+
+    function drawStep(step) {
+        const ctx = mainCanvas.getContext('2d');
+        const pos = data[step].result.position;
+        ctx.beginPath();
+        ctx.arc(pos.x, 407 - pos.y, 4, 0, 2 * Math.PI);  // Invert y-coordinate
+        ctx.fillStyle = 'green';
+        ctx.fill();
+    }
+
+    async function playAnimation() {
+        while (isPlaying && currentStep < data.length - 1) {
+            currentStep++;
+            drawStep(currentStep);
+            stepSlider.value = currentStep; // Update the slider
+            await new Promise(resolve => setTimeout(resolve, 100)); 
+        }
+        if (currentStep === data.length - 1) {
+            isPlaying = false;
+            playPauseButton.textContent = 'Play';
+        }
+    }
+
+
+
+    function drawRoundedRect(ctx, x, y, width, height, radius) {
+        ctx.beginPath();
+        ctx.moveTo(x + radius, y);
+        ctx.lineTo(x + width - radius, y);
+        ctx.arcTo(x + width, y, x + width, y + radius, radius);
+        ctx.lineTo(x + width, y + height - radius);
+        ctx.arcTo(x + width, y + height, x + width - radius, y + height, radius);
+        ctx.lineTo(x + radius, y + height);
+        ctx.arcTo(x, y + height, x, y + height - radius, radius);
+        ctx.lineTo(x, y + radius);
+        ctx.arcTo(x, y, x + radius, y, radius);
+        ctx.closePath();
+        ctx.stroke();
+    }
+</script>
+
+</body>
+</html>
