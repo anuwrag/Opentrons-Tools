@@ -177,7 +177,7 @@
         const ctx = mainCanvas.getContext('2d');
         const pos = data[step].result.position;
         ctx.beginPath();
-        ctx.arc(pos.x+offsetX, 407 - pos.y+offsetY, 3, 0, 2 * Math.PI);  // Invert y-coordinate
+        ctx.arc(pos.x+offsetX, 407 - pos.y+offsetY, 4, 0, 2 * Math.PI);  // Invert y-coordinate
         ctx.fillStyle = 'green';
         ctx.fill();
     }
