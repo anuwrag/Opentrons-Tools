@@ -1,56 +1,29 @@
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Opentrons 2D Visual Simulator</title>
-  <link rel="stylesheet" href="https://unpkg.com/carbon-components/css/carbon-components.min.css" />
-  <style>
-    #canvas-container {
-      width: 100%; 
-      overflow-x: auto; 
-    }
-    #mainCanvas {
-      display: inline-block;
-      border: 1px solid #ccc;
-    }
-    .bx--row.center-content { /* New class to center content in a row */
-      justify-content: center;
-    }
-  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shadcn/ui@0.0.1/dist/style.css" />
 </head>
 <body>
+  <div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4">Opentrons 2D Visual Simulator</h1>
 
-<div class="bx--grid">
-
-  <div class="bx--row"> <div class="bx--col-lg-12 bx--col-md-8 bx--col-sm-4">
-      <h1 class="bx--type-display-03">Opentrons 2D Visual Simulator</h1>
+    <div class="flex justify-center mb-4">
+      <input type="file" id="jsonFile" accept=".json" class="hidden">
+      <button class="btn btn-primary" onclick="document.getElementById('jsonFile').click()">Choose file</button>
     </div>
-  </div>
 
-  <div class="bx--row center-content">
-    <div class="bx--col-lg-8 bx--col-md-6 bx--col-sm-4"> 
-      <p class="bx--type-body-long-01">Upload Protocol Analysis.json file</p>
-      <input type="file" id="jsonFile" accept=".json" class="bx--visually-hidden">  
-      <button class="bx--btn bx--btn--primary" onclick="document.getElementById('jsonFile').click()">Choose file</button>
+    <div class="relative">
+      <canvas id="mainCanvas" width="720" height="500" class="border border-gray-300"></canvas>
+      <input type="range" id="stepSlider" min="0" max="0" value="0" class="slider absolute bottom-2 left-2 right-2">
     </div>
-  </div>
 
-  <div class="bx--row center-content">
-    <div class="bx--col-lg-12 bx--col-md-8 bx--col-sm-4">
-      <div id="canvas-container">
-        <canvas id="mainCanvas" width="720" height="500"></canvas> 
-      </div>
-
-      <div class="bx--form-item bx--slider-container">
-        <input type="range" id="stepSlider" min="0" max="0" value="0" class="bx--slider">
-      </div>
-      
-      <div class="bx--btn-set bx--row center-content"> <div class="bx--col-lg-8 bx--col-md-6 bx--col-sm-4">
-        <button id="prevStep" class="bx--btn bx--btn--secondary">Previous Step</button>
-        <button id="playPause" class="bx--btn bx--btn--primary">Play</button>
-        <button id="nextStep" class="bx--btn bx--btn--secondary">Next Step</button>
-      </div>
+    <div class="flex justify-center mt-4 space-x-4">
+      <button id="prevStep" class="btn btn-outline">Previous Step</button>
+      <button id="playPause" class="btn btn-primary">Play</button>
+      <button id="nextStep" class="btn btn-outline">Next Step</button>
     </div>
   </div>
 
@@ -177,7 +150,7 @@
         const ctx = mainCanvas.getContext('2d');
         const pos = data[step].result.position;
         ctx.beginPath();
-        ctx.arc(pos.x+offsetX, 407 - pos.y+offsetY, 4, 0, 2 * Math.PI);  // Invert y-coordinate
+        ctx.arc(pos.x+offsetX, 407 - pos.y+offsetY, 3, 0, 2 * Math.PI);  // Invert y-coordinate
         ctx.fillStyle = 'green';
         ctx.fill();
     }
