@@ -1,0 +1,5 @@
+#deckCanvas {
+    border: 1px solid #ccc;
+    width: 100%; /* Make canvas responsive */
+    height: auto; /* Maintain aspect ratio */
+}
