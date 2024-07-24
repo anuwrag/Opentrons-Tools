@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Opentrons Visual Simulator</title>
+  <script src="https://unpkg.com/carbon-components/scripts/carbon-components.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/carbon-components/css/carbon-components.min.css">
+</head>
+<body>
+  <bx-header name="Opentrons Visual Simulator"></bx-header>
+
+  <div class="bx--grid">
+    <div class="bx--row">
+      <div class="bx--col-lg-4 bx--col-md-8 bx--col-sm-4">
+        <bx-file-uploader 
+          accept=".json"
+          button-label="Upload JSON file"
+          label-description="Max file size is 500mb. Supported file types are JSON."
+        >
+        </bx-file-uploader>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const fileUploader = document.querySelector('bx-file-uploader');
+
+    fileUploader.addEventListener('bx-file-uploader-changed', (event) => {
+      const file = event.detail.addedFiles[0];
+      // Handle the uploaded JSON file here (send to server, process in browser, etc.)
+            fetch(file)
+        .then(response => response.json())
+        .then(data => processData(data))
+        .catch(error => console.error('Error loading JSON:', error));
+
+        function processData(data) {
+        // Offset values (same as Python)
+        const offset_x = 70;
+        const offset_y = 70;
+
+        // Function to determine pipette channels (similar to Python's ch() function)
+        function getPipetteChannels(pipettesData) {
+            const pip_ch = {};
+            for (const pipette of pipettesData) {
+            const id = pipette.id;
+            const alpha = pipette.pipetteName.split("_")[1][0];
+            const channels = alpha === 's' ? 1 : alpha === 'm' ? 8 : 96;
+            pip_ch[id] = channels;
+            }
+            return pip_ch;
+        }
+
+        const pip_ch = getPipetteChannels(data.pipettes);
+
+        // Determine robot type and slot data
+        const robo = data.robotType.slice(0, 4); 
+        const slot_data = robo === 'OT-3' 
+            ? [
+            ["D1", [0.0, 0.0], [128.0, 86.0]],
+            ["D2", [164.0, 0.0], [292.0, 86.0]],
+            ["D3", [328.0, 0.0], [456.0, 86.0]],
+            ["C1", [0.0, 107.0], [128.0, 193.0]],
+            ["C2", [164.0, 107.0], [292.0, 193.0]],
+            ["C3", [328.0, 107.0], [456.0, 193.0]],
+            ["B1", [0.0, 214.0], [128.0, 300.0]],
+            ["B2", [164.0, 214.0], [292.0, 300.0]],
+            ["B3", [328.0, 214.0], [456.0, 300.0]],
+            ["A1", [0.0, 321.0], [128.0, 407.0]],
+            ["A2", [164.0, 321.0], [292.0, 407.0]],
+            ["A3", [328.0, 321.0], [456.0, 407.0]],
+            ["D4", [492.0, 0.0], [620.0, 86.0]],
+            ["C4", [492.0, 107.0], [620.0, 193.0]],
+            ["B4", [492.0, 214.0], [620.0, 300.0]],
+            ["A4", [492.0, 321.0], [620.0, 407.0]]
+            ]
+            : [
+            ["1", [0.0, 0.0], [128.0, 86.0]],
+            ["2", [132.5, 0.0], [260.5, 86.0]],
+            ["3", [265.0, 0.0], [393.0, 86.0]],
+            ["4", [0.0, 90.5], [128.0, 176.5]],
+            ["5", [132.5, 90.5], [260.5, 176.5]],
+            ["6", [265.0, 90.5], [393.0, 176.5]],
+            ["7", [0.0, 181.0], [128.0, 267.0]],
+            ["8", [132.5, 181.0], [260.5, 267.0]],
+            ["9", [265.0, 181.0], [393.0, 267.0]],
+            ["10", [0.0, 271.5], [128.0, 357.5]],
+            ["11", [132.5, 271.5], [260.5, 357.5]],
+            ["12", [265.0, 271.5], [393.0, 357.5]]
+            ];
+
+        // Now you have the slot_data and pip_ch objects ready for further processing in your visualization
+        console.log(slot_data);
+        console.log(pip_ch); 
+        }
+    });
+  </script>
+</body>
+</html>
