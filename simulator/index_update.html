@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opentrons 2D Visual Simulator</title>
+  <link rel="stylesheet" href="https://unpkg.com/carbon-components/css/carbon-components.min.css" />
+  <style>
+    #canvas-container {
+      width: 100%; 
+      overflow-x: auto; 
+    }
+    #mainCanvas {
+      display: inline-block;
+      border: 1px solid #ccc;
+    }
+    .bx--row.center-content { /* New class to center content in a row */
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="bx--grid">
+
+  <div class="bx--row center-content"> <div class="bx--col-lg-12 bx--col-md-8 bx--col-sm-4">
+      <h1 class="bx--type-display-03">Opentrons 2D Visual Simulator</h1>
+    </div>
+  </div>
+
+  <div class="bx--row center-content">
+    <div class="bx--col-lg-8 bx--col-md-6 bx--col-sm-4"> 
+      <p class="bx--type-body-long-01">Upload Protocol Analysis.json file</p>
+      <input type="file" id="jsonFile" accept=".json" class="bx--visually-hidden">  
+      <button class="bx--btn bx--btn--primary" onclick="document.getElementById('jsonFile').click()">Choose file</button>
+    </div>
+  </div>
+
+  <div class="bx--row center-content">
+    <div class="bx--col-lg-12 bx--col-md-8 bx--col-sm-4">
+      <div id="canvas-container">
+        <canvas id="mainCanvas" width="720" height="500"></canvas> 
+      </div>
+
+      <div class="bx--form-item bx--slider-container">
+        <input type="range" id="stepSlider" min="0" max="0" value="0" class="bx--slider">
+      </div>
+      
+      <div class="bx--btn-set bx--row center-content"> <div class="bx--col-lg-8 bx--col-md-6 bx--col-sm-4">
+        <button id="prevStep" class="bx--btn bx--btn--secondary">Previous Step</button>
+        <button id="playPause" class="bx--btn bx--btn--primary">Play</button>
+        <button id="nextStep" class="bx--btn bx--btn--secondary">Next Step</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script>
+    const jsonFile = document.getElementById('jsonFile');
+    const canvasContainer = document.getElementById('canvas-container');
+    const mainCanvas = document.getElementById('mainCanvas');
+    const playPauseButton = document.getElementById('playPause');
+    const nextStepButton = document.getElementById('nextStep');
+    const prevStepButton = document.getElementById('prevStep');
+    const stepSlider = document.getElementById('stepSlider');
+
+    let data = [];
+    let currentStep = 0;
+    let isPlaying = false;
+    let canvas, ctx;
+    let slots, labwareDict, pipChannels;
+
+    // Parse data from JSON
+  function parseData() {
+      const robotType = data.robotType.slice(0, 4);
+      slots = (robotType === 'OT-3') ? slots_ot3 : slots_ot2;
+      labwareDict = createLabwareDict();
+      pipChannels = getPipetteChannels();
+  }
+
+    // Slot definitions (adjusted for origin at bottom-left)
+    const slots_ot3 = {
+        D1: [[0.0, 321.0], [128.0, 86.0]],  // Flipped y-coordinate
+        D2: [[164.0, 321.0], [128.0, 86.0]],
+        D3: [[328.0, 321.0], [128.0, 86.0]],
+        C1: [[0.0, 214.0], [128.0, 86.0]],
+        C2: [[164.0, 214.0], [128.0, 86.0]],
+        C3: [[328.0, 214.0], [128.0, 86.0]],
+        B1: [[0.0, 107.0], [128.0, 86.0]],
+        B2: [[164.0, 107.0], [128.0, 86.0]],
+        B3: [[328.0, 107.0], [128.0, 86.0]],
+        A1: [[0.0, 0.0], [128.0, 86.0]],
+        A2: [[164.0, 0.0], [128.0, 86.0]],
+        A3: [[328.0, 0.0], [128.0, 86.0]],
+        D4: [[492.0, 321.0], [128.0, 86.0]],
+        C4: [[492.0, 214.0], [128.0, 86.0]],
+        B4: [[492.0, 107.0], [128.0, 86.0]],
+        A4: [[492.0, 0.0], [128.0, 86.0]]
+    };
+
+    // Slot definitions (adjusted for origin at bottom-left)
+    const slots_ot2 = {
+        1:  [[0.0, 0.0], [128.0, 86.0]],
+        2:  [[132.5, 0.0], [260.5, 86.0]],
+        3:  [[265.0, 0.0], [393.0, 86.0]],
+        4:  [[0.0, 90.5], [128.0, 176.5]],
+        5:  [[132.5, 90.5], [260.5, 176.5]],
+        6:  [[265.0, 90.5], [393.0, 176.5]],
+        7:  [[0.0, 181.0], [128.0, 267.0]],
+        8:  [[132.5, 181.0], [260.5, 267.0]],
+        9:  [[265.0, 181.0], [393.0, 267.0]],
+        10: [[0.0, 271.5], [128.0, 357.5]],
+        11: [[132.5, 271.5], [260.5, 357.5]],
+        12: [[265.0, 271.5], [393.0, 357.5]]
+    };
+
+// // Get slot data for OT-3
+// function getOT3SlotData() {
+//     return slots = {
+//         D1: [0.0, 0.0], [128.0, 86.0],
+//         D2: [164.0, 0.0], [292.0, 86.0],
+//         D3: [328.0, 0.0], [456.0, 86.0],
+//         C1: [0.0, 107.0], [128.0, 193.0],
+//         C2: [164.0, 107.0], [292.0, 193.0],
+//         C3: [328.0, 107.0], [456.0, 193.0],
+//         B1: [0.0, 214.0], [128.0, 300.0],
+//         B2: [164.0, 214.0], [292.0, 300.0],
+//         B3: [328.0, 214.0], [456.0, 300.0],
+//         A1: [0.0, 321.0], [128.0, 407.0],
+//         A2: [164.0, 321.0], [292.0, 407.0],
+//         A3: [328.0, 321.0], [456.0, 407.0],
+//         D4: [492.0, 0.0], [620.0, 86.0],
+//         C4: [492.0, 107.0], [620.0, 193.0],
+//         B4: [492.0, 214.0], [620.0, 300.0],
+//         A4: [492.0, 321.0], [620.0, 407.0]
+//     };
+// }
+
+// Get slot data for OT-2
+function getOT2SlotData() {
+    return [
+        ["1", [0.0, 0.0], [128.0, 86.0]],
+        ["2", [132.5, 0.0], [260.5, 86.0]],
+        ["3", [265.0, 0.0], [393.0, 86.0]],
+        ["4", [0.0, 90.5], [128.0, 176.5]],
+        ["5", [132.5, 90.5], [260.5, 176.5]],
+        ["6", [265.0, 90.5], [393.0, 176.5]],
+        ["7", [0.0, 181.0], [128.0, 267.0]],
+        ["8", [132.5, 181.0], [260.5, 267.0]],
+        ["9", [265.0, 181.0], [393.0, 267.0]],
+        ["10", [0.0, 271.5], [128.0, 357.5]],
+        ["11", [132.5, 271.5], [260.5, 357.5]],
+        ["12", [265.0, 271.5], [393.0, 357.5]]
+    ];
+}
+
+    // Offsets for drawing
+    const offsetX = 70;
+    const offsetY = 70;
+    const IMG_HEIGHT = 450 + offsetY * 2;
+    const IMG_WIDTH = 650 + offsetX * 2;
+
+    // Draw the rounded rectangles and labels
+    function drawSlots() {
+        const ctx = mainCanvas.getContext('2d');
+        for (const [slotName, [startPos, size]] of Object.entries(slots)) {
+            drawRoundedRect(ctx, startPos[0]+offsetX, startPos[1]+offsetY, size[0], size[1], 10);
+            ctx.font = "14px Arial";
+            ctx.fillText(slotName, startPos[0]-2 + 5, startPos[1]+35 - 5); // Adjusted label position
+        }
+    }
+
+    // Initial drawing of slots
+    drawSlots(); 
+
+    jsonFile.addEventListener('change', async (event) => {
+        const file = event.target.files[0];
+        const text = await file.text();
+
+        // Clear the canvas and reset data when loading a new file
+        const ctx = mainCanvas.getContext('2d');
+        ctx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+        
+        // Redraw the rounded rectangles and labels
+        drawSlots();
+        
+        data = [];
+        currentStep = 0;
+
+        data = JSON.parse(text).commands.filter(c => c.result && c.result.position);
+        // Update slider range and value after data is loaded
+        stepSlider.max = data.length - 1; 
+        stepSlider.value = currentStep;
+
+        // Draw the initial step
+        if (data.length > 0) {
+            drawStep(currentStep);
+        }
+    });
+
+    stepSlider.addEventListener('input', () => {
+        currentStep = parseInt(stepSlider.value);
+        const ctx = mainCanvas.getContext('2d');
+        ctx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+
+        // Redraw the rounded rectangles and labels
+        drawSlots();
+        
+        for (let i = 0; i <= currentStep; i++) {
+            drawStep(i);
+        }
+    });
+
+    playPauseButton.addEventListener('click', () => {
+        isPlaying = !isPlaying;
+        playPauseButton.textContent = isPlaying ? 'Pause' : 'Play';
+        if (isPlaying) playAnimation();
+    });
+
+    nextStepButton.addEventListener('click', () => {
+        if (currentStep < data.length - 1) {
+            currentStep++;
+            drawStep(currentStep);
+            stepSlider.value = currentStep; // Update the slider
+        }
+    });
+
+    prevStepButton.addEventListener('click', () => {
+        if (currentStep > 0) {
+            currentStep--;
+            const ctx = mainCanvas.getContext('2d');
+            ctx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+
+            // Redraw the rounded rectangles and labels
+            drawSlots();
+            
+            for (let i = 0; i <= currentStep; i++) {
+                drawStep(i);
+            }
+            stepSlider.value = currentStep; // Update the slider
+        }
+    });
+
+    function drawStep(step) {
+        const ctx = mainCanvas.getContext('2d');
+        const pos = data[step].result.position;
+        ctx.beginPath();
+        ctx.arc(pos.x+offsetX, 407 - pos.y+offsetY, 3, 0, 2 * Math.PI);  // Invert y-coordinate
+        ctx.fillStyle = 'green';
+        ctx.fill();
+    }
+
+    async function playAnimation() {
+        while (isPlaying && currentStep < data.length - 1) {
+            currentStep++;
+            drawStep(currentStep);
+            stepSlider.value = currentStep; // Update the slider
+            await new Promise(resolve => setTimeout(resolve, 100)); 
+        }
+        if (currentStep === data.length - 1) {
+            isPlaying = false;
+            playPauseButton.textContent = 'Play';
+        }
+    }
+
+
+
+    function drawRoundedRect(ctx, x, y, width, height, radius) {
+        ctx.beginPath();
+        ctx.moveTo(x + radius, y);
+        ctx.lineTo(x + width - radius, y);
+        ctx.arcTo(x + width, y, x + width, y + radius, radius);
+        ctx.lineTo(x + width, y + height - radius);
+        ctx.arcTo(x + width, y + height, x + width - radius, y + height, radius);
+        ctx.lineTo(x + radius, y + height);
+        ctx.arcTo(x, y + height, x, y + height - radius, radius);
+        ctx.lineTo(x, y + radius);
+        ctx.arcTo(x, y, x + radius, y, radius);
+        ctx.closePath();
+        ctx.stroke();
+    }
+</script>
+
+</body>
+</html>

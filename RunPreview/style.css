@@ -1,0 +1,92 @@
+/* General Styles */
+body {
+    font-family: "Inter", sans-serif; /* Modern sans-serif font */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(to bottom right, #f0f2f5, #e9ebee); /* Subtle gradient background */
+}
+
+.container {
+    background-color: #fff;
+    padding: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 600px; /* Limit container width for better readability */
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+}
+
+/* Input and Button Styles */
+.input-group {
+    display: flex;
+    gap: 1rem; /* Modern spacing using gap */
+    margin-bottom: 2rem;
+}
+
+.input-field {
+    flex-grow: 1;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #007bff; /* Blue focus border */
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Output Styles */
+pre {
+    background-color: #f8f8f8;
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow: auto;
+    white-space: pre-wrap;
+    font-family: monospace;
+    font-size: 0.9rem; /* Slightly smaller font for code */
+}
+/* ... (previous styles) ... */
+
+/* Scroll to Top Button */
+#scrollToTopButton {
+    position: fixed;  /* Fixed positioning for overlay effect */
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: none; /* Initially hidden */
+    z-index: 10; /* Ensure it's above other content */
+}
+
+#scrollToTopButton:hover {
+    background-color: #0056b3;
+}
