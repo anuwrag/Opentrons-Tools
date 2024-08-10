@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plate Well Selector</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .well {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #000;
+            display: inline-block;
+            margin: 2px;
+            cursor: pointer;
+        }
+        .selected {
+            background-color: turquoise;
+        }
+        #plate {
+            display: inline-block;
+            border: 2px solid #000;
+            padding: 10px;
+            position: relative;
+        }
+        .label {
+            display: inline-block;
+            width: 30px;
+            text-align: center;
+        }
+        .row-label {
+            position: absolute;
+            left: -30px;
+        }
+        .col-label {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Plate Well Selector</h1>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label for="formatSelect" class="form-label">Select Plate Format:</label>
+                <select id="formatSelect" class="form-select">
+                    <option value="12x8">12 x 8</option>
+                    <option value="24x16">24 x 16</option>
+                    <option value="6x4">6 x 4</option>
+                    <!-- Add more options as needed -->
+                </select>
+            </div>
+        </div>
+        <div id="plate" class="mb-4"></div>
+        <button id="clearButton" class="btn btn-secondary mb-3">Clear Selection</button>
+        <h3>Generated Code:</h3>
+        <pre><code id="codeBlock"></code></pre>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const formatSelect = document.getElementById('formatSelect');
+        const plate = document.getElementById('plate');
+        const codeBlock = document.getElementById('codeBlock');
+        const clearButton = document.getElementById('clearButton');
+
+        let selectedWells = new Set();
+        let columns, rows;
+        let isMouseDown = false;
+
+        function createPlate() {
+            plate.innerHTML = '';
+            selectedWells.clear();
+            [columns, rows] = formatSelect.value.split('x').map(Number);
+
+            // Create column labels
+            const colLabelRow = document.createElement('div');
+            for (let j = 0; j < columns; j++) {
+                const colLabel = document.createElement('div');
+                colLabel.className = 'label col-label';
+                colLabel.textContent = j + 1;
+                colLabelRow.appendChild(colLabel);
+            }
+            plate.appendChild(colLabelRow);
+
+            // Create wells and row labels
+            for (let i = 0; i < rows; i++) {
+                const rowLabel = document.createElement('div');
+                rowLabel.className = 'label row-label';
+                rowLabel.textContent = String.fromCharCode(65 + i);
+                plate.appendChild(rowLabel);
+
+                for (let j = 0; j < columns; j++) {
+                    const well = document.createElement('div');
+                    well.className = 'well';
+                    well.dataset.row = i;
+                    well.dataset.col = j;
+                    well.addEventListener('mousedown', toggleWell);
+                    well.addEventListener('mouseover', toggleWellOnDrag);
+                    plate.appendChild(well);
+                }
+                plate.appendChild(document.createElement('br'));
+            }
+            updateCode();
+        }
+
+        function toggleWell(event) {
+            isMouseDown = true;
+            toggleWellSelection(event.target);
+            updateCode();
+        }
+
+        function toggleWellOnDrag(event) {
+            if (isMouseDown) {
+                toggleWellSelection(event.target);
+                updateCode();
+            }
+        }
+
+        function toggleWellSelection(well) {
+            const index = well.dataset.row * columns + parseInt(well.dataset.col);
+            if (selectedWells.has(index)) {
+                selectedWells.delete(index);
+                well.classList.remove('selected');
+            } else {
+                selectedWells.add(index);
+                well.classList.add('selected');
+            }
+        }
+
+        function updateCode() {
+            if (selectedWells.size === 0) {
+                codeBlock.textContent = '# No wells selected';
+                return;
+            }
+
+            let code = 'wells_list = ';
+
+            if (selectedWells.size === columns * rows) {
+                code += 'plate.wells()';
+            } else if (isFullColumn()) {
+                const col = [...selectedWells][0] % columns;
+                code += `plate.columns()[${col}]`;
+            } else if (isFullRow()) {
+                const row = Math.floor([...selectedWells][0] / columns);
+                code += `plate.rows()[${row}]`;
+            } else if (isAlternateSelection()) {
+                const [start, step] = getAlternateSelection();
+                code += `plate.wells()[${start}::${step}]`;
+            } else {
+                const wellIndices = [...selectedWells].sort((a, b) => a - b);
+                code += `[plate.wells()[${wellIndices.join('], plate.wells()[')}]]`;
+            }
+
+            codeBlock.textContent = code;
+        }
+
+        function isFullColumn() {
+            if (selectedWells.size !== rows) return false;
+            const col = [...selectedWells][0] % columns;
+            return [...selectedWells].every(well => well % columns === col);
+        }
+
+        function isFullRow() {
+            if (selectedWells.size !== columns) return false;
+            const row = Math.floor([...selectedWells][0] / columns);
+            return [...selectedWells].every(well => Math.floor(well / columns) === row);
+        }
+
+        function isAlternateSelection() {
+            const indices = [...selectedWells].sort((a, b) => a - b);
+            if (indices.length < 2) return false;
+            const step = indices[1] - indices[0];
+            return indices.every((val, i) => i === 0 || val - indices[i - 1] === step);
+        }
+
+        function getAlternateSelection() {
+            const indices = [...selectedWells].sort((a, b) => a - b);
+            const start = indices[0];
+            const step = indices[1] - indices[0];
+            return [start, step];
+        }
+
+        function clearSelection() {
+            selectedWells.clear();
+            document.querySelectorAll('.well').forEach(well => well.classList.remove('selected'));
+            updateCode();
+        }
+
+        formatSelect.addEventListener('change', createPlate);
+        clearButton.addEventListener('click', clearSelection);
+
+        document.addEventListener('mouseup', () => isMouseDown = false);
+
+        createPlate();
+    </script>
+</body>
+</html>
