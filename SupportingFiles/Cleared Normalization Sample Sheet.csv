@@ -1,0 +1,8 @@
+﻿Parent Plate 1 Location,Parent Plate 2 Location,Parent Well Location,Child Plate Location,Child Well Location,Concentration Parent (ng/mL),Concentration Child (ng/mL),Volume in Child (ul),Volume from Parent (ul),Volume Buffer (ul)
+4,,A5,5,A5,8.2,5,30,18.3,11.7
+4,,A6,5,A6,53.1,5,30,2.8,27.2
+,8,A1,5,A7,136.2,5,30,11,19
+4,,B1,5,A8,69.8,5,30,2.1,27.9
+4,,B2,5,A9,41.5,5,30,3.6,26.4
+,8,A2,5,A10,86.4,5,30,17.4,12.6
+4,,B3,5,A11,53.5,5,30,2.8,27.2
