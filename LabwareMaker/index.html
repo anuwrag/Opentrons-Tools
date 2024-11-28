@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Opentrons Custom Labware Creator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        }
+        .preview-container {
+            border: 1px solid #dee2e6;
+            padding: 20px;
+            border-radius: 0.375rem;
+        }
+        canvas {
+            border: 1px solid #dee2e6;
+            border-radius: 0.375rem;
+        }
+        #jsonOutput {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 0.375rem;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .button-container {
+            position: sticky;
+            bottom: 20px;
+            background: #f8f9fa;
+            padding: 15px 0;
+            border-top: 1px solid #dee2e6;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container py-4">
+        <h1 class="mb-4">Opentrons Custom Labware Creator</h1>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Input Section -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h2 class="h5 mb-0">Plate Dimensions</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Length (mm):</label>
+                            <input type="number" class="form-control" id="length" value="127.76" step="0.01">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Width (mm):</label>
+                            <input type="number" class="form-control" id="width" value="85.47" step="0.01">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Height (mm):</label>
+                            <input type="number" class="form-control" id="height" value="14.35" step="0.01">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h2 class="h5 mb-0">Well Configuration</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Number of Rows:</label>
+                            <input type="number" class="form-control" id="rows" value="8" min="1">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Number of Columns:</label>
+                            <input type="number" class="form-control" id="columns" value="12" min="1">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Well Volume (µL):</label>
+                            <input type="number" class="form-control" id="volume" value="300">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Well Shape:</label>
+                            <select class="form-select" id="wellShape">
+                                <option value="circular" selected>Circular</option>
+                                <option value="rectangular">Rectangular</option>
+                            </select>
+                        </div>
+                        <div id="wellDimensions">
+                            <div class="mb-3">
+                                <label class="form-label">Well Diameter (mm):</label>
+                                <input type="number" class="form-control" id="diameter" value="6.4" step="0.01">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Well Width (mm):</label>
+                                <input type="number" class="form-control" id="wellWidth" value="6.4" step="0.01">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Well Length (mm):</label>
+                                <input type="number" class="form-control" id="wellLength" value="6.4" step="0.01">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Bottom Shape:</label>
+                            <select class="form-select" id="bottomShape">
+                                <option value="flat" selected>Flat</option>
+                                <option value="v">V-bottom</option>
+                                <option value="u">U-bottom</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Well Depth (mm):</label>
+                            <input type="number" class="form-control" id="depth" value="10.8" step="0.01">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h2 class="h5 mb-0">Well Spacing</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">X Spacing (mm):</label>
+                            <input type="number" class="form-control" id="xSpacing" value="9" step="0.01">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Y Spacing (mm):</label>
+                            <input type="number" class="form-control" id="ySpacing" value="9" step="0.01">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">X Offset (mm):</label>
+                            <input type="number" class="form-control" id="xOffset" value="14.38" step="0.01">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Y Offset (mm):</label>
+                            <input type="number" class="form-control" id="yOffset" value="11.24" step="0.01">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h2 class="h5 mb-0">Metadata</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Brand:</label>
+                            <input type="text" class="form-control" id="brand" value="Generic">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Catalog Number:</label>
+                            <input type="text" class="form-control" id="catalogNumber" value="001">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Display Name:</label>
+                            <input type="text" class="form-control" id="displayName" value="96 Well Plate">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">API Load Name:</label>
+                            <input type="text" class="form-control" id="loadName" value="96_well_plate" pattern="[a-z0-9_]+">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Display Category:</label>
+                            <select class="form-select" id="displayCategory">
+                                <option value="wellPlate">Well Plate</option>
+                                <option value="tubeRack">Tube Rack</option>
+                                <option value="tipRack">Tip Rack</option>
+                                <option value="trough">Trough</option>
+                                <option value="trash">Trash</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Move buttons here, after Metadata card -->
+                <div class="d-flex gap-2 mb-4">
+                    <button id="generateJson" class="btn btn-primary">Generate Labware Definition</button>
+                    <button id="downloadJson" class="btn btn-secondary disabled" disabled>Download JSON</button>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <!-- Preview Section -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h2 class="h5 mb-0">Live Preview</h2>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="previewCanvas" width="600" height="400" class="w-100"></canvas>
+                    </div>
+                </div>
+
+                <!-- Collapsible JSON Section -->
+                <div class="card mb-4">
+                    <div class="card-header" role="button" data-bs-toggle="collapse" data-bs-target="#jsonSection" aria-expanded="false" aria-controls="jsonSection">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h2 class="h5 mb-0">Generated JSON</h2>
+                            <span class="small text-muted">Click to expand/collapse</span>
+                        </div>
+                    </div>
+                    <div class="collapse" id="jsonSection">
+                        <div class="card-body">
+                            <div id="jsonOutput"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="labware-creator.js"></script>
+</body>
+</html>
