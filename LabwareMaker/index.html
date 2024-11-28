@@ -66,6 +66,13 @@
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
+                            <label class="form-label">Format Type:</label>
+                            <select class="form-select" id="formatType">
+                                <option value="96Standard" selected>96 Standard</option>
+                                <option value="irregular">Irregular</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label">Number of Rows:</label>
                             <input type="number" class="form-control" id="rows" value="8" min="1">
                         </div>
@@ -109,6 +116,13 @@
                         <div class="mb-3">
                             <label class="form-label">Well Depth (mm):</label>
                             <input type="number" class="form-control" id="depth" value="10.8" step="0.01">
+                        </div>
+                        <div id="irregularControls" style="display: none;" class="mb-3">
+                            <button id="downloadCsv" class="btn btn-secondary">Download CSV Template</button>
+                            <div class="mt-2">
+                                <label for="csvFile" class="form-label">Upload Completed CSV:</label>
+                                <input type="file" class="form-control" id="csvFile" accept=".csv">
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -3,8 +3,10 @@ class LabwareCreator {
         this.canvas = document.getElementById('previewCanvas');
         this.ctx = this.canvas.getContext('2d');
         this.downloadButton = document.getElementById('downloadJson');
+        this.wellData = null; // Store uploaded CSV data
         this.setupEventListeners();
         this.updatePreview();
+        this.setupFormatTypeListener();
     }
 
     setupEventListeners() {
@@ -29,6 +31,77 @@ class LabwareCreator {
         });
     }
 
+    setupFormatTypeListener() {
+        const formatType = document.getElementById('formatType');
+        const irregularControls = document.getElementById('irregularControls');
+        const wellConfigInputs = document.querySelectorAll('#wellDimensions input, #volume, #wellShape, #bottomShape, #depth');
+        
+        formatType.addEventListener('change', () => {
+            const isIrregular = formatType.value === 'irregular';
+            irregularControls.style.display = isIrregular ? 'block' : 'none';
+            wellConfigInputs.forEach(input => {
+                input.disabled = isIrregular;
+            });
+        });
+
+        // Add CSV download handler
+        document.getElementById('downloadCsv').addEventListener('click', () => this.downloadCsvTemplate());
+        
+        // Add CSV upload handler
+        document.getElementById('csvFile').addEventListener('change', (e) => this.handleCsvUpload(e));
+    }
+
+    downloadCsvTemplate() {
+        const rows = parseInt(document.getElementById('rows').value);
+        const cols = parseInt(document.getElementById('columns').value);
+        let csvContent = "well,depth,totalLiquidVolume,shape,x,y,z,diameter\n";
+        
+        for (let row = 0; row < rows; row++) {
+            for (let col = 0; col < cols; col++) {
+                const wellName = String.fromCharCode(65 + row) + (col + 1);
+                csvContent += `${wellName},,,circular,,,0,\n`;
+            }
+        }
+
+        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'well_configuration_template.csv';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    async handleCsvUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const text = await file.text();
+        const rows = text.split('\n');
+        const headers = rows[0].split(',');
+        
+        this.wellData = {};
+        rows.slice(1).forEach(row => {
+            if (!row.trim()) return;
+            const values = row.split(',');
+            const wellName = values[0];
+            this.wellData[wellName] = {
+                depth: parseFloat(values[1]),
+                totalLiquidVolume: parseFloat(values[2]),
+                shape: values[3],
+                x: parseFloat(values[4]),
+                y: parseFloat(values[5]),
+                z: parseFloat(values[6]),
+                diameter: parseFloat(values[7])
+            };
+        });
+
+        // Update preview after CSV upload
+        this.updatePreview();
+    }
+
     updateWellDimensionsVisibility() {
         const wellShape = document.getElementById('wellShape').value;
         const diameter = document.getElementById('diameter');
@@ -50,38 +123,62 @@ class LabwareCreator {
         const ctx = this.ctx;
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        const rows = parseInt(document.getElementById('rows').value);
-        const cols = parseInt(document.getElementById('columns').value);
-        const wellShape = document.getElementById('wellShape').value;
-
-        // Calculate scaling factor to fit the preview
-        const scale = Math.min(
-            this.canvas.width / (parseInt(document.getElementById('length').value) * 1.2),
-            this.canvas.height / (parseInt(document.getElementById('width').value) * 1.2)
-        );
-
+        const isIrregular = document.getElementById('formatType').value === 'irregular';
+        
         // Draw plate outline
-        ctx.strokeRect(50, 50, 
-            parseInt(document.getElementById('length').value) * scale,
-            parseInt(document.getElementById('width').value) * scale
+        const plateLength = parseInt(document.getElementById('length').value);
+        const plateWidth = parseInt(document.getElementById('width').value);
+        const scale = Math.min(
+            this.canvas.width / (plateLength * 1.2),
+            this.canvas.height / (plateWidth * 1.2)
         );
 
-        // Draw wells
-        for (let row = 0; row < rows; row++) {
-            for (let col = 0; col < cols; col++) {
-                const x = 50 + (col * parseInt(document.getElementById('xSpacing').value) + 
-                    parseInt(document.getElementById('xOffset').value)) * scale;
-                const y = 50 + (row * parseInt(document.getElementById('ySpacing').value) + 
-                    parseInt(document.getElementById('yOffset').value)) * scale;
+        ctx.strokeRect(50, 50, plateLength * scale, plateWidth * scale);
 
-                if (wellShape === 'circular') {
+        if (isIrregular && this.wellData) {
+            // Draw wells from CSV data
+            Object.entries(this.wellData).forEach(([wellName, well]) => {
+                if (well.shape === 'circular' && well.diameter) {
                     ctx.beginPath();
-                    ctx.arc(x, y, parseInt(document.getElementById('diameter').value) / 2 * scale, 0, 2 * Math.PI);
+                    ctx.arc(
+                        50 + well.x * scale,
+                        50 + well.y * scale,
+                        well.diameter / 2 * scale,
+                        0,
+                        2 * Math.PI
+                    );
                     ctx.stroke();
-                } else {
-                    const wellWidth = parseInt(document.getElementById('wellWidth').value) * scale;
-                    const wellLength = parseInt(document.getElementById('wellLength').value) * scale;
-                    ctx.strokeRect(x - wellWidth/2, y - wellLength/2, wellWidth, wellLength);
+                } else if (well.shape === 'rectangular' && well.xDimension && well.yDimension) {
+                    ctx.strokeRect(
+                        50 + well.x * scale - (well.xDimension / 2 * scale),
+                        50 + well.y * scale - (well.yDimension / 2 * scale),
+                        well.xDimension * scale,
+                        well.yDimension * scale
+                    );
+                }
+            });
+        } else {
+            // Original preview code for standard format
+            const rows = parseInt(document.getElementById('rows').value);
+            const cols = parseInt(document.getElementById('columns').value);
+            const wellShape = document.getElementById('wellShape').value;
+
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    const x = 50 + (col * parseInt(document.getElementById('xSpacing').value) + 
+                        parseInt(document.getElementById('xOffset').value)) * scale;
+                    const y = 50 + (row * parseInt(document.getElementById('ySpacing').value) + 
+                        parseInt(document.getElementById('yOffset').value)) * scale;
+
+                    if (wellShape === 'circular') {
+                        ctx.beginPath();
+                        ctx.arc(x, y, parseInt(document.getElementById('diameter').value) / 2 * scale, 0, 2 * Math.PI);
+                        ctx.stroke();
+                    } else {
+                        const wellWidth = parseInt(document.getElementById('wellWidth').value) * scale;
+                        const wellLength = parseInt(document.getElementById('wellLength').value) * scale;
+                        ctx.strokeRect(x - wellWidth/2, y - wellLength/2, wellWidth, wellLength);
+                    }
                 }
             }
         }
@@ -189,8 +286,15 @@ class LabwareCreator {
     }
 
     generateWellsFromOptions(options) {
+        if (document.getElementById('formatType').value === 'irregular' && this.wellData) {
+            return this.wellData;
+        }
+
         const wells = {};
         const { grid, spacing, offset, well } = options;
+        const plateHeight = parseFloat(document.getElementById('height').value);
+        const plateLength = parseFloat(document.getElementById('length').value);
+        const plateWidth = parseFloat(document.getElementById('width').value);
         
         for (let row = 0; row < grid.row; row++) {
             for (let col = 0; col < grid.column; col++) {
@@ -199,12 +303,16 @@ class LabwareCreator {
                     depth: well.depth,
                     totalLiquidVolume: well.totalLiquidVolume,
                     shape: well.shape,
-                    x: offset.x + (col * spacing.column),
-                    y: offset.y + (row * spacing.row),
-                    z: 0,
+                    x: col * spacing.column + offset.x,
+                    y: row * spacing.row + offset.y,
+                    z: plateHeight - well.depth,
                     ...(well.shape === 'circular' ? { diameter: well.diameter } : 
                        { xDimension: well.xDimension, yDimension: well.yDimension })
                 };
+
+                if (wells[wellName].x > plateLength || wells[wellName].y > plateWidth) {
+                    console.warn(`Well ${wellName} position exceeds plate dimensions`);
+                }
             }
         }
         return wells;
