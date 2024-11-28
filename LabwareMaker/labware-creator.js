@@ -1,12 +1,105 @@
 class LabwareCreator {
     constructor() {
+        // Initialize canvas elements
         this.canvas = document.getElementById('previewCanvas');
+        if (!this.canvas) {
+            console.error('2D preview canvas not found');
+            return;
+        }
         this.ctx = this.canvas.getContext('2d');
+        
+        // Initialize other elements
         this.downloadButton = document.getElementById('downloadJson');
-        this.wellData = null; // Store uploaded CSV data
+        this.wellData = null;
+        this.scene = null;
+        this.camera = null;
+        this.renderer = null;
+        this.controls = null;
+
+        // Check if 3D preview container exists
+        if (!document.getElementById('preview3d')) {
+            console.error('3D preview container not found');
+            return;
+        }
+
+        // Setup in correct order
         this.setupEventListeners();
-        this.updatePreview();
         this.setupFormatTypeListener();
+        this.setup3DPreview();
+        this.updatePreview(); // Initial render of both previews
+    }
+
+    updatePreview() {
+        // Update both previews
+        if (this.ctx) {
+            this.update2DPreview();
+        }
+        if (this.scene && this.camera && this.renderer) {
+            this.update3DPreview();
+        }
+    }
+
+    update2DPreview() {
+        const ctx = this.ctx;
+        ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+        const isIrregular = document.getElementById('formatType').value === 'irregular';
+        
+        // Draw plate outline
+        const plateLength = parseFloat(document.getElementById('length').value);
+        const plateWidth = parseFloat(document.getElementById('width').value);
+        const scale = Math.min(
+            this.canvas.width / (plateLength * 1.2),
+            this.canvas.height / (plateWidth * 1.2)
+        );
+
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(50, 50, plateLength * scale, plateWidth * scale);
+
+        if (isIrregular && this.wellData) {
+            // Draw wells from CSV data
+            Object.entries(this.wellData).forEach(([wellName, well]) => {
+                if (well.shape === 'circular' && well.diameter) {
+                    ctx.beginPath();
+                    ctx.arc(
+                        50 + well.x * scale,
+                        50 + well.y * scale,
+                        well.diameter / 2 * scale,
+                        0,
+                        2 * Math.PI
+                    );
+                    ctx.stroke();
+                }
+            });
+        } else {
+            // Draw standard format wells
+            const rows = parseInt(document.getElementById('rows').value);
+            const cols = parseInt(document.getElementById('columns').value);
+            const wellShape = document.getElementById('wellShape').value;
+            const xSpacing = parseFloat(document.getElementById('xSpacing').value);
+            const ySpacing = parseFloat(document.getElementById('ySpacing').value);
+            const xOffset = parseFloat(document.getElementById('xOffset').value);
+            const yOffset = parseFloat(document.getElementById('yOffset').value);
+
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    const x = 50 + (xOffset + col * xSpacing) * scale;
+                    const y = 50 + (yOffset + row * ySpacing) * scale;
+
+                    if (wellShape === 'circular') {
+                        const diameter = parseFloat(document.getElementById('diameter').value);
+                        ctx.beginPath();
+                        ctx.arc(x, y, diameter / 2 * scale, 0, 2 * Math.PI);
+                        ctx.stroke();
+                    } else {
+                        const wellWidth = parseFloat(document.getElementById('wellWidth').value) * scale;
+                        const wellLength = parseFloat(document.getElementById('wellLength').value) * scale;
+                        ctx.strokeRect(x - wellWidth/2, y - wellLength/2, wellWidth, wellLength);
+                    }
+                }
+            }
+        }
     }
 
     setupEventListeners() {
@@ -15,6 +108,9 @@ class LabwareCreator {
             input.addEventListener('change', () => {
                 this.updatePreview();
                 this.updateWellDimensionsVisibility();
+            });
+            input.addEventListener('input', () => {
+                this.updatePreview();
             });
         });
 
@@ -28,6 +124,18 @@ class LabwareCreator {
 
         this.downloadButton.addEventListener('click', () => {
             this.downloadLabwareDefinition();
+        });
+
+        // Handle window resize for 3D preview
+        window.addEventListener('resize', () => {
+            if (this.camera && this.renderer) {
+                this.camera.aspect = document.getElementById('preview3d').clientWidth / document.getElementById('preview3d').clientHeight;
+                this.camera.updateProjectionMatrix();
+                this.renderer.setSize(
+                    document.getElementById('preview3d').clientWidth,
+                    document.getElementById('preview3d').clientHeight
+                );
+            }
         });
     }
 
@@ -119,69 +227,184 @@ class LabwareCreator {
         }
     }
 
-    updatePreview() {
-        const ctx = this.ctx;
-        ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    setup3DPreview() {
+        // Create scene
+        this.scene = new THREE.Scene();
+        this.scene.background = new THREE.Color(0xf8f9fa);
 
-        const isIrregular = document.getElementById('formatType').value === 'irregular';
-        
-        // Draw plate outline
-        const plateLength = parseInt(document.getElementById('length').value);
-        const plateWidth = parseInt(document.getElementById('width').value);
-        const scale = Math.min(
-            this.canvas.width / (plateLength * 1.2),
-            this.canvas.height / (plateWidth * 1.2)
+        // Create camera
+        this.camera = new THREE.PerspectiveCamera(
+            45, // Reduced FOV for less perspective distortion
+            document.getElementById('preview3d').clientWidth / document.getElementById('preview3d').clientHeight,
+            0.1,
+            2000
         );
 
-        ctx.strokeRect(50, 50, plateLength * scale, plateWidth * scale);
+        // Create renderer
+        this.renderer = new THREE.WebGLRenderer({ antialias: true });
+        this.renderer.setSize(
+            document.getElementById('preview3d').clientWidth,
+            document.getElementById('preview3d').clientHeight
+        );
+        document.getElementById('preview3d').appendChild(this.renderer.domElement);
+
+        // Add controls
+        this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
+        this.controls.enableDamping = true;
+        this.controls.dampingFactor = 0.05;
+        this.controls.screenSpacePanning = true; // Better panning behavior for top view
+
+        // Add lights
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        this.scene.add(ambientLight);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        directionalLight.position.set(10, 10, 10);
+        this.scene.add(directionalLight);
+
+        // Add reset view button handler
+        document.getElementById('resetView').addEventListener('click', () => {
+            this.resetView();
+        });
+
+        // Start animation loop
+        this.animate();
+    }
+
+    animate() {
+        requestAnimationFrame(() => this.animate());
+        this.controls.update();
+        this.renderer.render(this.scene, this.camera);
+    }
+
+    resetView() {
+        const plateLength = parseFloat(document.getElementById('length').value);
+        const plateWidth = parseFloat(document.getElementById('width').value);
+        const maxDimension = Math.max(plateLength, plateWidth) * 1.2;
+        
+        this.camera.position.set(plateLength/2, maxDimension, plateWidth/2);
+        this.camera.lookAt(plateLength/2, 0, plateWidth/2);
+        this.camera.up.set(0, 0, -1);
+        this.controls.target.set(plateLength/2, 0, plateWidth/2);
+        this.controls.update();
+    }
+
+    update3DPreview() {
+        // Clear existing objects
+        while(this.scene.children.length > 0) { 
+            this.scene.remove(this.scene.children[0]); 
+        }
+
+        // Add lights back
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        this.scene.add(ambientLight);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        directionalLight.position.set(10, 10, 10);
+        this.scene.add(directionalLight);
+
+        // Create plate
+        const plateLength = parseFloat(document.getElementById('length').value);
+        const plateWidth = parseFloat(document.getElementById('width').value);
+        const plateHeight = parseFloat(document.getElementById('height').value);
+        
+        // Create plate with edges
+        const plateGeometry = new THREE.BoxGeometry(plateLength, plateHeight, plateWidth);
+        const plateMaterial = new THREE.MeshPhongMaterial({ 
+            color: 0xcccccc,
+            transparent: true,
+            opacity: 0.5
+        });
+        const plate = new THREE.Mesh(plateGeometry, plateMaterial);
+        
+        // Add black edges to plate
+        const plateEdges = new THREE.EdgesGeometry(plateGeometry);
+        const plateLines = new THREE.LineSegments(
+            plateEdges,
+            new THREE.LineBasicMaterial({ color: 0x000000 })
+        );
+        
+        plate.position.set(plateLength/2, plateHeight/2, plateWidth/2);
+        plateLines.position.copy(plate.position);
+        
+        this.scene.add(plate);
+        this.scene.add(plateLines);
+
+        const isIrregular = document.getElementById('formatType').value === 'irregular';
 
         if (isIrregular && this.wellData) {
-            // Draw wells from CSV data
+            // Add wells from CSV data
             Object.entries(this.wellData).forEach(([wellName, well]) => {
-                if (well.shape === 'circular' && well.diameter) {
-                    ctx.beginPath();
-                    ctx.arc(
-                        50 + well.x * scale,
-                        50 + well.y * scale,
-                        well.diameter / 2 * scale,
-                        0,
-                        2 * Math.PI
+                if (well.shape === 'circular') {
+                    const wellGroup = this.createWellWithOutline(
+                        well.diameter,
+                        well.depth,
+                        well.x,
+                        plateHeight - well.depth / 2,
+                        well.y
                     );
-                    ctx.stroke();
-                } else if (well.shape === 'rectangular' && well.xDimension && well.yDimension) {
-                    ctx.strokeRect(
-                        50 + well.x * scale - (well.xDimension / 2 * scale),
-                        50 + well.y * scale - (well.yDimension / 2 * scale),
-                        well.xDimension * scale,
-                        well.yDimension * scale
-                    );
+                    this.scene.add(wellGroup);
                 }
             });
         } else {
-            // Original preview code for standard format
+            // Add standard format wells
             const rows = parseInt(document.getElementById('rows').value);
             const cols = parseInt(document.getElementById('columns').value);
             const wellShape = document.getElementById('wellShape').value;
+            const xSpacing = parseFloat(document.getElementById('xSpacing').value);
+            const ySpacing = parseFloat(document.getElementById('ySpacing').value);
+            const xOffset = parseFloat(document.getElementById('xOffset').value);
+            const yOffset = parseFloat(document.getElementById('yOffset').value);
+            const wellDepth = parseFloat(document.getElementById('depth').value);
 
             for (let row = 0; row < rows; row++) {
                 for (let col = 0; col < cols; col++) {
-                    const x = 50 + (col * parseInt(document.getElementById('xSpacing').value) + 
-                        parseInt(document.getElementById('xOffset').value)) * scale;
-                    const y = 50 + (row * parseInt(document.getElementById('ySpacing').value) + 
-                        parseInt(document.getElementById('yOffset').value)) * scale;
-
                     if (wellShape === 'circular') {
-                        ctx.beginPath();
-                        ctx.arc(x, y, parseInt(document.getElementById('diameter').value) / 2 * scale, 0, 2 * Math.PI);
-                        ctx.stroke();
-                    } else {
-                        const wellWidth = parseInt(document.getElementById('wellWidth').value) * scale;
-                        const wellLength = parseInt(document.getElementById('wellLength').value) * scale;
-                        ctx.strokeRect(x - wellWidth/2, y - wellLength/2, wellWidth, wellLength);
+                        const diameter = parseFloat(document.getElementById('diameter').value);
+                        const wellGroup = this.createWellWithOutline(
+                            diameter,
+                            wellDepth,
+                            xOffset + col * xSpacing,
+                            plateHeight - wellDepth / 2,
+                            yOffset + row * ySpacing
+                        );
+                        this.scene.add(wellGroup);
                     }
                 }
             }
         }
+
+        this.resetView();
+    }
+
+    createWellWithOutline(diameter, depth, x, y, z) {
+        const group = new THREE.Group();
+
+        // Create well cylinder
+        const wellGeometry = new THREE.CylinderGeometry(
+            diameter / 2,
+            diameter / 2,
+            depth,
+            32
+        );
+        const wellMaterial = new THREE.MeshPhongMaterial({ color: 0x2196f3 });
+        const wellMesh = new THREE.Mesh(wellGeometry, wellMaterial);
+
+        // Create outline for the top circle
+        const circleGeometry = new THREE.CircleGeometry(diameter / 2, 32);
+        const edgesGeometry = new THREE.EdgesGeometry(circleGeometry);
+        const outline = new THREE.LineSegments(
+            edgesGeometry,
+            new THREE.LineBasicMaterial({ color: 0x000000 })
+        );
+
+        // Position well and outline
+        wellMesh.position.set(x, y, z);
+        outline.position.set(x, y + depth/2, z);
+        outline.rotation.x = -Math.PI / 2; // Rotate to lay flat
+
+        group.add(wellMesh);
+        group.add(outline);
+
+        return group;
     }
 
     generateLabwareDefinition() {
@@ -293,8 +516,6 @@ class LabwareCreator {
         const wells = {};
         const { grid, spacing, offset, well } = options;
         const plateHeight = parseFloat(document.getElementById('height').value);
-        const plateLength = parseFloat(document.getElementById('length').value);
-        const plateWidth = parseFloat(document.getElementById('width').value);
         
         for (let row = 0; row < grid.row; row++) {
             for (let col = 0; col < grid.column; col++) {
@@ -303,15 +524,15 @@ class LabwareCreator {
                     depth: well.depth,
                     totalLiquidVolume: well.totalLiquidVolume,
                     shape: well.shape,
-                    x: col * spacing.column + offset.x,
-                    y: row * spacing.row + offset.y,
+                    x: offset.x + (col * spacing.column),
+                    y: offset.y + (row * spacing.row),
                     z: plateHeight - well.depth,
                     ...(well.shape === 'circular' ? { diameter: well.diameter } : 
                        { xDimension: well.xDimension, yDimension: well.yDimension })
                 };
 
-                if (wells[wellName].x > plateLength || wells[wellName].y > plateWidth) {
-                    console.warn(`Well ${wellName} position exceeds plate dimensions`);
+                if (wells[wellName].x < 0 || wells[wellName].y < 0) {
+                    console.warn(`Well ${wellName} has negative coordinates`);
                 }
             }
         }
@@ -373,6 +594,6 @@ class LabwareCreator {
 }
 
 // Initialize the creator when the page loads
-window.addEventListener('load', () => {
+window.addEventListener('DOMContentLoaded', () => {
     new LabwareCreator();
 });
