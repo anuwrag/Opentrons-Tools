@@ -142,14 +142,22 @@ class LabwareCreator {
     setupFormatTypeListener() {
         const formatType = document.getElementById('formatType');
         const irregularControls = document.getElementById('irregularControls');
-        const wellConfigInputs = document.querySelectorAll('#wellDimensions input, #volume, #wellShape, #bottomShape, #depth');
+        const wellConfigInputs = document.querySelectorAll('#wellDimensions input, #volume, #bottomShape, #depth');
+        const wellShape = document.getElementById('wellShape');
         
         formatType.addEventListener('change', () => {
             const isIrregular = formatType.value === 'irregular';
             irregularControls.style.display = isIrregular ? 'block' : 'none';
+            
+            // Keep well shape enabled for irregular format
             wellConfigInputs.forEach(input => {
-                input.disabled = isIrregular;
+                if (input.id !== 'wellShape') {
+                    input.disabled = isIrregular;
+                }
             });
+            
+            // Keep well shape enabled
+            wellShape.disabled = false;
         });
 
         // Add CSV download handler
@@ -160,54 +168,120 @@ class LabwareCreator {
     }
 
     downloadCsvTemplate() {
+        const wellShape = document.getElementById('wellShape').value;
         const rows = parseInt(document.getElementById('rows').value);
         const cols = parseInt(document.getElementById('columns').value);
-        let csvContent = "well,depth,totalLiquidVolume,shape,x,y,z,diameter\n";
+        const depth = document.getElementById('depth').value;
+        const volume = document.getElementById('volume').value;
         
+        // Define headers
+        let headers = ['well_name', 'depth', 'total_liquid_volume', 'shape', 'x', 'y', 'z'];
+        if (wellShape === 'circular') {
+            headers.push('diameter');
+        } else if (wellShape === 'rectangular') {
+            headers.push('xDimension', 'yDimension');
+        }
+        
+        // Create CSV content starting with headers
+        let csvContent = headers.join(',') + '\n';
+        
+        // Get spacing and offset values
+        const xSpacing = parseFloat(document.getElementById('xSpacing').value);
+        const ySpacing = parseFloat(document.getElementById('ySpacing').value);
+        const xOffset = parseFloat(document.getElementById('xOffset').value);
+        const yOffset = parseFloat(document.getElementById('yOffset').value);
+        const plateHeight = parseFloat(document.getElementById('height').value);
+        
+        // Generate rows for each well
         for (let row = 0; row < rows; row++) {
             for (let col = 0; col < cols; col++) {
                 const wellName = String.fromCharCode(65 + row) + (col + 1);
-                csvContent += `${wellName},,,circular,,,0,\n`;
+                const x = xOffset + (col * xSpacing);
+                const y = yOffset + (row * ySpacing);
+                const z = plateHeight - parseFloat(depth);
+                
+                let wellRow = [
+                    wellName,
+                    depth,
+                    volume,
+                    wellShape,
+                    x.toFixed(2),
+                    y.toFixed(2),
+                    z.toFixed(2)
+                ];
+                
+                // Add shape-specific measurements
+                if (wellShape === 'circular') {
+                    wellRow.push(document.getElementById('diameter').value);
+                } else if (wellShape === 'rectangular') {
+                    wellRow.push(
+                        document.getElementById('wellWidth').value,
+                        document.getElementById('wellLength').value
+                    );
+                }
+                
+                csvContent += wellRow.join(',') + '\n';
             }
         }
-
+        
         const blob = new Blob([csvContent], { type: 'text/csv' });
-        const url = URL.createObjectURL(blob);
+        const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
-        a.href = url;
-        a.download = 'well_configuration_template.csv';
+        a.setAttribute('hidden', '');
+        a.setAttribute('href', url);
+        a.setAttribute('download', 'labware_template.csv');
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-        URL.revokeObjectURL(url);
     }
 
-    async handleCsvUpload(event) {
+    handleCsvUpload(event) {
         const file = event.target.files[0];
         if (!file) return;
 
-        const text = await file.text();
-        const rows = text.split('\n');
-        const headers = rows[0].split(',');
-        
-        this.wellData = {};
-        rows.slice(1).forEach(row => {
-            if (!row.trim()) return;
-            const values = row.split(',');
-            const wellName = values[0];
-            this.wellData[wellName] = {
-                depth: parseFloat(values[1]),
-                totalLiquidVolume: parseFloat(values[2]),
-                shape: values[3],
-                x: parseFloat(values[4]),
-                y: parseFloat(values[5]),
-                z: parseFloat(values[6]),
-                diameter: parseFloat(values[7])
-            };
-        });
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+            const text = e.target.result;
+            const rows = text.split('\n');
+            const headers = rows[0].toLowerCase().split(',');
+            
+            this.wellData = {};
+            rows.slice(1).forEach(row => {
+                if (!row.trim()) return;
+                const values = row.split(',');
+                const wellName = values[0];
+                const wellShape = values[3];
+                
+                const wellData = {
+                    depth: parseFloat(values[1]),
+                    totalLiquidVolume: parseFloat(values[2]),
+                    shape: wellShape,
+                    x: parseFloat(values[4]),
+                    y: parseFloat(values[5]),
+                    z: parseFloat(values[6])
+                };
 
-        // Update preview after CSV upload
-        this.updatePreview();
+                // Add shape-specific parameters based on the shape in CSV
+                if (wellShape === 'circular') {
+                    wellData.diameter = parseFloat(values[7]);
+                } else if (wellShape === 'rectangular') {
+                    wellData.xDimension = parseFloat(values[7]);
+                    wellData.yDimension = parseFloat(values[8]);
+                }
+
+                this.wellData[wellName] = wellData;
+            });
+
+            // Update well shape dropdown to match CSV
+            const firstWellShape = Object.values(this.wellData)[0]?.shape;
+            if (firstWellShape) {
+                document.getElementById('wellShape').value = firstWellShape;
+                this.updateWellDimensionsVisibility();
+            }
+
+            this.updatePreview();
+        };
+        reader.readAsText(file);
     }
 
     updateWellDimensionsVisibility() {
@@ -516,24 +590,31 @@ class LabwareCreator {
         const wells = {};
         const { grid, spacing, offset, well } = options;
         const plateHeight = parseFloat(document.getElementById('height').value);
+        const plateWidth = parseFloat(document.getElementById('width').value);
         
         for (let row = 0; row < grid.row; row++) {
             for (let col = 0; col < grid.column; col++) {
                 const wellName = String.fromCharCode(65 + row) + (col + 1);
-                wells[wellName] = {
+                const wellShape = document.getElementById('wellShape').value;
+                
+                const wellData = {
                     depth: well.depth,
                     totalLiquidVolume: well.totalLiquidVolume,
-                    shape: well.shape,
+                    shape: wellShape,
                     x: offset.x + (col * spacing.column),
                     y: offset.y + (row * spacing.row),
-                    z: plateHeight - well.depth,
-                    ...(well.shape === 'circular' ? { diameter: well.diameter } : 
-                       { xDimension: well.xDimension, yDimension: well.yDimension })
+                    z: plateHeight - well.depth
                 };
 
-                if (wells[wellName].x < 0 || wells[wellName].y < 0) {
-                    console.warn(`Well ${wellName} has negative coordinates`);
+                // Add shape-specific parameters
+                if (wellShape === 'circular') {
+                    wellData.diameter = parseFloat(document.getElementById('diameter').value);
+                } else if (wellShape === 'rectangular') {
+                    wellData.xDimension = parseFloat(document.getElementById('wellWidth').value);
+                    wellData.yDimension = parseFloat(document.getElementById('wellLength').value);
                 }
+
+                wells[wellName] = wellData;
             }
         }
         return wells;
