@@ -60,7 +60,7 @@ class LabwareCreator {
         if (isIrregular && this.wellData) {
             // Draw wells from CSV data
             Object.entries(this.wellData).forEach(([wellName, well]) => {
-                if (well.shape === 'circular' && well.diameter) {
+                if (well.shape === 'circular') {
                     ctx.beginPath();
                     ctx.arc(
                         50 + well.x * scale,
@@ -70,6 +70,15 @@ class LabwareCreator {
                         2 * Math.PI
                     );
                     ctx.stroke();
+                } else if (well.shape === 'rectangular') {
+                    const wellWidth = well.xDimension * scale;
+                    const wellLength = well.yDimension * scale;
+                    ctx.strokeRect(
+                        50 + well.x * scale - wellWidth/2,
+                        50 + well.y * scale - wellLength/2,
+                        wellWidth,
+                        wellLength
+                    );
                 }
             });
         } else {
@@ -92,7 +101,7 @@ class LabwareCreator {
                         ctx.beginPath();
                         ctx.arc(x, y, diameter / 2 * scale, 0, 2 * Math.PI);
                         ctx.stroke();
-                    } else {
+                    } else if (wellShape === 'rectangular') {
                         const wellWidth = parseFloat(document.getElementById('wellWidth').value) * scale;
                         const wellLength = parseFloat(document.getElementById('wellLength').value) * scale;
                         ctx.strokeRect(x - wellWidth/2, y - wellLength/2, wellWidth, wellLength);
@@ -405,21 +414,19 @@ class LabwareCreator {
         const isIrregular = document.getElementById('formatType').value === 'irregular';
 
         if (isIrregular && this.wellData) {
-            // Add wells from CSV data
             Object.entries(this.wellData).forEach(([wellName, well]) => {
-                if (well.shape === 'circular') {
-                    const wellGroup = this.createWellWithOutline(
-                        well.diameter,
-                        well.depth,
-                        well.x,
-                        plateHeight - well.depth / 2,
-                        well.y
-                    );
-                    this.scene.add(wellGroup);
-                }
+                const wellGroup = this.createWellWithOutline(
+                    well.shape === 'circular' ? well.diameter : well.xDimension,
+                    well.shape === 'circular' ? well.diameter : well.yDimension,
+                    well.depth,
+                    well.x,
+                    plateHeight - well.depth / 2,
+                    well.y,
+                    well.shape === 'circular'
+                );
+                this.scene.add(wellGroup);
             });
         } else {
-            // Add standard format wells
             const rows = parseInt(document.getElementById('rows').value);
             const cols = parseInt(document.getElementById('columns').value);
             const wellShape = document.getElementById('wellShape').value;
@@ -431,17 +438,20 @@ class LabwareCreator {
 
             for (let row = 0; row < rows; row++) {
                 for (let col = 0; col < cols; col++) {
-                    if (wellShape === 'circular') {
-                        const diameter = parseFloat(document.getElementById('diameter').value);
-                        const wellGroup = this.createWellWithOutline(
-                            diameter,
-                            wellDepth,
-                            xOffset + col * xSpacing,
-                            plateHeight - wellDepth / 2,
-                            yOffset + row * ySpacing
-                        );
-                        this.scene.add(wellGroup);
-                    }
+                    const wellGroup = this.createWellWithOutline(
+                        wellShape === 'circular' ? 
+                            parseFloat(document.getElementById('diameter').value) : 
+                            parseFloat(document.getElementById('wellWidth').value),
+                        wellShape === 'circular' ? 
+                            parseFloat(document.getElementById('diameter').value) : 
+                            parseFloat(document.getElementById('wellLength').value),
+                        wellDepth,
+                        xOffset + col * xSpacing,
+                        plateHeight - wellDepth / 2,
+                        yOffset + row * ySpacing,
+                        wellShape === 'circular'
+                    );
+                    this.scene.add(wellGroup);
                 }
             }
         }
@@ -449,34 +459,53 @@ class LabwareCreator {
         this.resetView();
     }
 
-    createWellWithOutline(diameter, depth, x, y, z) {
+    createWellWithOutline(width, length, depth, x, y, z, isCircular = true) {
         const group = new THREE.Group();
 
-        // Create well cylinder
-        const wellGeometry = new THREE.CylinderGeometry(
-            diameter / 2,
-            diameter / 2,
-            depth,
-            32
-        );
-        const wellMaterial = new THREE.MeshPhongMaterial({ color: 0x2196f3 });
-        const wellMesh = new THREE.Mesh(wellGeometry, wellMaterial);
-
-        // Create outline for the top circle
-        const circleGeometry = new THREE.CircleGeometry(diameter / 2, 32);
-        const edgesGeometry = new THREE.EdgesGeometry(circleGeometry);
-        const outline = new THREE.LineSegments(
-            edgesGeometry,
-            new THREE.LineBasicMaterial({ color: 0x000000 })
-        );
-
-        // Position well and outline
-        wellMesh.position.set(x, y, z);
-        outline.position.set(x, y + depth/2, z);
-        outline.rotation.x = -Math.PI / 2; // Rotate to lay flat
-
-        group.add(wellMesh);
-        group.add(outline);
+        if (isCircular) {
+            // Create circular well
+            const wellGeometry = new THREE.CylinderGeometry(
+                width / 2,
+                width / 2,
+                depth,
+                32
+            );
+            const circleGeometry = new THREE.CircleGeometry(width / 2, 32);
+            const edgesGeometry = new THREE.EdgesGeometry(circleGeometry);
+            const outline = new THREE.LineSegments(
+                edgesGeometry,
+                new THREE.LineBasicMaterial({ color: 0x000000 })
+            );
+            outline.position.set(x, y + depth/2, z);
+            outline.rotation.x = -Math.PI / 2;
+            
+            const wellMaterial = new THREE.MeshPhongMaterial({ color: 0x2196f3 });
+            const wellMesh = new THREE.Mesh(wellGeometry, wellMaterial);
+            wellMesh.position.set(x, y, z);
+            
+            group.add(wellMesh);
+            group.add(outline);
+        } else {
+            // Create rectangular well
+            const wellGeometry = new THREE.BoxGeometry(width, depth, length);
+            const wellMaterial = new THREE.MeshPhongMaterial({ color: 0x2196f3 });
+            const wellMesh = new THREE.Mesh(wellGeometry, wellMaterial);
+            
+            // Create outline for the top rectangle
+            const rectGeometry = new THREE.PlaneGeometry(width, length);
+            const edgesGeometry = new THREE.EdgesGeometry(rectGeometry);
+            const outline = new THREE.LineSegments(
+                edgesGeometry,
+                new THREE.LineBasicMaterial({ color: 0x000000 })
+            );
+            
+            wellMesh.position.set(x, y, z);
+            outline.position.set(x, y + depth/2, z);
+            outline.rotation.x = -Math.PI / 2;
+            
+            group.add(wellMesh);
+            group.add(outline);
+        }
 
         return group;
     }
