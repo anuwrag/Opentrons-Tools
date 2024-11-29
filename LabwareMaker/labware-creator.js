@@ -344,10 +344,10 @@ class LabwareCreator {
         directionalLight.position.set(10, 10, 10);
         this.scene.add(directionalLight);
 
-        // Add reset view button handler
-        document.getElementById('resetView').addEventListener('click', () => {
-            this.resetView();
-        });
+        // Add view buttons handlers
+        document.getElementById('resetView').addEventListener('click', () => this.setTopView());
+        document.getElementById('sideView').addEventListener('click', () => this.setSideView());
+        document.getElementById('frontView').addEventListener('click', () => this.setFrontView());
 
         // Start animation loop
         this.animate();
@@ -359,7 +359,7 @@ class LabwareCreator {
         this.renderer.render(this.scene, this.camera);
     }
 
-    resetView() {
+    setTopView() {
         const plateLength = parseFloat(document.getElementById('length').value);
         const plateWidth = parseFloat(document.getElementById('width').value);
         const maxDimension = Math.max(plateLength, plateWidth) * 1.2;
@@ -369,6 +369,37 @@ class LabwareCreator {
         this.camera.up.set(0, 0, -1);
         this.controls.target.set(plateLength/2, 0, plateWidth/2);
         this.controls.update();
+    }
+
+    setSideView() {
+        const plateLength = parseFloat(document.getElementById('length').value);
+        const plateWidth = parseFloat(document.getElementById('width').value);
+        const plateHeight = parseFloat(document.getElementById('height').value);
+        const maxDimension = Math.max(plateLength, plateHeight) * 1.2;
+        
+        this.camera.position.set(-maxDimension, plateHeight/2, plateWidth/2);
+        this.camera.lookAt(plateLength/2, plateHeight/2, plateWidth/2);
+        this.camera.up.set(0, 1, 0);
+        this.controls.target.set(plateLength/2, plateHeight/2, plateWidth/2);
+        this.controls.update();
+    }
+
+    setFrontView() {
+        const plateLength = parseFloat(document.getElementById('length').value);
+        const plateWidth = parseFloat(document.getElementById('width').value);
+        const plateHeight = parseFloat(document.getElementById('height').value);
+        const maxDimension = Math.max(plateWidth, plateHeight) * 1.2;
+        
+        this.camera.position.set(plateLength/2, plateHeight/2, maxDimension);
+        this.camera.lookAt(plateLength/2, plateHeight/2, 0);
+        this.camera.up.set(0, 1, 0);
+        this.controls.target.set(plateLength/2, plateHeight/2, 0);
+        this.controls.update();
+    }
+
+    // Update the existing resetView to use setTopView
+    resetView() {
+        this.setTopView();
     }
 
     update3DPreview() {
