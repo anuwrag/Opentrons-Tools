@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Labware Preview</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"> 
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="jsonInput">Paste JSON Labware Data:</label>
+                    <textarea class="form-control" id="jsonInput" rows="10"></textarea>
+                </div>
+                <button id="previewButton" class="btn btn-primary">Preview</button>
+            </div>
+            <div class="col-md-6">
+                <canvas id="canvas" width="500" height="400" class="border border-dark"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const jsonInput = document.getElementById('jsonInput');
+        const previewButton = document.getElementById('previewButton');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        previewButton.addEventListener('click', () => {
+            const f = jsonInput.value;
+            try {
+                const data = JSON.parse(f);
+                drawLabware(data);
+            } catch (error) {
+                alert("Invalid JSON format!");
+                console.error(error);
+            }
+        });
+
+        function drawLabware(data) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const off = data['cornerOffsetFromSlot'];
+            const xDim = data['dimensions']['xDimension'] - off['x'];
+            const yDim = data['dimensions']['yDimension'] - off['y'];
+
+            // Adjust canvas size if needed
+            canvas.width = xDim + 50; // Add some padding
+            canvas.height = yDim + 50;
+
+            // Set up coordinate system
+            ctx.translate(25, 25); // Add padding
+            ctx.scale(1, -1); // Flip y-axis
+
+            for (const well of data['ordering'].flat()) {
+                const x = data['wells'][well]['x'];
+                const y = data['wells'][well]['y'];
+                const d = data['wells'][well]['diameter'] / 2;
+
+                ctx.beginPath();
+                ctx.arc(x - off['x'], y - off['y'], d, 0, 2 * Math.PI);
+                ctx.stroke();
+            }
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -90,11 +90,13 @@ class LabwareCreator {
             const ySpacing = parseFloat(document.getElementById('ySpacing').value);
             const xOffset = parseFloat(document.getElementById('xOffset').value);
             const yOffset = parseFloat(document.getElementById('yOffset').value);
+            const plateWidth = parseFloat(document.getElementById('width').value);
 
             for (let row = 0; row < rows; row++) {
                 for (let col = 0; col < cols; col++) {
                     const x = 50 + (xOffset + col * xSpacing) * scale;
-                    const y = 50 + (yOffset + row * ySpacing) * scale;
+                    const transformedY = plateWidth - (yOffset + row * ySpacing);
+                    const y = 50 + transformedY * scale;
 
                     if (wellShape === 'circular') {
                         const diameter = parseFloat(document.getElementById('diameter').value);
@@ -644,11 +646,22 @@ class LabwareCreator {
 
     generateWellsFromOptions(options) {
         if (document.getElementById('formatType').value === 'irregular' && this.wellData) {
-            return this.wellData;
+            // For irregular formats, transform the coordinates in wellData
+            const transformedWells = {};
+            const plateWidth = parseFloat(document.getElementById('width').value);
+            
+            Object.entries(this.wellData).forEach(([wellName, well]) => {
+                transformedWells[wellName] = {
+                    ...well,
+                    // Keep x from left, but flip y to be from bottom
+                    y: plateWidth - well.y
+                };
+            });
+            return transformedWells;
         }
 
         const wells = {};
-        const { grid, spacing, offset, well } = options;
+        const { grid, spacing, offset } = options;
         const plateHeight = parseFloat(document.getElementById('height').value);
         const plateWidth = parseFloat(document.getElementById('width').value);
         
@@ -658,12 +671,14 @@ class LabwareCreator {
                 const wellShape = document.getElementById('wellShape').value;
                 
                 const wellData = {
-                    depth: well.depth,
-                    totalLiquidVolume: well.totalLiquidVolume,
+                    depth: options.well.depth,
+                    totalLiquidVolume: options.well.totalLiquidVolume,
                     shape: wellShape,
+                    // Keep x from left
                     x: offset.x + (col * spacing.column),
-                    y: offset.y + (row * spacing.row),
-                    z: plateHeight - well.depth
+                    // Flip y to be from bottom
+                    y: plateWidth - (offset.y + (row * spacing.row)),
+                    z: plateHeight - options.well.depth
                 };
 
                 // Add shape-specific parameters

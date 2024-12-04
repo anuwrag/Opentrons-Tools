@@ -1,0 +1,217 @@
+{
+  "ordering": [
+    [
+      "A1",
+      "B1",
+      "C1"
+    ],
+    [
+      "A2",
+      "B2",
+      "C2"
+    ],
+    [
+      "A3",
+      "B3",
+      "C3"
+    ],
+    [
+      "A4",
+      "B4",
+      "C4"
+    ]
+  ],
+  "brand": {
+    "brand": "Corning",
+    "brandId": [
+      "3650",
+      "3916",
+      "3915",
+      "3361",
+      "3590",
+      "9018",
+      "3591",
+      "9017",
+      "3641",
+      "3628",
+      "3370",
+      "2507",
+      "2509",
+      "2503",
+      "3665",
+      "3600",
+      "3362",
+      "3917",
+      "3912",
+      "3925",
+      "3922",
+      "3596",
+      "3977",
+      "3598",
+      "3599",
+      "3585",
+      "3595",
+      "3300",
+      "3474"
+    ],
+    "links": [
+      ""
+    ]
+  },
+  "metadata": {
+    "displayName": "Opentrons Custom 12x125 mL bottle rack",
+    "displayCategory": "wellPlate",
+    "displayVolumeUnits": "µL",
+    "tags": []
+  },
+  "dimensions": {
+    "xDimension": 247.5,
+    "yDimension": 213,
+    "zDimension": 91
+  },
+  "wells": {
+    "A1": {
+      "depth": 89,
+      "shape": "circular",
+      "diameter": 159,
+      "totalLiquidVolume": 250000,
+      "x": 11.75,
+      "y": 203,
+      "z": 3.55
+    },
+    "B1": {
+      "depth": 89,
+      "shape": "circular",
+      "diameter": 160,
+      "totalLiquidVolume": 250000,
+      "x": 11.75,
+      "y": 133,
+      "z": 3.55
+    },
+    "C1": {
+      "depth": 89,
+      "shape": "circular",
+      "diameter": 200,
+      "totalLiquidVolume": 250000,
+      "x": 11.75,
+      "y": 63,
+      "z": 3.55
+    },
+    "A2": {
+      "depth": 89,
+      "shape": "circular",
+      "diameter": 35,
+      "totalLiquidVolume": 250000,
+      "x": 68.75,
+      "y": 203,
+      "z": 3.55
+    },
+    "B2": {
+      "depth": 89,
+      "shape": "circular",
+      "diameter": 35,
+      "totalLiquidVolume": 250000,
+      "x": 68.75,
+      "y": 133,
+      "z": 3.55
+    },
+    "C2": {
+      "depth": 89,
+      "shape": "circular",
+      "diameter": 35,
+      "totalLiquidVolume": 250000,
+      "x": 68.75,
+      "y": 63,
+      "z": 3.55
+    },
+    "A3": {
+      "depth": 89,
+      "shape": "circular",
+      "diameter": 35,
+      "totalLiquidVolume": 250000,
+      "x": 125.75,
+      "y": 203,
+      "z": 3.55
+    },
+    "B3": {
+      "depth": 89,
+      "shape": "circular",
+      "diameter": 35,
+      "totalLiquidVolume": 250000,
+      "x": 125.75,
+      "y": 133,
+      "z": 3.55
+    },
+    "C3": {
+      "depth": 89,
+      "shape": "circular",
+      "diameter": 35,
+      "totalLiquidVolume": 250000,
+      "x": 125.75,
+      "y": 63,
+      "z": 3.55
+    },
+    "A4": {
+      "depth": 89,
+      "shape": "circular",
+      "diameter": 35,
+      "totalLiquidVolume": 250000,
+      "x": 182.75,
+      "y": 203,
+      "z": 3.55
+    },
+    "B4": {
+      "depth": 89,
+      "shape": "circular",
+      "diameter": 35,
+      "totalLiquidVolume": 250000,
+      "x": 182.75,
+      "y": 133,
+      "z": 3.55
+    },
+    "C4": {
+      "depth": 89,
+      "shape": "circular",
+      "diameter": 35,
+      "totalLiquidVolume": 250000,
+      "x": 182.75,
+      "y": 63,
+      "z": 3.55
+    }
+  },
+  "groups": [
+    {
+      "metadata": {
+        "wellBottomShape": "flat"
+      },
+      "wells": [
+        "A1",
+        "B1",
+        "C1",
+        "A2",
+        "B2",
+        "C2",
+        "A3",
+        "B3",
+        "C3",
+        "A4",
+        "B4",
+        "C4"
+      ]
+    }
+  ],
+  "parameters": {
+    "format": "96Standard",
+    "isTiprack": false,
+    "isMagneticModuleCompatible": false,
+    "loadName": "opentrons_12_wellplate_250000ul_flat"
+  },
+  "namespace": "custom_beta",
+  "version": 1,
+  "schemaVersion": 2,
+  "cornerOffsetFromSlot": {
+    "x": -75,
+    "y": -143,
+    "z": 0
+  }
+}
