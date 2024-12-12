@@ -6,6 +6,7 @@
     <title>Opentrons Camera Viewer</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 <body>
     <div class="container mt-5">
@@ -20,6 +21,17 @@
                 <div class="input-group mb-3">
                     <input type="text" id="ipAddress" class="form-control" placeholder="Enter IP Address">
                     <button class="btn btn-primary" type="button" onclick="fetchImage()">Fetch Image</button>
+                    <button class="btn btn-warning" type="button" id="streamBtn" onclick="toggleStream()">Start Stream</button>
+                </div>
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="frameRate">Frame Rate:</label>
+                    <select class="form-select" id="frameRate">
+                        <option value="33">30 FPS</option>
+                        <option value="42">24 FPS</option>
+                        <option value="67">15 FPS</option>
+                        <option value="100" selected>10 FPS</option>
+                        <option value="200">5 FPS</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -45,6 +57,8 @@
     
     <script>
         let imageBlob;
+        let isStreaming = false;
+        let streamInterval;
 
         function fetchImage() {
             const ipAddress = document.getElementById('ipAddress').value;
@@ -110,6 +124,131 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+        }
+
+        function toggleStream() {
+            const streamBtn = document.getElementById('streamBtn');
+            const ipAddress = document.getElementById('ipAddress').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const imageElement = document.getElementById('cameraImage');
+            let lastRequestTime = 0;
+            const minInterval = parseInt(document.getElementById('frameRate').value); // Get selected frame rate
+            let frameCount = 0;
+            let lastFpsUpdate = Date.now();
+            
+            if (!ipAddress) {
+                errorMessage.textContent = "Please enter an IP address.";
+                return;
+            }
+
+            // Create FPS counter if it doesn't exist
+            let fpsCounter = document.getElementById('fpsCounter');
+            if (!fpsCounter) {
+                fpsCounter = document.createElement('div');
+                fpsCounter.id = 'fpsCounter';
+                fpsCounter.className = 'mt-2';
+                imageElement.parentNode.insertBefore(fpsCounter, imageElement.nextSibling);
+            }
+
+            if (!isStreaming) {
+                // Start streaming
+                isStreaming = true;
+                streamBtn.textContent = 'Stop Stream';
+                streamBtn.classList.replace('btn-warning', 'btn-danger');
+                errorMessage.textContent = '';
+                imageElement.style.display = 'block';
+
+                const updateFrame = async () => {
+                    if (!isStreaming) return;
+
+                    const now = Date.now();
+                    if (now - lastRequestTime < minInterval) {
+                        requestAnimationFrame(updateFrame);
+                        return;
+                    }
+
+                    try {
+                        lastRequestTime = now;
+                        const response = await fetch(`http://${ipAddress}:31950/camera/picture`, {
+                            method: 'POST',
+                            mode: 'cors',
+                            headers: {
+                                'opentrons-version': '*'
+                            }
+                        });
+
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+
+                        const blob = await response.blob();
+                        const url = URL.createObjectURL(blob);
+
+                        // Create a new image to preload
+                        const tempImage = new Image();
+                        tempImage.onload = () => {
+                            if (isStreaming) {
+                                imageElement.src = url;
+                                if (imageElement.dataset.previousUrl) {
+                                    URL.revokeObjectURL(imageElement.dataset.previousUrl);
+                                }
+                                imageElement.dataset.previousUrl = url;
+                                
+                                // Update FPS counter
+                                frameCount++;
+                                const timeDiff = now - lastFpsUpdate;
+                                if (timeDiff >= 1000) {
+                                    const fps = Math.round((frameCount * 1000) / timeDiff);
+                                    fpsCounter.textContent = `Actual FPS: ${fps}`;
+                                    frameCount = 0;
+                                    lastFpsUpdate = now;
+                                }
+                                
+                                requestAnimationFrame(updateFrame);
+                            } else {
+                                URL.revokeObjectURL(url);
+                            }
+                        };
+                        tempImage.onerror = () => {
+                            URL.revokeObjectURL(url);
+                            if (isStreaming) {
+                                requestAnimationFrame(updateFrame);
+                            }
+                        };
+                        tempImage.src = url;
+
+                    } catch (error) {
+                        console.error('Stream error:', error);
+                        errorMessage.textContent = `Stream error: ${error.message}`;
+                        if (isStreaming) {
+                            setTimeout(updateFrame, 1000);
+                        }
+                    }
+                };
+
+                updateFrame();
+            } else {
+                stopStream();
+            }
+        }
+
+        function stopStream() {
+            isStreaming = false;
+            const streamBtn = document.getElementById('streamBtn');
+            streamBtn.textContent = 'Start Stream';
+            streamBtn.classList.replace('btn-danger', 'btn-warning');
+            
+            const imageElement = document.getElementById('cameraImage');
+            if (imageElement.dataset.previousUrl) {
+                URL.revokeObjectURL(imageElement.dataset.previousUrl);
+                delete imageElement.dataset.previousUrl;
+            }
+
+            // Remove FPS counter
+            const fpsCounter = document.getElementById('fpsCounter');
+            if (fpsCounter) {
+                fpsCounter.remove();
+            }
         }
     </script>
 </body>
