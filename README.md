@@ -12,4 +12,5 @@
 - [labware-creator](https://anuwrag.github.io/Opentrons-Tools/labware-creator)
 - [ot-camera](https://anuwrag.github.io/Opentrons-Tools/ot-camera)
 - [simulator](https://anuwrag.github.io/Opentrons-Tools/simulator)
+- [test-plate-remover](https://anuwrag.github.io/Opentrons-Tools/test-plate-remover)
 - [wells](https://anuwrag.github.io/Opentrons-Tools/wells)
