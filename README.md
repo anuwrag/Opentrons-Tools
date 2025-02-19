@@ -5,6 +5,7 @@
 - [LabwareMaker](https://anuwrag.github.io/Opentrons-Tools/LabwareMaker)
 - [PD CSV Support](https://anuwrag.github.io/Opentrons-Tools/PD_CSV_Support)
 - [Plate Designs](https://anuwrag.github.io/Opentrons-Tools/Plate_Designs)
+- [Run-Module-from-Computer](https://anuwrag.github.io/Opentrons-Tools/Run-Module-from-Computer)
 - [RunPreview](https://anuwrag.github.io/Opentrons-Tools/RunPreview)
 - [SupportingFiles](https://anuwrag.github.io/Opentrons-Tools/SupportingFiles)
 - [VS](https://anuwrag.github.io/Opentrons-Tools/VS)
