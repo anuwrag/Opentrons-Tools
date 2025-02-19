@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heater-Shaker Control Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .control-panel {
+            display: none;
+        }
+        .btn-gradient {
+            background: linear-gradient(45deg, #e74c3c, #f39c12);
+            border: none;
+            color: white;
+        }
+        .btn-gradient:hover {
+            background: linear-gradient(45deg, #c0392b, #d35400);
+            color: white;
+        }
+        .value-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <h1 class="text-center mb-5">Heater-Shaker Control Panel</h1>
+        
+        <!-- Connection Panel -->
+        <div class="card mb-4 p-4" id="connectionPanel">
+            <h3>Device Connection</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <select class="form-select mb-3" id="portSelect">
+                        <option value="">Select Serial Port</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-gradient" id="connectBtn">Connect</button>
+                    <button class="btn btn-danger" id="disconnectBtn" style="display: none;">Disconnect</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Control Panel (Initially Hidden) -->
+        <div class="control-panel" id="controlPanel">
+            <div class="row">
+                <!-- Temperature Controls -->
+                <div class="col-md-6 mb-4">
+                    <div class="card p-4">
+                        <h4>Temperature Control</h4>
+                        <div class="mb-3">
+                            <label class="form-label">Set Temperature (°C)</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="temperature" value="25">
+                                <button class="btn btn-gradient" id="setTemp">Set</button>
+                            </div>
+                            <div class="value-display mt-2">
+                                Current: <span id="currentTemp">--</span>°C
+                            </div>
+                        </div>
+                        <button class="btn btn-warning" id="deactivateHeater">Deactivate Heater</button>
+                    </div>
+                </div>
+
+                <!-- RPM Controls -->
+                <div class="col-md-6 mb-4">
+                    <div class="card p-4">
+                        <h4>Shaker Control</h4>
+                        <div class="mb-3">
+                            <label class="form-label">Set RPM</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="rpm" min="0" value="0">
+                                <button class="btn btn-gradient" id="setRPM">Set</button>
+                            </div>
+                            <div class="value-display mt-2">
+                                Current: <span id="currentRPM">--</span> RPM
+                            </div>
+                        </div>
+                        <button class="btn btn-gradient" id="homeShaker">Home Shaker</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Labware Latch Controls -->
+            <div class="card p-4 mb-4">
+                <h4>Labware Latch Control</h4>
+                <div class="row">
+                    <div class="col-md-4">
+                        <button class="btn btn-gradient w-100 mb-2" id="openLatch">Open Latch</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-gradient w-100 mb-2" id="closeLatch">Close Latch</button>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="value-display text-center">
+                            Status: <span id="latchStatus">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Device Info -->
+            <div class="card p-4">
+                <h4>Device Information</h4>
+                <pre id="deviceInfo" class="bg-dark text-light p-3 rounded">No device information available</pre>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Simulated serial port list for demo
+        function updatePortList() {
+            const ports = ['COM1', 'COM2', 'COM3', '/dev/ttyUSB0', '/dev/ttyUSB1'];
+            const portSelect = document.getElementById('portSelect');
+            portSelect.innerHTML = '<option value="">Select Serial Port</option>';
+            ports.forEach(port => {
+                const option = document.createElement('option');
+                option.value = port;
+                option.textContent = port;
+                portSelect.appendChild(option);
+            });
+        }
+
+        // Connection handling
+        document.getElementById('connectBtn').addEventListener('click', () => {
+            const port = document.getElementById('portSelect').value;
+            if (port) {
+                document.getElementById('controlPanel').style.display = 'block';
+                document.getElementById('connectBtn').style.display = 'none';
+                document.getElementById('disconnectBtn').style.display = 'inline';
+                // Simulate connection
+                startMonitoring();
+            }
+        });
+
+        document.getElementById('disconnectBtn').addEventListener('click', () => {
+            document.getElementById('controlPanel').style.display = 'none';
+            document.getElementById('connectBtn').style.display = 'inline';
+            document.getElementById('disconnectBtn').style.display = 'none';
+            stopMonitoring();
+        });
+
+        let monitoringInterval;
+        
+        function startMonitoring() {
+            monitoringInterval = setInterval(() => {
+                // Simulate temperature and RPM readings
+                document.getElementById('currentTemp').textContent = 
+                    (Math.random() * 100).toFixed(1);
+                document.getElementById('currentRPM').textContent = 
+                    Math.floor(Math.random() * 3000);
+                document.getElementById('latchStatus').textContent = 
+                    Math.random() > 0.5 ? 'CLOSED' : 'OPEN';
+            }, 1000);
+        }
+
+        function stopMonitoring() {
+            clearInterval(monitoringInterval);
+        }
+
+        // Initialize
+        updatePortList();
+
+        // Add event listeners for all control buttons
+        document.getElementById('setTemp').addEventListener('click', () => {
+            const temp = document.getElementById('temperature').value;
+            console.log('Setting temperature to:', temp);
+        });
+
+        document.getElementById('setRPM').addEventListener('click', () => {
+            const rpm = document.getElementById('rpm').value;
+            console.log('Setting RPM to:', rpm);
+        });
+
+        document.getElementById('deactivateHeater').addEventListener('click', () => {
+            console.log('Deactivating heater');
+        });
+
+        document.getElementById('homeShaker').addEventListener('click', () => {
+            console.log('Homing shaker');
+        });
+
+        ['openLatch', 'closeLatch'].forEach(id => {
+            document.getElementById(id).addEventListener('click', () => {
+                console.log('Executing command:', id);
+            });
+        });
+    </script>
+</body>
+</html>
+
