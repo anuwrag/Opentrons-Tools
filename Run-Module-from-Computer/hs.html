@@ -3,203 +3,424 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heater-Shaker Control Panel</title>
+    <title>Temperature Module Controller</title>
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
-            color: white;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
         }
         .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
         }
         .control-panel {
-            display: none;
+            padding: 20px;
         }
-        .btn-gradient {
-            background: linear-gradient(45deg, #e74c3c, #f39c12);
-            border: none;
-            color: white;
-        }
-        .btn-gradient:hover {
-            background: linear-gradient(45deg, #c0392b, #d35400);
-            color: white;
-        }
-        .value-display {
-            font-size: 1.5rem;
+        #temperature-display {
+            font-size: 2rem;
             font-weight: bold;
+            color: #2c3e50;
+            margin: 20px 0;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #4e54c8, #8f94fb);
+            border: none;
+        }
+        .btn-danger {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            border: none;
+        }
+        .alert {
+            border-left: 5px solid;
+        }
+        .setup-steps li {
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="container py-5">
-        <h1 class="text-center mb-5">Heater-Shaker Control Panel</h1>
-        
-        <!-- Connection Panel -->
-        <div class="card mb-4 p-4" id="connectionPanel">
-            <h3>Device Connection</h3>
-            <div class="row">
-                <div class="col-md-6">
-                    <select class="form-select mb-3" id="portSelect">
-                        <option value="">Select Serial Port</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <button class="btn btn-gradient" id="connectBtn">Connect</button>
-                    <button class="btn btn-danger" id="disconnectBtn" style="display: none;">Disconnect</button>
-                </div>
-            </div>
+<div class="container">
+    <!-- Setup Instructions -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Setup Instructions</h3>
         </div>
-
-        <!-- Control Panel (Initially Hidden) -->
-        <div class="control-panel" id="controlPanel">
-            <div class="row">
-                <!-- Temperature Controls -->
-                <div class="col-md-6 mb-4">
-                    <div class="card p-4">
-                        <h4>Temperature Control</h4>
-                        <div class="mb-3">
-                            <label class="form-label">Set Temperature (°C)</label>
-                            <div class="input-group">
-                                <input type="number" class="form-control" id="temperature" value="25">
-                                <button class="btn btn-gradient" id="setTemp">Set</button>
-                            </div>
-                            <div class="value-display mt-2">
-                                Current: <span id="currentTemp">--</span>°C
-                            </div>
-                        </div>
-                        <button class="btn btn-warning" id="deactivateHeater">Deactivate Heater</button>
-                    </div>
-                </div>
-
-                <!-- RPM Controls -->
-                <div class="col-md-6 mb-4">
-                    <div class="card p-4">
-                        <h4>Shaker Control</h4>
-                        <div class="mb-3">
-                            <label class="form-label">Set RPM</label>
-                            <div class="input-group">
-                                <input type="number" class="form-control" id="rpm" min="0" value="0">
-                                <button class="btn btn-gradient" id="setRPM">Set</button>
-                            </div>
-                            <div class="value-display mt-2">
-                                Current: <span id="currentRPM">--</span> RPM
-                            </div>
-                        </div>
-                        <button class="btn btn-gradient" id="homeShaker">Home Shaker</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Labware Latch Controls -->
-            <div class="card p-4 mb-4">
-                <h4>Labware Latch Control</h4>
-                <div class="row">
-                    <div class="col-md-4">
-                        <button class="btn btn-gradient w-100 mb-2" id="openLatch">Open Latch</button>
-                    </div>
-                    <div class="col-md-4">
-                        <button class="btn btn-gradient w-100 mb-2" id="closeLatch">Close Latch</button>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="value-display text-center">
-                            Status: <span id="latchStatus">--</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Device Info -->
-            <div class="card p-4">
-                <h4>Device Information</h4>
-                <pre id="deviceInfo" class="bg-dark text-light p-3 rounded">No device information available</pre>
+        <div class="card-body">
+            <ol class="setup-steps">
+                <li>Ensure your Heater-Shaker module is connected to your computer via USB.</li>
+                <li>Make sure no other software is currently using the serial port.</li>
+                <li>Click the "Connect to Device" button and select your device from the port list.</li>
+                <li>For Windows users: The device typically appears as "USB Serial Port (COMx)".</li>
+                <li>For Mac/Linux users: Look for a device containing "usbserial" or "tty.usbmodem".</li>
+            </ol>
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i> Note: This interface requires a modern browser with Web Serial API support (Chrome, Edge recommended).
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Simulated serial port list for demo
-        function updatePortList() {
-            const ports = ['COM1', 'COM2', 'COM3', '/dev/ttyUSB0', '/dev/ttyUSB1'];
-            const portSelect = document.getElementById('portSelect');
-            portSelect.innerHTML = '<option value="">Select Serial Port</option>';
-            ports.forEach(port => {
-                const option = document.createElement('option');
-                option.value = port;
-                option.textContent = port;
-                portSelect.appendChild(option);
-            });
-        }
-
-        // Connection handling
-        document.getElementById('connectBtn').addEventListener('click', () => {
-            const port = document.getElementById('portSelect').value;
-            if (port) {
-                document.getElementById('controlPanel').style.display = 'block';
-                document.getElementById('connectBtn').style.display = 'none';
-                document.getElementById('disconnectBtn').style.display = 'inline';
-                // Simulate connection
-                startMonitoring();
-            }
-        });
-
-        document.getElementById('disconnectBtn').addEventListener('click', () => {
-            document.getElementById('controlPanel').style.display = 'none';
-            document.getElementById('connectBtn').style.display = 'inline';
-            document.getElementById('disconnectBtn').style.display = 'none';
-            stopMonitoring();
-        });
-
-        let monitoringInterval;
+    <!-- Main Controls -->
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h1 class="h3 mb-0">Heater-Shaker Module Controller</h1>
+        </div>
         
-        function startMonitoring() {
-            monitoringInterval = setInterval(() => {
-                // Simulate temperature and RPM readings
-                document.getElementById('currentTemp').textContent = 
-                    (Math.random() * 100).toFixed(1);
-                document.getElementById('currentRPM').textContent = 
-                    Math.floor(Math.random() * 3000);
-                document.getElementById('latchStatus').textContent = 
-                    Math.random() > 0.5 ? 'CLOSED' : 'OPEN';
-            }, 1000);
+        <div class="card-body">
+            <!-- Connection and Device Info -->
+            <div class="row">
+                <!-- Connection Panel -->
+                <div class="col-md-6">
+                    <div class="control-panel">
+                        <button id="connect-button" class="btn btn-primary btn-lg w-100 mb-3">Connect to Device</button>
+                        <div id="connection-status" class="alert alert-secondary">Not connected</div>
+                    </div>
+                </div>
+
+                <!-- Device Info Panel -->
+                <div class="col-md-6">
+                    <div class="control-panel">
+                        <h4>Device Info</h4>
+                        <div id="device-info" class="alert alert-info">Not available</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Temperature Control Panel -->
+            <div class="control-panel">
+                <h4>Temperature Control</h4>
+                <div id="temperature-display" class="text-center">Current Temperature: -- °C</div>
+                <div class="input-group mb-3">
+                    <input type="number" id="temp-input" class="form-control form-control-lg" placeholder="Enter temperature (°C)" step="0.1">
+                    <button id="set-temp-button" class="btn btn-primary">Set Temperature</button>
+                </div>
+                <button id="deactivate-heater-button" class="btn btn-danger mb-3">Deactivate Heater</button>
+            </div>
+
+            <!-- RPM Control Panel -->
+            <div class="control-panel">
+                <h4>Shaking Control</h4>
+                <div id="rpm-display" class="text-center">Current RPM: -- </div>
+                <div class="input-group mb-3">
+                    <input type="number" id="rpm-input" class="form-control form-control-lg" placeholder="Enter RPM" step="1">
+                    <button id="set-rpm-button" class="btn btn-primary">Set RPM</button>
+                </div>
+                <button id="home-button" class="btn btn-warning mb-3">Home (Stop Shaking)</button>
+            </div>
+
+            <!-- Labware Latch Control -->
+            <div class="control-panel">
+                <h4>Labware Latch Control</h4>
+                <div id="latch-status" class="alert alert-info">Latch Status: Unknown</div>
+                <div class="btn-group w-100" role="group">
+                    <button id="open-latch-button" class="btn btn-success">Open Latch</button>
+                    <button id="close-latch-button" class="btn btn-danger">Close Latch</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+       <!-- Troubleshooting Section -->
+       <div class="card mt-4">
+        <div class="card-header bg-info text-white">
+            <h3 class="mb-0">Troubleshooting Guide</h3>
+        </div>
+        <div class="card-body">
+            <div class="accordion" id="troubleshootingAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#connectionIssues">
+                            Connection Issues
+                        </button>
+                    </h2>
+                    <div id="connectionIssues" class="accordion-collapse collapse show">
+                        <div class="accordion-body">
+                            <ul>
+                                <li>Ensure no other programs are using the serial port</li>
+                                <li>Try unplugging and reconnecting the device</li>
+                                <li>Close any terminal programs or Arduino IDE that might be using the port</li>
+                                <li>On Windows, check Device Manager to verify the COM port</li>
+                                <li>Try a different USB port or cable</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#serialPortErrors">
+                            Serial Port Errors
+                        </button>
+                    </h2>
+                    <div id="serialPortErrors" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul>
+                                <li>If the port is "busy" or "in use":
+                                    <ul>
+                                        <li>Refresh the page</li>
+                                        <li>Restart your browser</li>
+                                        <li>On Windows: Check Task Manager for stuck processes</li>
+                                        <li>On Mac/Linux: Use Terminal command 'lsof | grep USB' to check for processes using the port</li>
+                                    </ul>
+                                </li>
+                                <li>If the device disconnects unexpectedly:
+                                    <ul>
+                                        <li>Check physical connections</li>
+                                        <li>Click "Connect" to reestablish connection</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+class HeaterShakerController {
+    constructor() {
+        this.port = null;
+        this.writer = null;
+        this.reader = null;
+        this.decoder = new TextDecoder();
+        this.encoder = new TextEncoder();
+    }
+
+    async connect() {
+        try {
+            this.port = await navigator.serial.requestPort();
+            await this.port.open({ baudRate: 115200 });
+            this.writer = this.port.writable.getWriter();
+            this.reader = this.port.readable.getReader();
+            return true;
+        } catch (error) {
+            console.error('Connection error:', error);
+            return false;
         }
+    }
 
-        function stopMonitoring() {
-            clearInterval(monitoringInterval);
+    async disconnect() {
+        if (this.reader) {
+            await this.reader.releaseLock();
         }
+        if (this.writer) {
+            await this.writer.releaseLock();
+        }
+        if (this.port) {
+            await this.port.close();
+        }
+    }
 
-        // Initialize
-        updatePortList();
+    async sendCommand(command) {
+        if (!this.writer) return null;
+        
+        const fullCommand = command + "\n";
+        await this.writer.write(this.encoder.encode(fullCommand));
+        
+        // Read response
+        let response = '';
+        while (!response.includes('OK\n')) {
+            const {value, done} = await this.reader.read();
+            if (done) break;
+            response += this.decoder.decode(value);
+        }
+        return response;
+    }
 
-        // Add event listeners for all control buttons
-        document.getElementById('setTemp').addEventListener('click', () => {
-            const temp = document.getElementById('temperature').value;
-            console.log('Setting temperature to:', temp);
-        });
+    // Temperature Controls
+    async getTemperature() {
+        return await this.sendCommand('M105');
+    }
 
-        document.getElementById('setRPM').addEventListener('click', () => {
-            const rpm = document.getElementById('rpm').value;
-            console.log('Setting RPM to:', rpm);
-        });
+    async setTemperature(celsius) {
+        return await this.sendCommand(`M104 S${celsius.toFixed(1)}`);
+    }
 
-        document.getElementById('deactivateHeater').addEventListener('click', () => {
-            console.log('Deactivating heater');
-        });
+    async deactivateHeater() {
+        return await this.sendCommand('M106');
+    }
 
-        document.getElementById('homeShaker').addEventListener('click', () => {
-            console.log('Homing shaker');
-        });
+    // RPM Controls
+    async setRPM(rpm) {
+        return await this.sendCommand(`M3 S${Math.round(rpm)}`);
+    }
 
-        ['openLatch', 'closeLatch'].forEach(id => {
-            document.getElementById(id).addEventListener('click', () => {
-                console.log('Executing command:', id);
-            });
-        });
-    </script>
+    async getRPM() {
+        return await this.sendCommand('M123');
+    }
+
+    // Latch Controls
+    async openLabwareLatch() {
+        return await this.sendCommand('M242');
+    }
+
+    async closeLabwareLatch() {
+        return await this.sendCommand('M243');
+    }
+
+    async getLabwareLatchStatus() {
+        return await this.sendCommand('M241');
+    }
+
+    // Other Controls
+    async home() {
+        return await this.sendCommand('G28');
+    }
+
+    async getDeviceInfo() {
+        return await this.sendCommand('M115');
+    }
+}
+
+// Initialize controller and UI elements
+const controller = new HeaterShakerController();
+
+// Add all UI element references
+const connectButton = document.getElementById('connect-button');
+const connectionStatus = document.getElementById('connection-status');
+const deviceInfoDiv = document.getElementById('device-info');
+const tempDisplay = document.getElementById('temperature-display');
+const tempInput = document.getElementById('temp-input');
+const setTempButton = document.getElementById('set-temp-button');
+const deactivateHeaterButton = document.getElementById('deactivate-heater-button');
+const rpmDisplay = document.getElementById('rpm-display');
+const rpmInput = document.getElementById('rpm-input');
+const setRpmButton = document.getElementById('set-rpm-button');
+const homeButton = document.getElementById('home-button');
+const latchStatus = document.getElementById('latch-status');
+const openLatchButton = document.getElementById('open-latch-button');
+const closeLatchButton = document.getElementById('close-latch-button');
+
+// Add temperature control event listeners
+setTempButton.addEventListener('click', async () => {
+    const temp = parseFloat(tempInput.value);
+    if (!isNaN(temp)) {
+        setTempButton.disabled = true;
+        setTempButton.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Setting...';
+        await controller.setTemperature(temp);
+        setTempButton.disabled = false;
+        setTempButton.textContent = 'Set Temperature';
+    }
+});
+
+deactivateHeaterButton.addEventListener('click', async () => {
+    deactivateHeaterButton.disabled = true;
+    deactivateHeaterButton.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Deactivating...';
+    await controller.deactivateHeater();
+    deactivateHeaterButton.disabled = false;
+    deactivateHeaterButton.textContent = 'Deactivate Heater';
+});
+
+// Connection status update function
+function updateConnectionStatus(isConnected) {
+    const status = document.getElementById('connection-status');
+    if (isConnected) {
+        status.className = 'alert alert-success';
+        status.textContent = 'Connected';
+        connectButton.textContent = 'Disconnect';
+        connectButton.classList.replace('btn-primary', 'btn-outline-primary');
+    } else {
+        status.className = 'alert alert-secondary';
+        status.textContent = 'Not connected';
+        connectButton.textContent = 'Connect to Device';
+        connectButton.classList.replace('btn-outline-primary', 'btn-primary');
+    }
+}
+
+// Add event listeners for new controls
+setRpmButton.addEventListener('click', async () => {
+    const rpm = parseInt(rpmInput.value);
+    if (!isNaN(rpm)) {
+        setRpmButton.disabled = true;
+        setRpmButton.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Setting...';
+        await controller.setRPM(rpm);
+        setRpmButton.disabled = false;
+        setRpmButton.textContent = 'Set RPM';
+    }
+});
+
+homeButton.addEventListener('click', async () => {
+    homeButton.disabled = true;
+    homeButton.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Homing...';
+    await controller.home();
+    homeButton.disabled = false;
+    homeButton.textContent = 'Home (Stop Shaking)';
+});
+
+openLatchButton.addEventListener('click', async () => {
+    await controller.openLabwareLatch();
+    updateLatchStatus();
+});
+
+closeLatchButton.addEventListener('click', async () => {
+    await controller.closeLabwareLatch();
+    updateLatchStatus();
+});
+
+// Update polling function to include RPM and latch status
+function startDevicePolling() {
+    setInterval(async () => {
+        if (controller.port) {
+            // Temperature polling
+            const tempResponse = await controller.getTemperature();
+            const tempMatch = tempResponse.match(/T:(\d+\.\d+)/);
+            if (tempMatch) {
+                tempDisplay.textContent = `Current Temperature: ${tempMatch[1]}°C`;
+            }
+
+            // RPM polling
+            const rpmResponse = await controller.getRPM();
+            const rpmMatch = rpmResponse.match(/(\d+)/);
+            if (rpmMatch) {
+                rpmDisplay.textContent = `Current RPM: ${rpmMatch[1]}`;
+            }
+
+            // Update latch status
+            await updateLatchStatus();
+        }
+    }, 2000);
+}
+
+async function updateLatchStatus() {
+    const status = await controller.getLabwareLatchStatus();
+    latchStatus.textContent = `Latch Status: ${status.includes('1') ? 'Closed' : 'Open'}`;
+}
+
+// Modify existing connect button listener to include new polling
+connectButton.addEventListener('click', async () => {
+    if (controller.port) {
+        await controller.disconnect();
+        updateConnectionStatus(false);
+        deviceInfoDiv.textContent = 'Not available';
+        tempDisplay.textContent = 'Current Temperature: -- °C';
+        rpmDisplay.textContent = 'Current RPM: --';
+        latchStatus.textContent = 'Latch Status: Unknown';
+    } else {
+        if (await controller.connect()) {
+            updateConnectionStatus(true);
+            const deviceInfo = await controller.getDeviceInfo();
+            deviceInfoDiv.textContent = JSON.stringify(deviceInfo, null, 2);
+            startDevicePolling();
+        }
+    }
+});
+</script>
 </body>
 </html>
-

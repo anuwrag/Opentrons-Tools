@@ -3,191 +3,322 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thermocycler Control Panel</title>
+    <title>Thermocycler Controller</title>
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            min-height: 100vh;
-            color: white;
-        }
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .control-panel {
-            display: none;
-        }
-        .btn-gradient {
-            background: linear-gradient(45deg, #2193b0, #6dd5ed);
-            border: none;
-            color: white;
-        }
-        .btn-gradient:hover {
-            background: linear-gradient(45deg, #1c7a94, #5ab8cc);
-            color: white;
+        /* ... existing styles from temp.html ... */
+        .temperature-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
         }
         .temperature-display {
             font-size: 1.5rem;
             font-weight: bold;
+            color: #2c3e50;
+            margin: 10px 0;
         }
     </style>
 </head>
 <body>
-    <div class="container py-5">
-        <h1 class="text-center mb-5">Thermocycler Control Panel</h1>
-        
-        <!-- Connection Panel -->
-        <div class="card mb-4 p-4" id="connectionPanel">
-            <h3>Device Connection</h3>
-            <div class="row">
-                <div class="col-md-6">
-                    <select class="form-select mb-3" id="portSelect">
-                        <option value="">Select Serial Port</option>
-                    </select>
+    <div class="container">
+        <!-- Setup Instructions (same as temp.html) -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Setup Instructions</h3>
+            </div>
+            <div class="card-body">
+                <div class="card-body">
+                    <ol class="setup-steps">
+                        <li>Ensure your temperature module is connected to your computer via USB.</li>
+                        <li>Make sure no other software is currently using the serial port.</li>
+                        <li>Click the "Connect to Device" button and select your device from the port list.</li>
+                        <li>For Windows users: The device typically appears as "USB Serial Port (COMx)".</li>
+                        <li>For Mac/Linux users: Look for a device containing "usbserial" or "tty.usbmodem".</li>
+                    </ol>
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle"></i> Note: This interface requires a modern browser with Web Serial API support (Chrome, Edge recommended).
+                    </div>
+                </div>            </div>
+        </div>
+
+        <!-- Main Controls -->
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h1 class="h3 mb-0">Thermocycler Controller</h1>
+            </div>
+            
+            <div class="card-body">
+                <!-- Connection Panel -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <button id="connect-button" class="btn btn-primary btn-lg w-100">Connect to Device</button>
+                        <div id="connection-status" class="alert alert-secondary mt-2">Not connected</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="control-panel">
+                            <h4>Device Info</h4>
+                            <div id="device-info" class="alert alert-info">Not available</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <button class="btn btn-gradient" id="connectBtn">Connect</button>
-                    <button class="btn btn-danger" id="disconnectBtn" style="display: none;">Disconnect</button>
+
+                <!-- Temperature Displays -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="temperature-card">
+                            <h4>Lid Temperature</h4>
+                            <div id="lid-temp-display" class="temperature-display">-- °C</div>
+                            <div class="input-group mb-3">
+                                <input type="number" id="lid-temp-input" class="form-control" 
+                                       placeholder="Enter lid temperature" min="37" max="110" step="0.1">
+                                <button id="set-lid-temp" class="btn btn-primary">Set</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="temperature-card">
+                            <h4>Plate Temperature</h4>
+                            <div id="plate-temp-display" class="temperature-display">-- °C</div>
+                            <div class="input-group mb-3">
+                                <input type="number" id="plate-temp-input" class="form-control" 
+                                       placeholder="Enter plate temperature" min="0" max="99" step="0.1">
+                                <button id="set-plate-temp" class="btn btn-primary">Set</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lid Controls -->
+                <div class="card mt-3">
+                    <div class="card-header">Lid Controls</div>
+                    <div class="card-body">
+                        <div class="btn-group w-100">
+                            <button id="open-lid" class="btn btn-outline-primary">Open Lid</button>
+                            <button id="close-lid" class="btn btn-outline-primary">Close Lid</button>
+                            <button id="get-lid-status" class="btn btn-outline-info">Get Lid Status</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deactivation Controls -->
+                <div class="card mt-3">
+                    <div class="card-header">Deactivation Controls</div>
+                    <div class="card-body">
+                        <div class="btn-group w-100">
+                            <button id="deactivate-all" class="btn btn-danger">Deactivate All</button>
+                            <button id="deactivate-lid" class="btn btn-warning">Deactivate Lid</button>
+                            <button id="deactivate-block" class="btn btn-warning">Deactivate Block</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Control Panel (Initially Hidden) -->
-        <div class="control-panel" id="controlPanel">
-            <!-- Temperature Controls -->
-            <div class="row">
-                <!-- Lid Controls -->
-                <div class="col-md-6 mb-4">
-                    <div class="card p-4">
-                        <h4>Lid Control</h4>
-                        <div class="mb-3">
-                            <label class="form-label">Lid Temperature</label>
-                            <div class="input-group">
-                                <input type="number" class="form-control" id="lidTemp" min="37" max="110" value="105">
-                                <button class="btn btn-gradient" id="setLidTemp">Set</button>
-                            </div>
-                            <div class="temperature-display mt-2">
-                                Current: <span id="currentLidTemp">--</span>°C
-                            </div>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-gradient" id="openLid">Open Lid</button>
-                            <button class="btn btn-gradient" id="closeLid">Close Lid</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Plate Controls -->
-                <div class="col-md-6 mb-4">
-                    <div class="card p-4">
-                        <h4>Plate Control</h4>
-                        <div class="mb-3">
-                            <label class="form-label">Plate Temperature</label>
-                            <div class="input-group">
-                                <input type="number" class="form-control" id="plateTemp" min="0" max="99" value="25">
-                                <button class="btn btn-gradient" id="setPlateTemp">Set</button>
-                            </div>
-                            <div class="temperature-display mt-2">
-                                Current: <span id="currentPlateTemp">--</span>°C
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Volume (µL)</label>
-                            <input type="number" class="form-control" id="volume" min="0" max="100">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Additional Controls -->
-            <div class="card p-4 mb-4">
-                <h4>Additional Controls</h4>
-                <div class="row">
-                    <div class="col-md-4">
-                        <button class="btn btn-gradient w-100 mb-2" id="deactivateAll">Deactivate All</button>
-                    </div>
-                    <div class="col-md-4">
-                        <button class="btn btn-gradient w-100 mb-2" id="deactivateLid">Deactivate Lid</button>
-                    </div>
-                    <div class="col-md-4">
-                        <button class="btn btn-gradient w-100 mb-2" id="deactivateBlock">Deactivate Block</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Device Info -->
-            <div class="card p-4">
-                <h4>Device Information</h4>
-                <pre id="deviceInfo" class="bg-dark text-light p-3 rounded">No device information available</pre>
-            </div>
+        <!-- Troubleshooting Section (same as temp.html) -->
+        <div class="card mt-4">
+            <!-- ... existing troubleshooting content ... -->
         </div>
     </div>
 
+    <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script>
-        // Simulated serial port list for demo
-        function updatePortList() {
-            const ports = ['COM1', 'COM2', 'COM3', '/dev/ttyUSB0', '/dev/ttyUSB1'];
-            const portSelect = document.getElementById('portSelect');
-            portSelect.innerHTML = '<option value="">Select Serial Port</option>';
-            ports.forEach(port => {
-                const option = document.createElement('option');
-                option.value = port;
-                option.textContent = port;
-                portSelect.appendChild(option);
-            });
-        }
-
-        // Connection handling
-        document.getElementById('connectBtn').addEventListener('click', () => {
-            const port = document.getElementById('portSelect').value;
-            if (port) {
-                document.getElementById('controlPanel').style.display = 'block';
-                document.getElementById('connectBtn').style.display = 'none';
-                document.getElementById('disconnectBtn').style.display = 'inline';
-                // Simulate connection
-                updateTemperatures();
+        class ThermocyclerController {
+            constructor() {
+                this.port = null;
+                this.writer = null;
+                this.reader = null;
+                this.decoder = new TextDecoder();
+                this.encoder = new TextEncoder();
+                this.isGen2 = false;
             }
-        });
 
-        document.getElementById('disconnectBtn').addEventListener('click', () => {
-            document.getElementById('controlPanel').style.display = 'none';
-            document.getElementById('connectBtn').style.display = 'inline';
-            document.getElementById('disconnectBtn').style.display = 'none';
-        });
+            async connect() {
+                try {
+                    this.port = await navigator.serial.requestPort();
+                    await this.port.open({ baudRate: 115200 });
+                    this.writer = this.port.writable.getWriter();
+                    this.reader = this.port.readable.getReader();
+                    
+                    // Detect if it's a Gen2 device
+                    const deviceInfo = await this.getDeviceInfo();
+                    this.isGen2 = deviceInfo.includes('M115');
+                    
+                    return true;
+                } catch (error) {
+                    console.error('Connection error:', error);
+                    return false;
+                }
+            }
 
-        // Temperature update simulation
-        function updateTemperatures() {
-            setInterval(() => {
-                document.getElementById('currentLidTemp').textContent = 
-                    (Math.random() * (110 - 37) + 37).toFixed(1);
-                document.getElementById('currentPlateTemp').textContent = 
-                    (Math.random() * 99).toFixed(1);
-            }, 1000);
+            async disconnect() {
+                if (this.reader) await this.reader.releaseLock();
+                if (this.writer) await this.writer.releaseLock();
+                if (this.port) await this.port.close();
+            }
+
+            async sendCommand(command) {
+                if (!this.writer) return null;
+                
+                const fullCommand = command + "\r\n";
+                await this.writer.write(this.encoder.encode(fullCommand));
+                
+                let response = '';
+                const ack = this.isGen2 ? ' OK\n' : 'ok\r\nok\r\n';
+                
+                while (!response.includes(ack)) {
+                    const {value, done} = await this.reader.read();
+                    if (done) break;
+                    response += this.decoder.decode(value);
+                }
+                return response;
+            }
+
+            // Thermocycler Commands
+            async openLid() {
+                return await this.sendCommand('M126');
+            }
+
+            async closeLid() {
+                return await this.sendCommand('M127');
+            }
+
+            async getLidStatus() {
+                return await this.sendCommand('M119');
+            }
+
+            async setLidTemperature(temp) {
+                return await this.sendCommand(`M140 S${temp.toFixed(1)}`);
+            }
+
+            async getLidTemperature() {
+                return await this.sendCommand('M141');
+            }
+
+            async setPlateTemperature(temp, holdTime = null, volume = null) {
+                let cmd = `M104 S${temp.toFixed(1)}`;
+                if (holdTime !== null) cmd += ` H${holdTime.toFixed(1)}`;
+                if (volume !== null) cmd += ` V${volume.toFixed(1)}`;
+                return await this.sendCommand(cmd);
+            }
+
+            async getPlateTemperature() {
+                return await this.sendCommand('M105');
+            }
+
+            async deactivateAll() {
+                return await this.sendCommand('M18');
+            }
+
+            async deactivateLid() {
+                return await this.sendCommand('M108');
+            }
+
+            async deactivateBlock() {
+                return await this.sendCommand('M14');
+            }
+
+            async getDeviceInfo() {
+                return await this.sendCommand('M115');
+            }
         }
 
-        // Initialize
-        updatePortList();
+        // Initialize controller
+        const controller = new ThermocyclerController();
 
-        // Add event listeners for all control buttons
-        document.getElementById('setLidTemp').addEventListener('click', () => {
-            const temp = document.getElementById('lidTemp').value;
-            console.log('Setting lid temperature to:', temp);
-        });
+        // UI Elements
+        const connectButton = document.getElementById('connect-button');
+        const connectionStatus = document.getElementById('connection-status');
+        const deviceInfoDiv = document.getElementById('device-info');
+        const lidTempDisplay = document.getElementById('lid-temp-display');
+        const plateTempDisplay = document.getElementById('plate-temp-display');
 
-        document.getElementById('setPlateTemp').addEventListener('click', () => {
-            const temp = document.getElementById('plateTemp').value;
-            const volume = document.getElementById('volume').value;
-            console.log('Setting plate temperature to:', temp, 'Volume:', volume);
-        });
+        // Temperature polling function
+        function startTemperaturePolling() {
+            setInterval(async () => {
+                if (controller.port) {
+                    try {
+                        const lidTemp = await controller.getLidTemperature();
+                        const plateTemp = await controller.getPlateTemperature();
+                        
+                        // Update displays (parsing logic needs to match your device's response format)
+                        lidTempDisplay.textContent = `${parseTempResponse(lidTemp)}°C`;
+                        plateTempDisplay.textContent = `${parseTempResponse(plateTemp)}°C`;
+                    } catch (error) {
+                        console.error('Polling error:', error);
+                    }
+                }
+            }, 2000);
+        }
 
-        ['openLid', 'closeLid', 'deactivateAll', 'deactivateLid', 'deactivateBlock'].forEach(id => {
-            document.getElementById(id).addEventListener('click', () => {
-                console.log('Executing command:', id);
+        // Helper function to parse temperature responses
+        function parseTempResponse(response) {
+            const match = response.match(/T:(\d+\.\d+)/);
+            return match ? match[1] : '--';
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Connection
+            connectButton.addEventListener('click', async () => {
+                if (controller.port) {
+                    await controller.disconnect();
+                    updateConnectionStatus(false);
+                } else {
+                    if (await controller.connect()) {
+                        updateConnectionStatus(true);
+                        startTemperaturePolling();
+                    }
+                }
             });
+
+            // Temperature Controls
+            document.getElementById('set-lid-temp').addEventListener('click', async () => {
+                const temp = parseFloat(document.getElementById('lid-temp-input').value);
+                if (!isNaN(temp)) {
+                    await controller.setLidTemperature(temp);
+                }
+            });
+
+            document.getElementById('set-plate-temp').addEventListener('click', async () => {
+                const temp = parseFloat(document.getElementById('plate-temp-input').value);
+                if (!isNaN(temp)) {
+                    await controller.setPlateTemperature(temp);
+                }
+            });
+
+            // Lid Controls
+            document.getElementById('open-lid').addEventListener('click', () => controller.openLid());
+            document.getElementById('close-lid').addEventListener('click', () => controller.closeLid());
+            document.getElementById('get-lid-status').addEventListener('click', async () => {
+                const status = await controller.getLidStatus();
+                alert(`Lid Status: ${status}`);
+            });
+
+            // Deactivation Controls
+            document.getElementById('deactivate-all').addEventListener('click', () => controller.deactivateAll());
+            document.getElementById('deactivate-lid').addEventListener('click', () => controller.deactivateLid());
+            document.getElementById('deactivate-block').addEventListener('click', () => controller.deactivateBlock());
         });
+
+        function updateConnectionStatus(isConnected) {
+            const status = document.getElementById('connection-status');
+            if (isConnected) {
+                status.className = 'alert alert-success';
+                status.textContent = 'Connected';
+                connectButton.textContent = 'Disconnect';
+                connectButton.classList.replace('btn-primary', 'btn-outline-primary');
+            } else {
+                status.className = 'alert alert-secondary';
+                status.textContent = 'Not connected';
+                connectButton.textContent = 'Connect to Device';
+                connectButton.classList.replace('btn-outline-primary', 'btn-primary');
+            }
+        }
     </script>
 </body>
 </html>
