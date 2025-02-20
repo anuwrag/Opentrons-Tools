@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Runtime Parameters Parser</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+        .upload-section {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Runtime Parameters Parser</h1>
+        <p>This file will parse the Run time parameters used in Opentrons Run Logs </p>
+        <div class="upload-section">
+            <input type="file" id="jsonFile" accept=".json" />
+            
+            <p>Drag and drop a JSON file here or click to select</p>
+        </div>
+
+        <table id="paramsTable" class="hidden">
+            <thead>
+                <tr>
+                    <th>Parameter Name</th>
+                    <th>Display Name</th>
+                    <th>Value</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody id="paramsBody">
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.getElementById('jsonFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const jsonData = JSON.parse(e.target.result);
+                        displayParameters(jsonData);
+                    } catch (error) {
+                        alert('Error parsing JSON file: ' + error.message);
+                    }
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        function displayParameters(jsonData) {
+            const table = document.getElementById('paramsTable');
+            const tbody = document.getElementById('paramsBody');
+            tbody.innerHTML = ''; // Clear existing content
+
+            // Check if runTimeParameters exists in the data structure
+            const parameters = jsonData.data?.runTimeParameters;
+            if (!parameters) {
+                alert('No runtime parameters found in the JSON file');
+                return;
+            }
+
+            // Show the table
+            table.classList.remove('hidden');
+
+            // Add each parameter to the table
+            parameters.forEach(param => {
+                const row = tbody.insertRow();
+                
+                // Add cells for each column
+                row.insertCell(0).textContent = param.variableName || '';
+                row.insertCell(1).textContent = param.displayName || '';
+                row.insertCell(2).textContent = param.value || '';
+                row.insertCell(3).textContent = param.default || '';
+                row.insertCell(4).textContent = param.description || '';
+            });
+        }
+
+        // Add drag and drop functionality
+        const uploadSection = document.querySelector('.upload-section');
+
+        uploadSection.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadSection.style.borderColor = '#4CAF50';
+        });
+
+        uploadSection.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            uploadSection.style.borderColor = '#ccc';
+        });
+
+        uploadSection.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadSection.style.borderColor = '#ccc';
+            
+            const file = e.dataTransfer.files[0];
+            if (file && file.type === 'application/json') {
+                document.getElementById('jsonFile').files = e.dataTransfer.files;
+                const event = new Event('change');
+                document.getElementById('jsonFile').dispatchEvent(event);
+            } else {
+                alert('Please upload a JSON file');
+            }
+        });
+    </script>
+</body>
+</html>
