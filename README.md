@@ -13,6 +13,7 @@
 - [csv fields](https://anuwrag.github.io/Opentrons-Tools/csv_fields)
 - [labware-creator](https://anuwrag.github.io/Opentrons-Tools/labware-creator)
 - [ot-camera](https://anuwrag.github.io/Opentrons-Tools/ot-camera)
+- [plate designer](https://anuwrag.github.io/Opentrons-Tools/plate_designer)
 - [simulator](https://anuwrag.github.io/Opentrons-Tools/simulator)
 - [test-plate-remover](https://anuwrag.github.io/Opentrons-Tools/test-plate-remover)
 - [wells](https://anuwrag.github.io/Opentrons-Tools/wells)
