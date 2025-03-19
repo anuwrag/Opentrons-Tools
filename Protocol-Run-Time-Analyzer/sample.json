@@ -1,0 +1,4454 @@
+{
+	"data": {
+		"id": "f87b74e7-bfa1-40f9-8741-4d0728239534",
+		"ok": true,
+		"createdAt": "2025-03-13T20:20:00.662925Z",
+		"status": "succeeded",
+		"current": false,
+		"actions": [
+			{
+				"id": "da483f01-ea0a-499c-b16a-23c92aa6e6d5",
+				"createdAt": "2025-03-13T20:20:08.951496Z",
+				"actionType": "play"
+			}
+		],
+		"errors": [
+
+		],
+		"hasEverEnteredErrorRecovery": false,
+		"pipettes": [
+			{
+				"id": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+				"pipetteName": "p1000_single_flex",
+				"mount": "left"
+			}
+		],
+		"modules": [
+
+		],
+		"labware": [
+			{
+				"id": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+				"loadName": "opentrons_24_tuberack_eppendorf_2ml_safelock_snapcap",
+				"definitionUri": "opentrons/opentrons_24_tuberack_eppendorf_2ml_safelock_snapcap/1",
+				"location": {
+					"slotName": "A1"
+				}
+			},
+			{
+				"id": "ac02705a-54aa-4094-81ef-80e5005c740b",
+				"loadName": "opentrons_24_tuberack_eppendorf_2ml_safelock_snapcap",
+				"definitionUri": "opentrons/opentrons_24_tuberack_eppendorf_2ml_safelock_snapcap/1",
+				"location": {
+					"slotName": "B1"
+				}
+			},
+			{
+				"id": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+				"loadName": "opentrons_24_tuberack_eppendorf_2ml_safelock_snapcap",
+				"definitionUri": "opentrons/opentrons_24_tuberack_eppendorf_2ml_safelock_snapcap/1",
+				"location": {
+					"slotName": "A2"
+				}
+			},
+			{
+				"id": "45534542-2104-4deb-a9f9-300518d27e40",
+				"loadName": "opentrons_flex_96_tiprack_1000ul",
+				"definitionUri": "opentrons/opentrons_flex_96_tiprack_1000ul/1",
+				"location": {
+					"slotName": "B3"
+				}
+			}
+		],
+		"liquids": [
+
+		],
+		"liquidClasses": [
+
+		],
+		"labwareOffsets": [
+
+		],
+		"runTimeParameters": [
+
+		],
+		"outputFileIds": [
+
+		],
+		"protocolId": "74f38d55-6c5a-40c0-acfa-52d9d6e4f9ca",
+		"completedAt": "2025-03-13T20:32:45.387224Z",
+		"startedAt": "2025-03-13T20:20:09.018303Z"
+	},
+	"commands": {
+		"data": [
+			{
+				"id": "0bf07b42-5ab1-4efa-a1f7-aacbf137e0d0",
+				"key": "50c7ae73a4e3f7129874f39dfb514803",
+				"commandType": "home",
+				"createdAt": "2025-03-13T20:20:09.026064Z",
+				"startedAt": "2025-03-13T20:20:09.039844Z",
+				"completedAt": "2025-03-13T20:20:15.345149Z",
+				"status": "succeeded",
+				"params": {
+
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "d5cf335f-f2bb-46b9-af61-fe804b1edce6",
+				"key": "c9cac9dba72ab541665f112752004fbc",
+				"commandType": "comment",
+				"createdAt": "2025-03-13T20:20:15.353704Z",
+				"startedAt": "2025-03-13T20:20:15.355280Z",
+				"completedAt": "2025-03-13T20:20:15.356141Z",
+				"status": "succeeded",
+				"params": {
+					"message": "Starting pooling protocol"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "13460a3b-23ab-46df-91a9-eefb38680e46",
+				"key": "910e833f6b307794453dc990f9f9f191",
+				"commandType": "loadLabware",
+				"createdAt": "2025-03-13T20:20:15.364442Z",
+				"startedAt": "2025-03-13T20:20:15.366091Z",
+				"completedAt": "2025-03-13T20:20:15.380167Z",
+				"status": "succeeded",
+				"params": {
+					"location": {
+						"slotName": "A1"
+					},
+					"loadName": "opentrons_24_tuberack_eppendorf_2ml_safelock_snapcap",
+					"namespace": "opentrons",
+					"version": 1
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "f068681f-b285-4ce9-b59b-a1074b11e119",
+				"key": "03053da8f240a1a744838924f45eaad5",
+				"commandType": "loadLabware",
+				"createdAt": "2025-03-13T20:20:15.392657Z",
+				"startedAt": "2025-03-13T20:20:15.398285Z",
+				"completedAt": "2025-03-13T20:20:15.399996Z",
+				"status": "succeeded",
+				"params": {
+					"location": {
+						"slotName": "B1"
+					},
+					"loadName": "opentrons_24_tuberack_eppendorf_2ml_safelock_snapcap",
+					"namespace": "opentrons",
+					"version": 1
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "4a512aba-1442-46e3-bef6-755be4c2e5f5",
+				"key": "62b418968f5f61a4f35f5a57e1fddf44",
+				"commandType": "loadLabware",
+				"createdAt": "2025-03-13T20:20:15.416732Z",
+				"startedAt": "2025-03-13T20:20:15.418845Z",
+				"completedAt": "2025-03-13T20:20:15.420697Z",
+				"status": "succeeded",
+				"params": {
+					"location": {
+						"slotName": "A2"
+					},
+					"loadName": "opentrons_24_tuberack_eppendorf_2ml_safelock_snapcap",
+					"namespace": "opentrons",
+					"version": 1
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "361e664b-04ea-4017-b118-2e71eef4a59d",
+				"key": "89c27c8dbd6d04cb07723298f9aa2748",
+				"commandType": "loadLabware",
+				"createdAt": "2025-03-13T20:20:15.435980Z",
+				"startedAt": "2025-03-13T20:20:15.438160Z",
+				"completedAt": "2025-03-13T20:20:15.475489Z",
+				"status": "succeeded",
+				"params": {
+					"location": {
+						"slotName": "B3"
+					},
+					"loadName": "opentrons_flex_96_tiprack_1000ul",
+					"namespace": "opentrons",
+					"version": 1
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "c68f139f-b089-48de-b14f-5ca21e7e0185",
+				"key": "a7c5e71369df8e4153aef390ac332b93",
+				"commandType": "loadPipette",
+				"createdAt": "2025-03-13T20:20:15.498600Z",
+				"startedAt": "2025-03-13T20:20:15.503810Z",
+				"completedAt": "2025-03-13T20:20:15.550019Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteName": "p1000_single_flex",
+					"mount": "left",
+					"tipOverlapNotAfterVersion": "v3",
+					"liquidPresenceDetection": false
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "a6575171-f488-4506-a100-129b7cdd9350",
+				"key": "562c916f5f9084052f9b86c56136ab22",
+				"commandType": "pickUpTip",
+				"createdAt": "2025-03-13T20:20:15.585288Z",
+				"startedAt": "2025-03-13T20:20:15.587775Z",
+				"completedAt": "2025-03-13T20:20:26.402225Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"labwareId": "45534542-2104-4deb-a9f9-300518d27e40",
+					"wellName": "A1",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						}
+					}
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "b77ddac1-6a77-49de-bf34-4cc6d4e309f8",
+				"key": "80d2a00312946b355ea221ab3d9c827f",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:20:26.421177Z",
+				"startedAt": "2025-03-13T20:20:26.422864Z",
+				"completedAt": "2025-03-13T20:20:31.476837Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+					"wellName": "A1",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "59ad67c5-c2e3-4d58-8b2d-b0845f284d65",
+				"key": "6630f1acb01edd07ae4ad16e1da756a6",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:20:31.487704Z",
+				"startedAt": "2025-03-13T20:20:31.489283Z",
+				"completedAt": "2025-03-13T20:20:35.842046Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "A1",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "162e5e54-48e7-40b2-b439-ed3e5e6c35b9",
+				"key": "3f6b82a0e092a8729347243660099cd1",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:20:35.857652Z",
+				"startedAt": "2025-03-13T20:20:35.859249Z",
+				"completedAt": "2025-03-13T20:20:41.011382Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+					"wellName": "B1",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "b557f1d9-3c03-4e9b-b740-c53668be0c49",
+				"key": "7c9e7616d84c9872b777f73833b908c3",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:20:41.021422Z",
+				"startedAt": "2025-03-13T20:20:41.023068Z",
+				"completedAt": "2025-03-13T20:20:45.369831Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "A1",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "d7b29286-6645-41da-b6de-9e8f7ef32dec",
+				"key": "680f491699ae462791aa620bcb54fd11",
+				"commandType": "moveToAddressableAreaForDropTip",
+				"createdAt": "2025-03-13T20:20:45.387144Z",
+				"startedAt": "2025-03-13T20:20:45.389226Z",
+				"completedAt": "2025-03-13T20:20:49.494839Z",
+				"status": "succeeded",
+				"params": {
+					"forceDirect": false,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"addressableAreaName": "movableTrashA3",
+					"offset": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"alternateDropLocation": true,
+					"ignoreTipConfiguration": true
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "109b762e-8cfb-4319-b5a4-e0c925f787bd",
+				"key": "2c0ad9141f73b59b7d874026e806ceaf",
+				"commandType": "dropTipInPlace",
+				"createdAt": "2025-03-13T20:20:49.500252Z",
+				"startedAt": "2025-03-13T20:20:49.501942Z",
+				"completedAt": "2025-03-13T20:20:52.129885Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "1295750b-8b6f-4f3e-9a0f-1b276e2a9f4d",
+				"key": "76888ceafcdcbccee961ac0e8294d196",
+				"commandType": "pickUpTip",
+				"createdAt": "2025-03-13T20:20:52.140003Z",
+				"startedAt": "2025-03-13T20:20:52.141539Z",
+				"completedAt": "2025-03-13T20:20:57.282892Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"labwareId": "45534542-2104-4deb-a9f9-300518d27e40",
+					"wellName": "B1",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						}
+					}
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "369960b1-c528-4a30-a1de-e50303686543",
+				"key": "cbf9c65bdba4c263485afca18a600468",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:20:57.297036Z",
+				"startedAt": "2025-03-13T20:20:57.298762Z",
+				"completedAt": "2025-03-13T20:21:02.336838Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+					"wellName": "C1",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "748d8659-a44c-441f-af1b-558e92a87daf",
+				"key": "bbbde6eb2f6dba7797c0527ed78c5a31",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:21:02.346960Z",
+				"startedAt": "2025-03-13T20:21:02.348506Z",
+				"completedAt": "2025-03-13T20:21:06.683669Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "B1",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "f9cef893-efe3-42b6-9f81-4a5dc709cbeb",
+				"key": "5ac694acb0720ef0f904b86de68fde55",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:21:06.698925Z",
+				"startedAt": "2025-03-13T20:21:06.700468Z",
+				"completedAt": "2025-03-13T20:21:11.866537Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+					"wellName": "D1",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "472074ba-5d9b-4696-b91b-932f03a769c0",
+				"key": "9c2c29c6c6fc18bc4b1ef419aa0847ad",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:21:11.876363Z",
+				"startedAt": "2025-03-13T20:21:11.877998Z",
+				"completedAt": "2025-03-13T20:21:16.178433Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "B1",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "5e352837-431a-4a4d-bd79-7458a80eae98",
+				"key": "155c146da69859d87a0882acba95655c",
+				"commandType": "moveToAddressableAreaForDropTip",
+				"createdAt": "2025-03-13T20:21:16.193029Z",
+				"startedAt": "2025-03-13T20:21:16.194846Z",
+				"completedAt": "2025-03-13T20:21:20.115531Z",
+				"status": "succeeded",
+				"params": {
+					"forceDirect": false,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"addressableAreaName": "movableTrashA3",
+					"offset": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"alternateDropLocation": true,
+					"ignoreTipConfiguration": true
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "c2392bbc-c48c-40ae-a79e-1f7e132d54df",
+				"key": "d00ac3360a94cb83a8e37207bd54cac0",
+				"commandType": "dropTipInPlace",
+				"createdAt": "2025-03-13T20:21:20.121270Z",
+				"startedAt": "2025-03-13T20:21:20.123120Z",
+				"completedAt": "2025-03-13T20:21:22.787886Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "190882d0-db66-485a-902c-5d92c7dd12ea",
+				"key": "298b2b5384471a9f3ccfb9a7f0248626",
+				"commandType": "pickUpTip",
+				"createdAt": "2025-03-13T20:21:22.798241Z",
+				"startedAt": "2025-03-13T20:21:22.799828Z",
+				"completedAt": "2025-03-13T20:21:27.981172Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"labwareId": "45534542-2104-4deb-a9f9-300518d27e40",
+					"wellName": "C1",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						}
+					}
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "9bf5da9c-3657-413f-bc15-3bde9577ba43",
+				"key": "ac81dbcb1d6dae03b5cd38770badd481",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:21:27.998578Z",
+				"startedAt": "2025-03-13T20:21:28.000141Z",
+				"completedAt": "2025-03-13T20:21:32.972561Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+					"wellName": "A2",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "4f11d928-1a7e-4d4c-9512-ecd4f5a3b814",
+				"key": "384bc889450fcb2a1294a6b35cb93978",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:21:32.982739Z",
+				"startedAt": "2025-03-13T20:21:32.984285Z",
+				"completedAt": "2025-03-13T20:21:37.254704Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "C1",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "662cced7-00e2-42c5-8e73-cefbc8a446f1",
+				"key": "3faa984b2a28e5f1d345185974f58882",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:21:37.269978Z",
+				"startedAt": "2025-03-13T20:21:37.271533Z",
+				"completedAt": "2025-03-13T20:21:42.435698Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+					"wellName": "B2",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "ead2bb09-8934-42f7-92ab-10630f235b55",
+				"key": "2b260388d4461b4d6d67faf9fe463e45",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:21:42.447331Z",
+				"startedAt": "2025-03-13T20:21:42.448890Z",
+				"completedAt": "2025-03-13T20:21:46.715524Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "C1",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "7121d1c3-f534-4ac8-a38e-bf1eaa0b7d91",
+				"key": "c3fba3e84a065210ca6ce89223fbf1df",
+				"commandType": "moveToAddressableAreaForDropTip",
+				"createdAt": "2025-03-13T20:21:46.723701Z",
+				"startedAt": "2025-03-13T20:21:46.725234Z",
+				"completedAt": "2025-03-13T20:21:50.791548Z",
+				"status": "succeeded",
+				"params": {
+					"forceDirect": false,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"addressableAreaName": "movableTrashA3",
+					"offset": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"alternateDropLocation": true,
+					"ignoreTipConfiguration": true
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "170be953-4a79-43f2-9067-7ac928ca6ef3",
+				"key": "6660fc2ebad605d96896fce273b5c10a",
+				"commandType": "dropTipInPlace",
+				"createdAt": "2025-03-13T20:21:50.797195Z",
+				"startedAt": "2025-03-13T20:21:50.798855Z",
+				"completedAt": "2025-03-13T20:21:53.483131Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "47911ab8-9244-46b3-a63b-79cbe9d39f0e",
+				"key": "9cf09d7fce9f4af2fef99347164e564e",
+				"commandType": "pickUpTip",
+				"createdAt": "2025-03-13T20:21:53.494318Z",
+				"startedAt": "2025-03-13T20:21:53.495863Z",
+				"completedAt": "2025-03-13T20:21:58.656932Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"labwareId": "45534542-2104-4deb-a9f9-300518d27e40",
+					"wellName": "D1",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						}
+					}
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "bd595ff8-6894-49a9-8b1b-9c0795d6c0b2",
+				"key": "4a8d0ed1d8fb6236bc76ca018dfb14da",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:21:58.672282Z",
+				"startedAt": "2025-03-13T20:21:58.673893Z",
+				"completedAt": "2025-03-13T20:22:03.593043Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+					"wellName": "C2",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "f96e3a1e-8f7e-4d32-9850-4bf504e7ca43",
+				"key": "8ab357ba756660f770cbc93675267faf",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:22:03.604198Z",
+				"startedAt": "2025-03-13T20:22:03.605866Z",
+				"completedAt": "2025-03-13T20:22:07.817794Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "D1",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "3ad17938-be49-4a07-8e30-49f7f44b0eec",
+				"key": "92da39557fe71988ba71d4ba02a3c4ef",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:22:07.835401Z",
+				"startedAt": "2025-03-13T20:22:07.836974Z",
+				"completedAt": "2025-03-13T20:22:12.898558Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+					"wellName": "D2",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "3b63dc16-9d85-4071-8a8b-bbafe23e46af",
+				"key": "bf142eaf37e4b46995b8926ebd4cbfc0",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:22:12.908821Z",
+				"startedAt": "2025-03-13T20:22:12.910727Z",
+				"completedAt": "2025-03-13T20:22:17.130724Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "D1",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "3374a76d-3b2d-4649-9a68-233a980a0ed3",
+				"key": "663da8d04d0ef98ff7f062f7ff2e4272",
+				"commandType": "moveToAddressableAreaForDropTip",
+				"createdAt": "2025-03-13T20:22:17.138992Z",
+				"startedAt": "2025-03-13T20:22:17.140528Z",
+				"completedAt": "2025-03-13T20:22:21.044248Z",
+				"status": "succeeded",
+				"params": {
+					"forceDirect": false,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"addressableAreaName": "movableTrashA3",
+					"offset": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"alternateDropLocation": true,
+					"ignoreTipConfiguration": true
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "49a14ca8-2f02-44cf-8861-3ecc83d9cc14",
+				"key": "50043edcda6ba05b7afa89ac0385f202",
+				"commandType": "dropTipInPlace",
+				"createdAt": "2025-03-13T20:22:21.049397Z",
+				"startedAt": "2025-03-13T20:22:21.051019Z",
+				"completedAt": "2025-03-13T20:22:23.706468Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "5b50bb23-df16-47a5-98dc-edf773088b6d",
+				"key": "e2d5becf1c6501f8753bf8de3904b7f3",
+				"commandType": "pickUpTip",
+				"createdAt": "2025-03-13T20:22:23.719401Z",
+				"startedAt": "2025-03-13T20:22:23.721044Z",
+				"completedAt": "2025-03-13T20:22:29.039163Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"labwareId": "45534542-2104-4deb-a9f9-300518d27e40",
+					"wellName": "E1",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						}
+					}
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "2aa42f17-2faa-4023-afc6-a743082dba56",
+				"key": "f256c4732074ea0f80e232c056fd30bf",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:22:29.053447Z",
+				"startedAt": "2025-03-13T20:22:29.055120Z",
+				"completedAt": "2025-03-13T20:22:33.929949Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+					"wellName": "A3",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "cb353351-64f8-416f-a8e7-01c466ec22bd",
+				"key": "83b205fde3e3ce3f4a1c0c4c103f2e1c",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:22:33.940544Z",
+				"startedAt": "2025-03-13T20:22:33.942260Z",
+				"completedAt": "2025-03-13T20:22:38.217014Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "A2",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "7ca5898e-60e6-4348-98cf-1fe4af052180",
+				"key": "6cabf7f749ef4eda53f67867cf3d1fb0",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:22:38.231929Z",
+				"startedAt": "2025-03-13T20:22:38.233502Z",
+				"completedAt": "2025-03-13T20:22:43.328885Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+					"wellName": "B3",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "33e57aad-a51a-48e0-a158-75ed449a37d8",
+				"key": "8b080dcb391c27000b3f243272df8a98",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:22:43.339083Z",
+				"startedAt": "2025-03-13T20:22:43.340643Z",
+				"completedAt": "2025-03-13T20:22:47.623513Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "A2",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "1623b8b1-f534-4669-b318-36e712744efb",
+				"key": "33cb0a64e5083a54666eb9e5664ed6d6",
+				"commandType": "moveToAddressableAreaForDropTip",
+				"createdAt": "2025-03-13T20:22:47.633436Z",
+				"startedAt": "2025-03-13T20:22:47.635116Z",
+				"completedAt": "2025-03-13T20:22:51.606076Z",
+				"status": "succeeded",
+				"params": {
+					"forceDirect": false,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"addressableAreaName": "movableTrashA3",
+					"offset": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"alternateDropLocation": true,
+					"ignoreTipConfiguration": true
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "33ee89d6-f339-4ded-9ef0-cae7e975abd5",
+				"key": "c4feec2afaa5a5a9560c46494a540432",
+				"commandType": "dropTipInPlace",
+				"createdAt": "2025-03-13T20:22:51.611147Z",
+				"startedAt": "2025-03-13T20:22:51.612650Z",
+				"completedAt": "2025-03-13T20:22:54.344586Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "7d4e3e3c-6be8-4896-afab-76fa0d4174ed",
+				"key": "54628497b028e3886cdc19a2a8a0e58f",
+				"commandType": "pickUpTip",
+				"createdAt": "2025-03-13T20:22:54.354916Z",
+				"startedAt": "2025-03-13T20:22:54.356563Z",
+				"completedAt": "2025-03-13T20:22:59.662451Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"labwareId": "45534542-2104-4deb-a9f9-300518d27e40",
+					"wellName": "F1",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						}
+					}
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "37cd8bed-a9da-48ca-bcab-8be6e2ebdf80",
+				"key": "27b4c4f12f215781cda47ebee68cdedd",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:22:59.676586Z",
+				"startedAt": "2025-03-13T20:22:59.678905Z",
+				"completedAt": "2025-03-13T20:23:04.595403Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+					"wellName": "C3",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "5486fd9a-52a4-45f7-b24c-0de231627eb8",
+				"key": "7c7c9ee7d5fad21bc203dadfd23a8ae1",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:23:04.605976Z",
+				"startedAt": "2025-03-13T20:23:04.607537Z",
+				"completedAt": "2025-03-13T20:23:08.876035Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "B2",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "9c2f8520-ed01-4b14-b88a-ad9bed518c90",
+				"key": "63ed1987c1ee10298db8298072c3ba3d",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:23:08.894154Z",
+				"startedAt": "2025-03-13T20:23:08.895845Z",
+				"completedAt": "2025-03-13T20:23:13.930150Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+					"wellName": "D3",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "4ce77cd1-4848-4394-b260-4a9ce154766c",
+				"key": "db2bd5921fd888f5381811e60f01059a",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:23:13.940169Z",
+				"startedAt": "2025-03-13T20:23:13.941799Z",
+				"completedAt": "2025-03-13T20:23:18.168717Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "B2",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "c384a5fc-3769-4038-aa78-821ad32eda90",
+				"key": "3c47bb6660c88d0bfb743bc2a884dfd5",
+				"commandType": "moveToAddressableAreaForDropTip",
+				"createdAt": "2025-03-13T20:23:18.178434Z",
+				"startedAt": "2025-03-13T20:23:18.180020Z",
+				"completedAt": "2025-03-13T20:23:22.070730Z",
+				"status": "succeeded",
+				"params": {
+					"forceDirect": false,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"addressableAreaName": "movableTrashA3",
+					"offset": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"alternateDropLocation": true,
+					"ignoreTipConfiguration": true
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "27c6f7df-a3d5-41f7-80cf-1ef8a9f6d275",
+				"key": "017b0e8349dff44dd1fff58216b0a5d4",
+				"commandType": "dropTipInPlace",
+				"createdAt": "2025-03-13T20:23:22.084398Z",
+				"startedAt": "2025-03-13T20:23:22.090613Z",
+				"completedAt": "2025-03-13T20:23:24.773668Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "9b159b76-5dc8-49f9-8ea3-d2330d24770f",
+				"key": "c720ff50df0c1fbb017631879edd55cd",
+				"commandType": "pickUpTip",
+				"createdAt": "2025-03-13T20:23:24.786352Z",
+				"startedAt": "2025-03-13T20:23:24.787910Z",
+				"completedAt": "2025-03-13T20:23:30.133520Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"labwareId": "45534542-2104-4deb-a9f9-300518d27e40",
+					"wellName": "G1",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						}
+					}
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "56640f22-64da-40c8-94b7-7994ba2ea80b",
+				"key": "fb69e7f6f31a86dd42e0ee32cf8ff932",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:23:30.149400Z",
+				"startedAt": "2025-03-13T20:23:30.151095Z",
+				"completedAt": "2025-03-13T20:23:35.170377Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+					"wellName": "A4",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "c1d44d13-4e2a-408c-a083-71ca4c50d674",
+				"key": "e5dfd80925d19fcf1b6c016a43bfada4",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:23:35.188145Z",
+				"startedAt": "2025-03-13T20:23:35.189990Z",
+				"completedAt": "2025-03-13T20:23:39.740068Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "C2",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "cda614a3-a95e-44b8-9703-aa2373cf7922",
+				"key": "949e6d8ee58da4e04e377f0a58087191",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:23:39.758453Z",
+				"startedAt": "2025-03-13T20:23:39.762793Z",
+				"completedAt": "2025-03-13T20:23:44.908142Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+					"wellName": "B4",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "07dd6acc-566a-41d9-806d-02f011c69018",
+				"key": "48b6c688da0d30caa8a420e8485fedf8",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:23:44.926498Z",
+				"startedAt": "2025-03-13T20:23:44.934273Z",
+				"completedAt": "2025-03-13T20:23:49.210947Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "C2",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "cba87512-397c-4c9b-a658-333ab367c14e",
+				"key": "ee95609a1b7581a2a4d7ec4cfa5cb0b1",
+				"commandType": "moveToAddressableAreaForDropTip",
+				"createdAt": "2025-03-13T20:23:49.219658Z",
+				"startedAt": "2025-03-13T20:23:49.220901Z",
+				"completedAt": "2025-03-13T20:23:53.219413Z",
+				"status": "succeeded",
+				"params": {
+					"forceDirect": false,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"addressableAreaName": "movableTrashA3",
+					"offset": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"alternateDropLocation": true,
+					"ignoreTipConfiguration": true
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "a19a3016-634f-4048-8d05-ea1292ad7242",
+				"key": "a1bee8e352734790ced7b282c90c27cf",
+				"commandType": "dropTipInPlace",
+				"createdAt": "2025-03-13T20:23:53.223623Z",
+				"startedAt": "2025-03-13T20:23:53.224833Z",
+				"completedAt": "2025-03-13T20:23:55.925089Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "ede2fdd2-d1bf-42af-8e2f-7862b089730b",
+				"key": "19df983ae6ee3242fa8aba092c6320b4",
+				"commandType": "pickUpTip",
+				"createdAt": "2025-03-13T20:23:55.934453Z",
+				"startedAt": "2025-03-13T20:23:55.935959Z",
+				"completedAt": "2025-03-13T20:24:01.327490Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"labwareId": "45534542-2104-4deb-a9f9-300518d27e40",
+					"wellName": "H1",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						}
+					}
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "3090e311-39af-414b-b780-75dd5ad1cf1f",
+				"key": "69397b3b22b94bd3c4a3f97e2edc52ec",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:24:01.340532Z",
+				"startedAt": "2025-03-13T20:24:01.341889Z",
+				"completedAt": "2025-03-13T20:24:06.132026Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+					"wellName": "C4",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "73792f09-0289-4118-917b-678e81022572",
+				"key": "219e745eba5aeba93818e201165712a8",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:24:06.140084Z",
+				"startedAt": "2025-03-13T20:24:06.141328Z",
+				"completedAt": "2025-03-13T20:24:10.369149Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "D2",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "0a8cb5ee-1087-4c2e-b813-d7fbee68c924",
+				"key": "0d71480c2dce32210bdddcb53e6d07d6",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:24:10.380945Z",
+				"startedAt": "2025-03-13T20:24:10.382298Z",
+				"completedAt": "2025-03-13T20:24:15.343781Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+					"wellName": "D4",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "38177068-bca0-4081-b3fb-8e9b523b5c6d",
+				"key": "a13e52c1acd9ce1f5cb567e548ffa445",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:24:15.351544Z",
+				"startedAt": "2025-03-13T20:24:15.352793Z",
+				"completedAt": "2025-03-13T20:24:19.530826Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "D2",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "8b033d84-76a7-425d-a6ea-5a4c1c4bda76",
+				"key": "fccdcfe55dc7c39eb7a20a1bd21071ee",
+				"commandType": "moveToAddressableAreaForDropTip",
+				"createdAt": "2025-03-13T20:24:19.537529Z",
+				"startedAt": "2025-03-13T20:24:19.539086Z",
+				"completedAt": "2025-03-13T20:24:23.391301Z",
+				"status": "succeeded",
+				"params": {
+					"forceDirect": false,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"addressableAreaName": "movableTrashA3",
+					"offset": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"alternateDropLocation": true,
+					"ignoreTipConfiguration": true
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "2e3c1d68-e82c-448b-b8c8-15d4fa029dd2",
+				"key": "ea492cddbbfaecd79dab5a038d6eba45",
+				"commandType": "dropTipInPlace",
+				"createdAt": "2025-03-13T20:24:23.396463Z",
+				"startedAt": "2025-03-13T20:24:23.397760Z",
+				"completedAt": "2025-03-13T20:24:26.071363Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "183cebd0-d80a-4107-9079-29e82e231a67",
+				"key": "d7fd171f97bf17f4008da60b1580f540",
+				"commandType": "pickUpTip",
+				"createdAt": "2025-03-13T20:24:26.083416Z",
+				"startedAt": "2025-03-13T20:24:26.085357Z",
+				"completedAt": "2025-03-13T20:24:31.084316Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"labwareId": "45534542-2104-4deb-a9f9-300518d27e40",
+					"wellName": "A2",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						}
+					}
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "f8055f2e-726e-43dd-aad3-51df3f87ffec",
+				"key": "10a58b8f5033e873a4d879f8310cecf7",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:24:31.099482Z",
+				"startedAt": "2025-03-13T20:24:31.100854Z",
+				"completedAt": "2025-03-13T20:24:35.856104Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+					"wellName": "A5",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "07417783-d9d1-49c7-849d-8a7b4c8d2153",
+				"key": "6e2c1303fc168eca7495d2fb10631571",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:24:35.866366Z",
+				"startedAt": "2025-03-13T20:24:35.867641Z",
+				"completedAt": "2025-03-13T20:24:40.021270Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "A3",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "e780d302-4e9d-40cd-99f3-fde04aa8774a",
+				"key": "0900aed0ab7ac04ab389319128ce3dd6",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:24:40.034745Z",
+				"startedAt": "2025-03-13T20:24:40.036239Z",
+				"completedAt": "2025-03-13T20:24:45.059078Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+					"wellName": "B5",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "3ffc4bfb-cd7d-4af3-bacb-dd3b5a503e23",
+				"key": "50ad9f2d2e40270ece036f06441bcad8",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:24:45.066771Z",
+				"startedAt": "2025-03-13T20:24:45.068033Z",
+				"completedAt": "2025-03-13T20:24:49.263024Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "A3",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "55633dfe-5336-4c86-9584-17c665235af7",
+				"key": "0c946cac8cae6002fda96108859d848c",
+				"commandType": "moveToAddressableAreaForDropTip",
+				"createdAt": "2025-03-13T20:24:49.269326Z",
+				"startedAt": "2025-03-13T20:24:49.270688Z",
+				"completedAt": "2025-03-13T20:24:53.213836Z",
+				"status": "succeeded",
+				"params": {
+					"forceDirect": false,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"addressableAreaName": "movableTrashA3",
+					"offset": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"alternateDropLocation": true,
+					"ignoreTipConfiguration": true
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "8400875b-6a6d-41c5-ad75-1120fd8a6518",
+				"key": "6eee7f9622c1be40795ffa189e0fe10a",
+				"commandType": "dropTipInPlace",
+				"createdAt": "2025-03-13T20:24:53.217883Z",
+				"startedAt": "2025-03-13T20:24:53.219103Z",
+				"completedAt": "2025-03-13T20:24:55.899031Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "60989a1d-f6ef-48a3-8e2c-f3ce80a0cd54",
+				"key": "9b3ceb9a4ea1dced7fcb2325e9dc66eb",
+				"commandType": "pickUpTip",
+				"createdAt": "2025-03-13T20:24:55.907400Z",
+				"startedAt": "2025-03-13T20:24:55.908652Z",
+				"completedAt": "2025-03-13T20:25:01.071934Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"labwareId": "45534542-2104-4deb-a9f9-300518d27e40",
+					"wellName": "B2",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						}
+					}
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "5bf18fec-99d6-4d3e-8d21-cec6fce9b1c2",
+				"key": "35ef1de677e55b2957b73a0138576b23",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:25:01.088309Z",
+				"startedAt": "2025-03-13T20:25:01.090738Z",
+				"completedAt": "2025-03-13T20:25:05.907548Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+					"wellName": "C5",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "81391981-d7ba-4885-bf1c-4480a9feb657",
+				"key": "e26e4c66fc38304f454b62b2071856ac",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:25:05.915833Z",
+				"startedAt": "2025-03-13T20:25:05.917067Z",
+				"completedAt": "2025-03-13T20:25:10.076570Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "B3",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "39d5514f-56c4-4cbc-b76c-6d5199839809",
+				"key": "324745132f1d825db9d06c00985381f2",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:25:10.094326Z",
+				"startedAt": "2025-03-13T20:25:10.095703Z",
+				"completedAt": "2025-03-13T20:25:15.091742Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+					"wellName": "D5",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "53a9a76c-3282-483c-9f52-47367cd2f658",
+				"key": "6419d1f2a68cff1f33147c888f2a0d0d",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:25:15.101460Z",
+				"startedAt": "2025-03-13T20:25:15.103120Z",
+				"completedAt": "2025-03-13T20:25:19.258061Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "B3",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "38278ee5-e728-4a39-bfeb-67ef9df4a785",
+				"key": "26965b7a571545fce7308969370d82d0",
+				"commandType": "moveToAddressableAreaForDropTip",
+				"createdAt": "2025-03-13T20:25:19.264758Z",
+				"startedAt": "2025-03-13T20:25:19.266092Z",
+				"completedAt": "2025-03-13T20:25:23.027323Z",
+				"status": "succeeded",
+				"params": {
+					"forceDirect": false,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"addressableAreaName": "movableTrashA3",
+					"offset": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"alternateDropLocation": true,
+					"ignoreTipConfiguration": true
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "ec389474-8faf-412d-8a5b-cf3eda880318",
+				"key": "0287cded62f6747f03378810dc13cca9",
+				"commandType": "dropTipInPlace",
+				"createdAt": "2025-03-13T20:25:23.031220Z",
+				"startedAt": "2025-03-13T20:25:23.032431Z",
+				"completedAt": "2025-03-13T20:25:25.676690Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "b6370de2-5d95-4c39-98ab-f213622c3cd8",
+				"key": "7d1b5e0f2654e426309c83d13a6d8582",
+				"commandType": "pickUpTip",
+				"createdAt": "2025-03-13T20:25:25.685165Z",
+				"startedAt": "2025-03-13T20:25:25.686500Z",
+				"completedAt": "2025-03-13T20:25:30.875390Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"labwareId": "45534542-2104-4deb-a9f9-300518d27e40",
+					"wellName": "C2",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						}
+					}
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "292c9b6c-0c8d-4ad2-83fc-b66e942b3074",
+				"key": "7c8e063db71eef277fa310a14d57606c",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:25:30.888575Z",
+				"startedAt": "2025-03-13T20:25:30.889934Z",
+				"completedAt": "2025-03-13T20:25:35.581908Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+					"wellName": "A6",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "42236b1c-c65d-45fd-a109-d5cd08b8b000",
+				"key": "aa099663fc820753dc8cb6af4f07f87b",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:25:35.590049Z",
+				"startedAt": "2025-03-13T20:25:35.591320Z",
+				"completedAt": "2025-03-13T20:25:39.687342Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "C3",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "f235fa6b-ca0d-4239-933a-92fd92a3f642",
+				"key": "ea316a29daf1bd93e7f0a81a4680fa61",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:25:39.699374Z",
+				"startedAt": "2025-03-13T20:25:39.700684Z",
+				"completedAt": "2025-03-13T20:25:44.619085Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+					"wellName": "B6",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "7cf9c5fe-f1d7-41c6-b1a0-25f99b6157cd",
+				"key": "d6cf912f02275c849f95c3f66521cb6b",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:25:44.626801Z",
+				"startedAt": "2025-03-13T20:25:44.628057Z",
+				"completedAt": "2025-03-13T20:25:48.721510Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "C3",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "9caa6dcf-ef68-419a-98f1-a04e38f84cba",
+				"key": "a012f4e85b6212951daf147e85a115ad",
+				"commandType": "moveToAddressableAreaForDropTip",
+				"createdAt": "2025-03-13T20:25:48.728446Z",
+				"startedAt": "2025-03-13T20:25:48.729773Z",
+				"completedAt": "2025-03-13T20:25:52.673967Z",
+				"status": "succeeded",
+				"params": {
+					"forceDirect": false,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"addressableAreaName": "movableTrashA3",
+					"offset": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"alternateDropLocation": true,
+					"ignoreTipConfiguration": true
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "8edac3a0-f939-4326-8802-e2ce44e4111b",
+				"key": "e3d7b20735f6ccad2ba551d701fb9d1a",
+				"commandType": "dropTipInPlace",
+				"createdAt": "2025-03-13T20:25:52.678240Z",
+				"startedAt": "2025-03-13T20:25:52.679475Z",
+				"completedAt": "2025-03-13T20:25:55.397354Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "c0fc7993-2064-449f-acfe-616409a441dd",
+				"key": "bd21191b8292f69bd73005671f413dae",
+				"commandType": "pickUpTip",
+				"createdAt": "2025-03-13T20:25:55.406675Z",
+				"startedAt": "2025-03-13T20:25:55.407931Z",
+				"completedAt": "2025-03-13T20:26:00.573173Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"labwareId": "45534542-2104-4deb-a9f9-300518d27e40",
+					"wellName": "D2",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						}
+					}
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "bddc2851-c1c8-448d-9cad-dfc972e83c83",
+				"key": "0f043ee62597fc57c8b5c2d3cb3fb898",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:26:00.584698Z",
+				"startedAt": "2025-03-13T20:26:00.586144Z",
+				"completedAt": "2025-03-13T20:26:05.329740Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+					"wellName": "C6",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "c9942fef-127f-4932-aa48-10e200f5b9a8",
+				"key": "a1d58417e720f0007bc451f1271416d8",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:26:05.340291Z",
+				"startedAt": "2025-03-13T20:26:05.341531Z",
+				"completedAt": "2025-03-13T20:26:09.433349Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "D3",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "86912c0b-3bc6-4b58-a276-e378a4575dca",
+				"key": "49570982f8f218222cae6d162f84f707",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:26:09.446058Z",
+				"startedAt": "2025-03-13T20:26:09.447327Z",
+				"completedAt": "2025-03-13T20:26:14.387103Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "8fba4f5e-598e-440d-bfdf-dbea9281895e",
+					"wellName": "D6",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "0ac13865-43df-4e66-ab02-424caa02a9c7",
+				"key": "72b9ecac46eaa603e19dee615f42c343",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:26:14.396274Z",
+				"startedAt": "2025-03-13T20:26:14.397516Z",
+				"completedAt": "2025-03-13T20:26:18.462628Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "D3",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "944f4dc4-28ed-4c26-8a6c-0392f58227b7",
+				"key": "02cfa934e52bc2e19e9a08c8fb685794",
+				"commandType": "moveToAddressableAreaForDropTip",
+				"createdAt": "2025-03-13T20:26:18.469480Z",
+				"startedAt": "2025-03-13T20:26:18.470919Z",
+				"completedAt": "2025-03-13T20:26:22.324618Z",
+				"status": "succeeded",
+				"params": {
+					"forceDirect": false,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"addressableAreaName": "movableTrashA3",
+					"offset": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"alternateDropLocation": true,
+					"ignoreTipConfiguration": true
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "3b6b3090-e6f0-408b-a58b-0ce335d7c01b",
+				"key": "6bf4e9d4931b45d1a38020969791d9f0",
+				"commandType": "dropTipInPlace",
+				"createdAt": "2025-03-13T20:26:22.328458Z",
+				"startedAt": "2025-03-13T20:26:22.331441Z",
+				"completedAt": "2025-03-13T20:26:25.038139Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "cd5a4618-6ff9-45ba-a02a-d84c0c61b049",
+				"key": "3bd46ebfc1b9a668caccf5fe3ae8d3ac",
+				"commandType": "pickUpTip",
+				"createdAt": "2025-03-13T20:26:25.049214Z",
+				"startedAt": "2025-03-13T20:26:25.050584Z",
+				"completedAt": "2025-03-13T20:26:30.267611Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"labwareId": "45534542-2104-4deb-a9f9-300518d27e40",
+					"wellName": "E2",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						}
+					}
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "2a27283b-94e7-4e69-b56d-3c7d1a3aa689",
+				"key": "cf95207b0f3209b141ef453bf7f57834",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:26:30.279334Z",
+				"startedAt": "2025-03-13T20:26:30.280600Z",
+				"completedAt": "2025-03-13T20:26:35.290610Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "ac02705a-54aa-4094-81ef-80e5005c740b",
+					"wellName": "A1",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "0ab27647-11b8-43e6-928d-74c9dda2dccb",
+				"key": "ad90050f3d44cf2ad8035bb6dfce617c",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:26:35.298659Z",
+				"startedAt": "2025-03-13T20:26:35.299926Z",
+				"completedAt": "2025-03-13T20:26:39.758050Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "A4",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "2f52022f-fe1e-4bc5-a1e1-eabc8d496903",
+				"key": "b35dcdafcf7f5ac5ec8c4ecaec19eb0c",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:26:39.771368Z",
+				"startedAt": "2025-03-13T20:26:39.775184Z",
+				"completedAt": "2025-03-13T20:26:45.068151Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "ac02705a-54aa-4094-81ef-80e5005c740b",
+					"wellName": "B1",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "e53adbee-c4c2-4da2-8772-539ec8f17a5f",
+				"key": "08e135bea021b9a2379561eaa731d6dc",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:26:45.078332Z",
+				"startedAt": "2025-03-13T20:26:45.084734Z",
+				"completedAt": "2025-03-13T20:26:49.576071Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "A4",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "6c9ede09-f464-4c50-890f-97c9e6044863",
+				"key": "9b02c71e64704690ae7b2d54e26097fc",
+				"commandType": "moveToAddressableAreaForDropTip",
+				"createdAt": "2025-03-13T20:26:49.583308Z",
+				"startedAt": "2025-03-13T20:26:49.584554Z",
+				"completedAt": "2025-03-13T20:26:53.479337Z",
+				"status": "succeeded",
+				"params": {
+					"forceDirect": false,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"addressableAreaName": "movableTrashA3",
+					"offset": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"alternateDropLocation": true,
+					"ignoreTipConfiguration": true
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "d8428d15-c079-4c9f-86cd-a539fe7703d5",
+				"key": "7778b464b0b8713a7ed366ed0ef64506",
+				"commandType": "dropTipInPlace",
+				"createdAt": "2025-03-13T20:26:53.483360Z",
+				"startedAt": "2025-03-13T20:26:53.484573Z",
+				"completedAt": "2025-03-13T20:26:56.185305Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "0dba26d0-4381-4668-939e-e309815dbabb",
+				"key": "100271f5e2dbbd6db5e05e5166e423f5",
+				"commandType": "pickUpTip",
+				"createdAt": "2025-03-13T20:26:56.194484Z",
+				"startedAt": "2025-03-13T20:26:56.196042Z",
+				"completedAt": "2025-03-13T20:27:01.340985Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"labwareId": "45534542-2104-4deb-a9f9-300518d27e40",
+					"wellName": "F2",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						}
+					}
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "db831ff9-b5b6-458d-9cbf-05b60d92d233",
+				"key": "9477ec68a73243602b1020217a037315",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:27:01.352130Z",
+				"startedAt": "2025-03-13T20:27:01.353382Z",
+				"completedAt": "2025-03-13T20:27:06.387482Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "ac02705a-54aa-4094-81ef-80e5005c740b",
+					"wellName": "C1",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "43592679-932a-464b-bfef-c1a444efa8e0",
+				"key": "827e26dd5a5fc201b56764b2394430b7",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:27:06.395860Z",
+				"startedAt": "2025-03-13T20:27:06.397106Z",
+				"completedAt": "2025-03-13T20:27:10.842729Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "B4",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "554f3e99-cb17-449d-9d73-0b827c3a40e6",
+				"key": "8402c61f7fe4c72a87d6fd30efb3a94c",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:27:10.859619Z",
+				"startedAt": "2025-03-13T20:27:10.860893Z",
+				"completedAt": "2025-03-13T20:27:16.120590Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "ac02705a-54aa-4094-81ef-80e5005c740b",
+					"wellName": "D1",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "5dc018a1-62b6-4564-ba3e-e7d11880a50e",
+				"key": "9e63e2c533b507b0828eea3cb9e04828",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:27:16.129280Z",
+				"startedAt": "2025-03-13T20:27:16.130897Z",
+				"completedAt": "2025-03-13T20:27:20.596139Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "B4",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "e74331ea-52c8-4c71-8731-42bf83bd2fbe",
+				"key": "6e1158c91bc6836e4acdc6887922ff53",
+				"commandType": "moveToAddressableAreaForDropTip",
+				"createdAt": "2025-03-13T20:27:20.602621Z",
+				"startedAt": "2025-03-13T20:27:20.603891Z",
+				"completedAt": "2025-03-13T20:27:24.347801Z",
+				"status": "succeeded",
+				"params": {
+					"forceDirect": false,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"addressableAreaName": "movableTrashA3",
+					"offset": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"alternateDropLocation": true,
+					"ignoreTipConfiguration": true
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "2c063645-3c6a-4afe-9258-408968ae97e7",
+				"key": "045bdbbb5b04d3d67812d678b77d9347",
+				"commandType": "dropTipInPlace",
+				"createdAt": "2025-03-13T20:27:24.351565Z",
+				"startedAt": "2025-03-13T20:27:24.352815Z",
+				"completedAt": "2025-03-13T20:27:26.994856Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "2b06c3b1-b35c-4a7d-a709-c1ec5dffec75",
+				"key": "05518d4b73ea8173f466ca2d3613924c",
+				"commandType": "pickUpTip",
+				"createdAt": "2025-03-13T20:27:27.008051Z",
+				"startedAt": "2025-03-13T20:27:27.010039Z",
+				"completedAt": "2025-03-13T20:27:32.281005Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"labwareId": "45534542-2104-4deb-a9f9-300518d27e40",
+					"wellName": "G2",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						}
+					}
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "a7988a15-a16c-484c-8ad7-0741bc2bbd7b",
+				"key": "c3f40018766832b5b34befd60dfa63bc",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:27:32.301836Z",
+				"startedAt": "2025-03-13T20:27:32.303628Z",
+				"completedAt": "2025-03-13T20:27:37.283564Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "ac02705a-54aa-4094-81ef-80e5005c740b",
+					"wellName": "A2",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "c624ad50-433f-493e-bd95-57a8649613c2",
+				"key": "6bf5836d4d81d03058939c1004b2a35c",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:27:37.292242Z",
+				"startedAt": "2025-03-13T20:27:37.293833Z",
+				"completedAt": "2025-03-13T20:27:41.692998Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "C4",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "061eb51a-e0dc-41a9-9d52-f777f93c1876",
+				"key": "3a3d51e1cc175184f27b196a899b4e08",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:27:41.705268Z",
+				"startedAt": "2025-03-13T20:27:41.706597Z",
+				"completedAt": "2025-03-13T20:27:46.939989Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "ac02705a-54aa-4094-81ef-80e5005c740b",
+					"wellName": "B2",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "43b5c581-271e-42ac-9d7a-c1752fc6b512",
+				"key": "99978498d64686b01e7b867ca105b455",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:27:46.949830Z",
+				"startedAt": "2025-03-13T20:27:46.951128Z",
+				"completedAt": "2025-03-13T20:27:51.462099Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "C4",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "87884180-69c7-4544-9675-cc1cb7bd40c4",
+				"key": "aaf73d35ae1923f12c7f0ed1fbe85b66",
+				"commandType": "moveToAddressableAreaForDropTip",
+				"createdAt": "2025-03-13T20:27:51.468509Z",
+				"startedAt": "2025-03-13T20:27:51.469813Z",
+				"completedAt": "2025-03-13T20:27:55.357633Z",
+				"status": "succeeded",
+				"params": {
+					"forceDirect": false,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"addressableAreaName": "movableTrashA3",
+					"offset": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"alternateDropLocation": true,
+					"ignoreTipConfiguration": true
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "966b93c7-ea17-4cb8-8677-f15a21e5dd37",
+				"key": "32f3a031577d7957010fcb65ee91c83e",
+				"commandType": "dropTipInPlace",
+				"createdAt": "2025-03-13T20:27:55.362118Z",
+				"startedAt": "2025-03-13T20:27:55.363394Z",
+				"completedAt": "2025-03-13T20:27:58.034623Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "2306cdcb-b971-42ce-9fa4-aca125fc4753",
+				"key": "8b0faa948bec4284ed84c02ceb6efe22",
+				"commandType": "pickUpTip",
+				"createdAt": "2025-03-13T20:27:58.044846Z",
+				"startedAt": "2025-03-13T20:27:58.046453Z",
+				"completedAt": "2025-03-13T20:28:03.379836Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"labwareId": "45534542-2104-4deb-a9f9-300518d27e40",
+					"wellName": "H2",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						}
+					}
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "ff28d7cb-b728-4445-8797-60d86cf15d8f",
+				"key": "0c43e5bf895c5b501849f4d3f9dc6ff5",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:28:03.392264Z",
+				"startedAt": "2025-03-13T20:28:03.393817Z",
+				"completedAt": "2025-03-13T20:28:08.340439Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "ac02705a-54aa-4094-81ef-80e5005c740b",
+					"wellName": "C2",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "49b8b980-0db2-4ebf-8c68-fad72543a830",
+				"key": "d8888b50c746fe8072016fadc418c649",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:28:08.348815Z",
+				"startedAt": "2025-03-13T20:28:08.350167Z",
+				"completedAt": "2025-03-13T20:28:12.787889Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "D4",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "f8e718ce-b51a-4003-9e6e-dbb23d251bf8",
+				"key": "4dd44b7785b041299f32349bb1557b2e",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:28:12.799913Z",
+				"startedAt": "2025-03-13T20:28:12.801155Z",
+				"completedAt": "2025-03-13T20:28:17.976409Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "ac02705a-54aa-4094-81ef-80e5005c740b",
+					"wellName": "D2",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "ecdc8d23-277e-4553-9b56-9ca504a8d93e",
+				"key": "071ad778f7d92a9bd2beb17e1f2c2470",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:28:17.984834Z",
+				"startedAt": "2025-03-13T20:28:17.986251Z",
+				"completedAt": "2025-03-13T20:28:22.429828Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "D4",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "17fc7212-89a4-4e59-b12d-ea7cca53aa86",
+				"key": "b87dbe413b4f3db64ea3f2b70dac93ed",
+				"commandType": "moveToAddressableAreaForDropTip",
+				"createdAt": "2025-03-13T20:28:22.443946Z",
+				"startedAt": "2025-03-13T20:28:22.446146Z",
+				"completedAt": "2025-03-13T20:28:26.218598Z",
+				"status": "succeeded",
+				"params": {
+					"forceDirect": false,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"addressableAreaName": "movableTrashA3",
+					"offset": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"alternateDropLocation": true,
+					"ignoreTipConfiguration": true
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "7eafdc2b-f8ec-4b1a-a9ed-24ec3e8e8f76",
+				"key": "59490605071ebd406ea738457e977411",
+				"commandType": "dropTipInPlace",
+				"createdAt": "2025-03-13T20:28:26.222549Z",
+				"startedAt": "2025-03-13T20:28:26.223784Z",
+				"completedAt": "2025-03-13T20:28:28.885635Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "ea4fb92a-7d21-42a0-b455-f3b2937e4720",
+				"key": "c69b610fe56ad85c0557307956aa4395",
+				"commandType": "pickUpTip",
+				"createdAt": "2025-03-13T20:28:28.894344Z",
+				"startedAt": "2025-03-13T20:28:28.895603Z",
+				"completedAt": "2025-03-13T20:28:34.043991Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"labwareId": "45534542-2104-4deb-a9f9-300518d27e40",
+					"wellName": "A3",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						}
+					}
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "4d380bef-cbf8-408a-a7a5-e353943fd735",
+				"key": "d1e77942d506a4805719ecaee662c3be",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:28:34.056180Z",
+				"startedAt": "2025-03-13T20:28:34.057718Z",
+				"completedAt": "2025-03-13T20:28:38.985993Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "ac02705a-54aa-4094-81ef-80e5005c740b",
+					"wellName": "A3",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "1033767a-d434-438f-9400-379a1886fa42",
+				"key": "5af268cbd1c4ba0468543e41e8f5ba59",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:28:39.002375Z",
+				"startedAt": "2025-03-13T20:28:39.004489Z",
+				"completedAt": "2025-03-13T20:28:43.384938Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "A5",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "7ed83558-b362-49f2-b65c-fb7c92342922",
+				"key": "8282b0019ef4bea0cef2d69245544fa2",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:28:43.397049Z",
+				"startedAt": "2025-03-13T20:28:43.398407Z",
+				"completedAt": "2025-03-13T20:28:48.593287Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "ac02705a-54aa-4094-81ef-80e5005c740b",
+					"wellName": "B3",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "eeb19d71-fd7c-421c-96a5-1df415a63a9e",
+				"key": "047bf5b83d33c80e40d5f2a654dc6c47",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:28:48.601538Z",
+				"startedAt": "2025-03-13T20:28:48.602916Z",
+				"completedAt": "2025-03-13T20:28:52.974870Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "A5",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "bf02dd96-dddf-403c-ba03-a19c76ea1b81",
+				"key": "0aa570215ed618cd8c05fd555b99c9d0",
+				"commandType": "moveToAddressableAreaForDropTip",
+				"createdAt": "2025-03-13T20:28:52.982059Z",
+				"startedAt": "2025-03-13T20:28:52.984167Z",
+				"completedAt": "2025-03-13T20:28:56.816360Z",
+				"status": "succeeded",
+				"params": {
+					"forceDirect": false,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"addressableAreaName": "movableTrashA3",
+					"offset": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"alternateDropLocation": true,
+					"ignoreTipConfiguration": true
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "e53abee6-07fa-447a-8a57-976c1e95c120",
+				"key": "6f0a543b833717339033a15bb94f0680",
+				"commandType": "dropTipInPlace",
+				"createdAt": "2025-03-13T20:28:56.820290Z",
+				"startedAt": "2025-03-13T20:28:56.821489Z",
+				"completedAt": "2025-03-13T20:28:59.502829Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "464d5024-47c9-4246-ac85-fd1361a77726",
+				"key": "f6eccc86673289d8921e9610386736d4",
+				"commandType": "pickUpTip",
+				"createdAt": "2025-03-13T20:28:59.512339Z",
+				"startedAt": "2025-03-13T20:28:59.513647Z",
+				"completedAt": "2025-03-13T20:29:04.689209Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"labwareId": "45534542-2104-4deb-a9f9-300518d27e40",
+					"wellName": "B3",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						}
+					}
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "59a94bf2-eab0-4e73-a770-d55611c82347",
+				"key": "774e7544e41f599334fe12003798a7f9",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:29:04.702681Z",
+				"startedAt": "2025-03-13T20:29:04.703927Z",
+				"completedAt": "2025-03-13T20:29:09.643962Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "ac02705a-54aa-4094-81ef-80e5005c740b",
+					"wellName": "C3",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "8daa62d0-b5f0-49c0-8e5c-e44789d2d69c",
+				"key": "be006ecb1a5e3220efde7b6ef186c845",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:29:09.658882Z",
+				"startedAt": "2025-03-13T20:29:09.660969Z",
+				"completedAt": "2025-03-13T20:29:14.072948Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "B5",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "bba310b4-acb9-4ba8-bae1-3565eaa35cf0",
+				"key": "b15e2258c9bbbed9960a887c18e84ee8",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:29:14.084807Z",
+				"startedAt": "2025-03-13T20:29:14.086177Z",
+				"completedAt": "2025-03-13T20:29:19.349758Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "ac02705a-54aa-4094-81ef-80e5005c740b",
+					"wellName": "D3",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "db042689-7fa3-4728-9735-0eb23384a880",
+				"key": "6cc9b76080646c99e174a1f91b123092",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:29:19.357630Z",
+				"startedAt": "2025-03-13T20:29:19.358918Z",
+				"completedAt": "2025-03-13T20:29:23.803411Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "B5",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "7da5f03d-4e53-41e2-9d97-2b619c1986fc",
+				"key": "06404f947c2405a1cb93264c478f254e",
+				"commandType": "moveToAddressableAreaForDropTip",
+				"createdAt": "2025-03-13T20:29:23.810459Z",
+				"startedAt": "2025-03-13T20:29:23.811692Z",
+				"completedAt": "2025-03-13T20:29:27.513696Z",
+				"status": "succeeded",
+				"params": {
+					"forceDirect": false,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"addressableAreaName": "movableTrashA3",
+					"offset": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"alternateDropLocation": true,
+					"ignoreTipConfiguration": true
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "50cd36d6-4296-47b8-b0ff-69f28941abd1",
+				"key": "eecd0c84af1415aa0a7ea3ef1fe7cded",
+				"commandType": "dropTipInPlace",
+				"createdAt": "2025-03-13T20:29:27.517672Z",
+				"startedAt": "2025-03-13T20:29:27.518942Z",
+				"completedAt": "2025-03-13T20:29:30.143256Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "f9e7c631-6e34-4bac-acda-9dcec594c6ac",
+				"key": "c4bdad5cf23069ba4d7f607b9199e753",
+				"commandType": "pickUpTip",
+				"createdAt": "2025-03-13T20:29:30.158525Z",
+				"startedAt": "2025-03-13T20:29:30.161008Z",
+				"completedAt": "2025-03-13T20:29:35.352572Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"labwareId": "45534542-2104-4deb-a9f9-300518d27e40",
+					"wellName": "C3",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						}
+					}
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "e61fd96b-9446-44c3-8210-f40cbbf3dd1e",
+				"key": "d909f9601f9e3c2969d9a9b839127218",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:29:35.365503Z",
+				"startedAt": "2025-03-13T20:29:35.367096Z",
+				"completedAt": "2025-03-13T20:29:40.307265Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "ac02705a-54aa-4094-81ef-80e5005c740b",
+					"wellName": "A4",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "a0f64b90-6a20-4867-b2ad-97776e88e5ac",
+				"key": "631c0b049150032be7d85e39c18cac6a",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:29:40.315489Z",
+				"startedAt": "2025-03-13T20:29:40.316732Z",
+				"completedAt": "2025-03-13T20:29:44.647638Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "C5",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "1fdc8c5b-042b-477c-8025-4ae43ca614b2",
+				"key": "26162ceb0cdf97487522d9111c999716",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:29:44.659422Z",
+				"startedAt": "2025-03-13T20:29:44.660696Z",
+				"completedAt": "2025-03-13T20:29:49.835679Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "ac02705a-54aa-4094-81ef-80e5005c740b",
+					"wellName": "B4",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "1dfc62df-7db1-4aec-81d3-38469846aed3",
+				"key": "a7ac523c98a35721a6aab3c036bdaba1",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:29:49.844040Z",
+				"startedAt": "2025-03-13T20:29:49.845362Z",
+				"completedAt": "2025-03-13T20:29:54.201936Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "C5",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "f5e65814-0158-4cfa-b9f2-ec207af59825",
+				"key": "e3f14b7d9f18d50dcb6ad547b9e50059",
+				"commandType": "moveToAddressableAreaForDropTip",
+				"createdAt": "2025-03-13T20:29:54.209164Z",
+				"startedAt": "2025-03-13T20:29:54.210771Z",
+				"completedAt": "2025-03-13T20:29:58.029759Z",
+				"status": "succeeded",
+				"params": {
+					"forceDirect": false,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"addressableAreaName": "movableTrashA3",
+					"offset": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"alternateDropLocation": true,
+					"ignoreTipConfiguration": true
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "14ea9f8c-106e-48e7-a647-8d34e450b8ab",
+				"key": "ca2cafbea2c2fca492e5d72472dddbea",
+				"commandType": "dropTipInPlace",
+				"createdAt": "2025-03-13T20:29:58.033734Z",
+				"startedAt": "2025-03-13T20:29:58.035064Z",
+				"completedAt": "2025-03-13T20:30:00.761768Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "3a2d2073-f8cc-40d5-944c-8cd52533143e",
+				"key": "8941b29eab313f8111803b073b7a09cc",
+				"commandType": "pickUpTip",
+				"createdAt": "2025-03-13T20:30:00.770980Z",
+				"startedAt": "2025-03-13T20:30:00.772216Z",
+				"completedAt": "2025-03-13T20:30:05.885361Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"labwareId": "45534542-2104-4deb-a9f9-300518d27e40",
+					"wellName": "D3",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						}
+					}
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "d2fbd9af-5047-4a93-a900-3a55ece07ded",
+				"key": "67000a62ba1eaa7668897c8f05bfd2ce",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:30:05.896835Z",
+				"startedAt": "2025-03-13T20:30:05.898194Z",
+				"completedAt": "2025-03-13T20:30:10.743580Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "ac02705a-54aa-4094-81ef-80e5005c740b",
+					"wellName": "C4",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "fc0ecdfa-60a2-495d-99f7-c34a0e35b799",
+				"key": "e0225e10e139a1bf9dd649a10d28cae5",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:30:10.751620Z",
+				"startedAt": "2025-03-13T20:30:10.752855Z",
+				"completedAt": "2025-03-13T20:30:15.094005Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "D5",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "9a40d4fa-ca96-4b98-82ab-4fdb56c82cd5",
+				"key": "99b1db231f7fd7b16a1901aed9babf6b",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:30:15.106349Z",
+				"startedAt": "2025-03-13T20:30:15.107594Z",
+				"completedAt": "2025-03-13T20:30:20.304173Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "ac02705a-54aa-4094-81ef-80e5005c740b",
+					"wellName": "D4",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "96ed2b50-6538-4f1c-88a6-accaf487dcdc",
+				"key": "99d02d9b152eb17f6aacc08c852e766b",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:30:20.319310Z",
+				"startedAt": "2025-03-13T20:30:20.324892Z",
+				"completedAt": "2025-03-13T20:30:24.703866Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "D5",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "790da75a-497a-4588-b163-7c3f01810a85",
+				"key": "992628c6ee8148a1da985badf21f098d",
+				"commandType": "moveToAddressableAreaForDropTip",
+				"createdAt": "2025-03-13T20:30:24.710532Z",
+				"startedAt": "2025-03-13T20:30:24.711768Z",
+				"completedAt": "2025-03-13T20:30:28.364002Z",
+				"status": "succeeded",
+				"params": {
+					"forceDirect": false,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"addressableAreaName": "movableTrashA3",
+					"offset": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"alternateDropLocation": true,
+					"ignoreTipConfiguration": true
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "60401551-7add-4832-ae13-fae47bdb7679",
+				"key": "2ab5a5e125ee18b3f3cef565a13ef1f7",
+				"commandType": "dropTipInPlace",
+				"createdAt": "2025-03-13T20:30:28.368199Z",
+				"startedAt": "2025-03-13T20:30:28.369395Z",
+				"completedAt": "2025-03-13T20:30:31.113626Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "0ccfbf98-1751-49e0-a50d-84e3af17aad7",
+				"key": "39a15afd64f129b7c3b0d2283fd6a450",
+				"commandType": "pickUpTip",
+				"createdAt": "2025-03-13T20:30:31.122526Z",
+				"startedAt": "2025-03-13T20:30:31.123759Z",
+				"completedAt": "2025-03-13T20:30:36.276360Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"labwareId": "45534542-2104-4deb-a9f9-300518d27e40",
+					"wellName": "E3",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						}
+					}
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "47de4c58-3160-4aa6-868a-58e92b163d4c",
+				"key": "1f99b0f27dc47c39a47c84a5036e6ffa",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:30:36.288184Z",
+				"startedAt": "2025-03-13T20:30:36.289454Z",
+				"completedAt": "2025-03-13T20:30:41.134896Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "ac02705a-54aa-4094-81ef-80e5005c740b",
+					"wellName": "A5",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "e2d62f0f-1a3b-497b-bd28-a5e2e2ae1217",
+				"key": "1d3ecac81716b65cf6aa3b51efeb4320",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:30:41.143065Z",
+				"startedAt": "2025-03-13T20:30:41.144490Z",
+				"completedAt": "2025-03-13T20:30:45.478664Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "A6",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "dfda989d-07c5-4fdf-b394-f91a0c863eb5",
+				"key": "faa9ae71c0033e827f332b648686f33a",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:30:45.490747Z",
+				"startedAt": "2025-03-13T20:30:45.491995Z",
+				"completedAt": "2025-03-13T20:30:50.646884Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "ac02705a-54aa-4094-81ef-80e5005c740b",
+					"wellName": "B5",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "ec7dbba2-2b9c-497b-bb03-b497efa42bbf",
+				"key": "da789a088efbfff1d3680c9e28fb6ea7",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:30:50.655517Z",
+				"startedAt": "2025-03-13T20:30:50.657519Z",
+				"completedAt": "2025-03-13T20:30:55.121090Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "A6",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "7e151afc-cd37-4c52-a649-c03418c2d124",
+				"key": "63e6909104a06bfa1bbb806753301116",
+				"commandType": "moveToAddressableAreaForDropTip",
+				"createdAt": "2025-03-13T20:30:55.128153Z",
+				"startedAt": "2025-03-13T20:30:55.129386Z",
+				"completedAt": "2025-03-13T20:30:58.890777Z",
+				"status": "succeeded",
+				"params": {
+					"forceDirect": false,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"addressableAreaName": "movableTrashA3",
+					"offset": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"alternateDropLocation": true,
+					"ignoreTipConfiguration": true
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "0253788d-1a2e-4ee7-a10d-43c65ba9c961",
+				"key": "b634b4eb5ff16e0886d129b88a28cd8d",
+				"commandType": "dropTipInPlace",
+				"createdAt": "2025-03-13T20:30:58.896927Z",
+				"startedAt": "2025-03-13T20:30:58.898269Z",
+				"completedAt": "2025-03-13T20:31:01.630706Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "2067bc44-964f-49e0-a3f6-54b7b686239a",
+				"key": "1f5789f9d037b2e6938d157338008c6f",
+				"commandType": "pickUpTip",
+				"createdAt": "2025-03-13T20:31:01.640061Z",
+				"startedAt": "2025-03-13T20:31:01.641293Z",
+				"completedAt": "2025-03-13T20:31:06.865689Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"labwareId": "45534542-2104-4deb-a9f9-300518d27e40",
+					"wellName": "F3",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						}
+					}
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "37343783-e606-4bd9-805f-a4a4a550825e",
+				"key": "c1604140a9c45fe91c4b9cf4a42dd6f9",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:31:06.878904Z",
+				"startedAt": "2025-03-13T20:31:06.880416Z",
+				"completedAt": "2025-03-13T20:31:11.671093Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "ac02705a-54aa-4094-81ef-80e5005c740b",
+					"wellName": "C5",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "32b3507c-ef9d-4c68-b368-c9705d22240d",
+				"key": "61b4bef33b555833800f454028b36315",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:31:11.679031Z",
+				"startedAt": "2025-03-13T20:31:11.680260Z",
+				"completedAt": "2025-03-13T20:31:16.014502Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "B6",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "dca5c921-30a0-434a-8bee-c56d5e9c5e81",
+				"key": "1fb8e35ff3f2001d9a5bab9c2f4daa37",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:31:16.026674Z",
+				"startedAt": "2025-03-13T20:31:16.027914Z",
+				"completedAt": "2025-03-13T20:31:21.272158Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "ac02705a-54aa-4094-81ef-80e5005c740b",
+					"wellName": "D5",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "75dd5329-79f2-488e-aa11-6483e2566d63",
+				"key": "cfbc9b5a02d4f96198c34b9e2d2d1c2e",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:31:21.286852Z",
+				"startedAt": "2025-03-13T20:31:21.288140Z",
+				"completedAt": "2025-03-13T20:31:25.696413Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "B6",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "49ca8c56-7d2e-4440-baeb-fb5b47fb75c5",
+				"key": "02a2c6834421845900a825378396fdf8",
+				"commandType": "moveToAddressableAreaForDropTip",
+				"createdAt": "2025-03-13T20:31:25.703167Z",
+				"startedAt": "2025-03-13T20:31:25.704405Z",
+				"completedAt": "2025-03-13T20:31:29.288971Z",
+				"status": "succeeded",
+				"params": {
+					"forceDirect": false,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"addressableAreaName": "movableTrashA3",
+					"offset": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"alternateDropLocation": true,
+					"ignoreTipConfiguration": true
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "97ae8f27-d005-4c4c-a088-a9aa72847525",
+				"key": "576bd70aeda3d1ea5c5bb92786a52a30",
+				"commandType": "dropTipInPlace",
+				"createdAt": "2025-03-13T20:31:29.292643Z",
+				"startedAt": "2025-03-13T20:31:29.293943Z",
+				"completedAt": "2025-03-13T20:31:31.968616Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "5f51ab72-8106-494c-86de-ebda4c6e4a46",
+				"key": "31e43e24182dd8e729a9c51dd9667e6e",
+				"commandType": "pickUpTip",
+				"createdAt": "2025-03-13T20:31:31.977825Z",
+				"startedAt": "2025-03-13T20:31:31.979119Z",
+				"completedAt": "2025-03-13T20:31:37.277654Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"labwareId": "45534542-2104-4deb-a9f9-300518d27e40",
+					"wellName": "G3",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						}
+					}
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "691d1556-d82a-455f-9e1c-b0679cb6265f",
+				"key": "1c740bbb9d94a8e8922a0eb9c6e47f51",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:31:37.291582Z",
+				"startedAt": "2025-03-13T20:31:37.292915Z",
+				"completedAt": "2025-03-13T20:31:42.040363Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "ac02705a-54aa-4094-81ef-80e5005c740b",
+					"wellName": "A6",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "0faa3729-cee2-466d-a136-9cb7f492320b",
+				"key": "ddf9ea0c440e95c3030d4a527a55aa96",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:31:42.048174Z",
+				"startedAt": "2025-03-13T20:31:42.049450Z",
+				"completedAt": "2025-03-13T20:31:46.334230Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "C6",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "ab73e57d-9bff-4050-9a6e-707aa347e790",
+				"key": "a52696c49804950a9012e1ddf1b0a5ca",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:31:46.346095Z",
+				"startedAt": "2025-03-13T20:31:46.347363Z",
+				"completedAt": "2025-03-13T20:31:51.447302Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "ac02705a-54aa-4094-81ef-80e5005c740b",
+					"wellName": "B6",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "d3a532a9-9885-49b8-b764-a38d85f91520",
+				"key": "9f394741698fb79a3475012c9aa09c50",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:31:51.461548Z",
+				"startedAt": "2025-03-13T20:31:51.463329Z",
+				"completedAt": "2025-03-13T20:31:55.758499Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "C6",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "c2ba5154-267e-4364-9b6b-58ac126f40b0",
+				"key": "7481674d5a27db41657e41c1f448eb03",
+				"commandType": "moveToAddressableAreaForDropTip",
+				"createdAt": "2025-03-13T20:31:55.765448Z",
+				"startedAt": "2025-03-13T20:31:55.766817Z",
+				"completedAt": "2025-03-13T20:31:59.522015Z",
+				"status": "succeeded",
+				"params": {
+					"forceDirect": false,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"addressableAreaName": "movableTrashA3",
+					"offset": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"alternateDropLocation": true,
+					"ignoreTipConfiguration": true
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "2544ece3-6100-4e3f-a1fa-5d26d5570d7d",
+				"key": "0a4068e666ca9200749b05e66698e4d8",
+				"commandType": "dropTipInPlace",
+				"createdAt": "2025-03-13T20:31:59.526241Z",
+				"startedAt": "2025-03-13T20:31:59.527476Z",
+				"completedAt": "2025-03-13T20:32:02.188308Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "6e468365-c154-46c6-bf26-93478b5ddebd",
+				"key": "e7c129e7f457cc83325836ab2e23b72f",
+				"commandType": "pickUpTip",
+				"createdAt": "2025-03-13T20:32:02.199377Z",
+				"startedAt": "2025-03-13T20:32:02.200910Z",
+				"completedAt": "2025-03-13T20:32:07.506941Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"labwareId": "45534542-2104-4deb-a9f9-300518d27e40",
+					"wellName": "H3",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						}
+					}
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "d802c09e-d7ce-402c-ace3-24551633eb4a",
+				"key": "fa82ba650a9861ba154a1f526cac9f5c",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:32:07.518078Z",
+				"startedAt": "2025-03-13T20:32:07.519335Z",
+				"completedAt": "2025-03-13T20:32:12.280078Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "ac02705a-54aa-4094-81ef-80e5005c740b",
+					"wellName": "C6",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "29025925-e057-4dd1-bea7-277b06c5f651",
+				"key": "a25395bc70fa0ae24e534fe3910fef5a",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:32:12.290503Z",
+				"startedAt": "2025-03-13T20:32:12.292080Z",
+				"completedAt": "2025-03-13T20:32:16.576170Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "D6",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "2d430a37-83f1-4b3d-b1fd-591a296458ef",
+				"key": "b7a446d7cb54d51837e182106ab15567",
+				"commandType": "aspirate",
+				"createdAt": "2025-03-13T20:32:16.588761Z",
+				"startedAt": "2025-03-13T20:32:16.590117Z",
+				"completedAt": "2025-03-13T20:32:21.680663Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "ac02705a-54aa-4094-81ef-80e5005c740b",
+					"wellName": "D6",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "fd38cb92-d902-4aa4-b67c-a4f3b65ba9c7",
+				"key": "280990392df899d7e79ee67fd7aad896",
+				"commandType": "dispense",
+				"createdAt": "2025-03-13T20:32:21.688805Z",
+				"startedAt": "2025-03-13T20:32:21.690178Z",
+				"completedAt": "2025-03-13T20:32:26.037233Z",
+				"status": "succeeded",
+				"params": {
+					"labwareId": "d42e4aea-bc0c-43ea-b723-a84be6b17ce3",
+					"wellName": "D6",
+					"wellLocation": {
+						"origin": "top",
+						"offset": {
+							"x": 0,
+							"y": 0,
+							"z": -38.1
+						},
+						"volumeOffset": 0
+					},
+					"flowRate": 716,
+					"volume": 150,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "fe3cf60c-57b1-4f09-b63e-f1a8c266ba92",
+				"key": "c2af27793e73d31712dec9f43bae1595",
+				"commandType": "moveToAddressableAreaForDropTip",
+				"createdAt": "2025-03-13T20:32:26.044450Z",
+				"startedAt": "2025-03-13T20:32:26.045757Z",
+				"completedAt": "2025-03-13T20:32:29.659204Z",
+				"status": "succeeded",
+				"params": {
+					"forceDirect": false,
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5",
+					"addressableAreaName": "movableTrashA3",
+					"offset": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"alternateDropLocation": true,
+					"ignoreTipConfiguration": true
+				},
+				"notes": [
+
+				]
+			},
+			{
+				"id": "840b2d04-a5f8-4d22-8aac-3c82cccc2e15",
+				"key": "47741eb837640ac4549d98bd0c3f723f",
+				"commandType": "dropTipInPlace",
+				"createdAt": "2025-03-13T20:32:29.664488Z",
+				"startedAt": "2025-03-13T20:32:29.666408Z",
+				"completedAt": "2025-03-13T20:32:32.303814Z",
+				"status": "succeeded",
+				"params": {
+					"pipetteId": "6d52a081-233d-4fe3-bb73-3dd38f978ca5"
+				},
+				"notes": [
+
+				]
+			}
+		],
+		"links": {
+			"current": {
+				"href": "/runs/f87b74e7-bfa1-40f9-8741-4d0728239534/commands/840b2d04-a5f8-4d22-8aac-3c82cccc2e15",
+				"meta": {
+					"runId": "f87b74e7-bfa1-40f9-8741-4d0728239534",
+					"commandId": "840b2d04-a5f8-4d22-8aac-3c82cccc2e15",
+					"index": 174,
+					"key": "47741eb837640ac4549d98bd0c3f723f",
+					"createdAt": "2025-03-13T20:32:29.664488Z"
+				}
+			}
+		},
+		"meta": {
+			"cursor": 0,
+			"totalLength": 175
+		}
+	}
+}
