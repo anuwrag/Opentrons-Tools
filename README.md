@@ -4,6 +4,7 @@
 
 - [LabwareMaker](https://anuwrag.github.io/Opentrons-Tools/LabwareMaker)
 - [PD CSV Support](https://anuwrag.github.io/Opentrons-Tools/PD_CSV_Support)
+- [PD Custom Features](https://anuwrag.github.io/Opentrons-Tools/PD_Custom_Features)
 - [Plate Designs](https://anuwrag.github.io/Opentrons-Tools/Plate_Designs)
 - [Protocol-Run-Time-Analyzer](https://anuwrag.github.io/Opentrons-Tools/Protocol-Run-Time-Analyzer)
 - [Run-Module-from-Computer](https://anuwrag.github.io/Opentrons-Tools/Run-Module-from-Computer)
