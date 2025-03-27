@@ -31,7 +31,7 @@
                 <h5 class="card-title">Description</h5>
                 <p class="card-text">
                     This program allows you to modify the Opentrons Protocol Designer JSON file. <br>
-                    <b>If you are observing bubbles, add <code>push_out value = 0</code> if you are observing liquid inside the tip, add <code>push_out</code> value in range <code>1 - 10</code> for 1000 ul pipette.</b>
+                    <b>If you are observing bubbles, add <code>pushOut value = 0</code> if you are observing liquid inside the tip, add <code>pushOut</code> value in range <code>1 - 10</code> for 1000 ul pipette.</b>
                     <br> <code> This is an UNOFFICIAL TOOL <u>(Opentrons is not affiliated with this tool)</u>, USE AT YOUR OWN RISK. Please report any issue to the person guiding you to this tool.</code>
                 </p>
             </div>
@@ -61,7 +61,7 @@
                     <tbody id="paramsTable">
                         <tr>
                             <td>dispense</td>
-                            <td>push_out</td>
+                            <td>pushOut</td>
                             <td contenteditable="true">0</td>
                         </tr>
                     </tbody>
@@ -133,7 +133,7 @@
 
             // Update table with values if needed
             if (commands.length > 0) {
-                const pushOutValue = commands[0].params.push_out || 0;
+                const pushOutValue = commands[0].params.pushOut || 0;
                 document.querySelector('#paramsTable tr td:last-child').textContent = pushOutValue;
             }
         }
@@ -153,7 +153,7 @@
                     obj.forEach(item => updateCommands(item));
                 } else if (typeof obj === 'object' && obj !== null) {
                     if (obj.commandType === 'dispense') {
-                        obj.params.push_out = Number(pushOutValue);
+                        obj.params.pushOut = Number(pushOutValue);
                     }
                     Object.values(obj).forEach(value => updateCommands(value));
                 }
