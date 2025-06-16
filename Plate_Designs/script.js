@@ -161,30 +161,35 @@ function generatePlateSVG(xOffset, yOffset, xSpacing, ySpacing, diameter, rows, 
     // Remove previous pipette instance if it exists
     const previousPipette = document.getElementById("pipette-svg");
     if (previousPipette) {
-      document.body.removeChild(previousPipette);
+      previousPipette.remove();
     }
   
     if (pipetteSVG) {
         pipetteSVG.style.position = "absolute";
         pipetteSVG.style.pointerEvents = "none";
-        document.body.appendChild(pipetteSVG);
+        svgContainer.appendChild(pipetteSVG);
     
-        const firstCircleOffsetX = 9 * 3; // X offset of the first circle in the pipette
-        const firstCircleOffsetY = 9 * 3; // Y offset of the first circle in the pipette
+        // Get the first circle's position in the pipette
+        const firstCircle = pipetteSVG.querySelector("circle");
+        const firstCircleCX = parseFloat(firstCircle.getAttribute("cx"));
+        const firstCircleCY = parseFloat(firstCircle.getAttribute("cy"));
     
-        plateSVG.addEventListener("mousemove", (event) => {
-          // Adjust mouse position to be the center of the first circle
-          const mouseX = event.clientX - firstCircleOffsetX;
-          const mouseY = event.clientY - firstCircleOffsetY;
-    
-          pipetteSVG.style.left = mouseX + "px";
-          pipetteSVG.style.top = mouseY + "px";
+        svgContainer.addEventListener("mousemove", (event) => {
+          const containerRect = svgContainer.getBoundingClientRect();
+          
+          // Calculate mouse position relative to the container
+          const mouseX = event.clientX - containerRect.left;
+          const mouseY = event.clientY - containerRect.top;
+          
+          // Position pipette so the first circle aligns with the mouse
+          pipetteSVG.style.left = (mouseX) + "px";
+          pipetteSVG.style.top = (mouseY) + "px";
     
           highlightWells(plateSVG, pipetteSVG, channels);
         });
     
-        // Reset highlight when mouse leaves the plate
-        plateSVG.addEventListener("mouseleave", () => {
+        // Reset highlight when mouse leaves the container
+        svgContainer.addEventListener("mouseleave", () => {
           const wells = plateSVG.querySelectorAll(".well");
           wells.forEach((w) => {
             w.setAttribute("stroke", "black");

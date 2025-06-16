@@ -667,7 +667,7 @@ class LabwareCreator {
         
         for (let row = 0; row < grid.row; row++) {
             for (let col = 0; col < grid.column; col++) {
-                const wellName = String.fromCharCode(65 + row) + (col + 1);
+                const wellName = `${this.getRowLetter(row)}${col + 1}`;
                 const wellShape = document.getElementById('wellShape').value;
                 
                 const wellData = {
@@ -703,7 +703,7 @@ class LabwareCreator {
         for (let col = 1; col <= cols; col++) {
             const column = [];
             for (let row = 0; row < rows; row++) {
-                const wellName = `${String.fromCharCode(65 + row)}${col}`;
+                const wellName = `${this.getRowLetter(row)}${col}`;
                 column.push(wellName);
             }
             ordering.push(column);
@@ -718,10 +718,21 @@ class LabwareCreator {
         
         for (let col = 1; col <= cols; col++) {
             for (let row = 0; row < rows; row++) {
-                wells.push(`${String.fromCharCode(65 + row)}${col}`);
+                wells.push(`${this.getRowLetter(row)}${col}`);
             }
         }
         return wells;
+    }
+
+    getRowLetter(rowIndex) {
+        if (rowIndex < 26) {
+            return String.fromCharCode(65 + rowIndex);
+        } else {
+            // For rows beyond 26, use double letters (AA, BB, CC, etc.)
+            const firstLetter = String.fromCharCode(65 + Math.floor(rowIndex / 26) - 1);
+            const secondLetter = String.fromCharCode(65 + (rowIndex % 26));
+            return firstLetter + secondLetter;
+        }
     }
 
     determineFormat() {

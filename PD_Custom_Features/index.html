@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opentrons Protocol Designer JSON Editor</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .tutorial-video {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .custom-table {
+            margin: 20px 0;
+        }
+        .action-buttons {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Title Section -->
+        <h1 class="text-center mb-4">Opentrons Protocol Designer JSON Editor</h1>
+
+        <!-- Description Section -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Description</h5>
+                <p class="card-text">
+                    This program allows you to modify the Opentrons Protocol Designer JSON file. <br>
+                    <b>If you are observing bubbles, add <code>pushOut value = 0</code> if you are observing liquid inside the tip, add <code>pushOut</code> value in range <code>1 - 10</code> for 1000 ul pipette.</b>
+                    <br> <code> This is an UNOFFICIAL TOOL <u>(Opentrons is not affiliated with this tool)</u>, USE AT YOUR OWN RISK. Please report any issue to the person guiding you to this tool.</code>
+                </p>
+            </div>
+        </div>
+
+
+        <!-- File Upload Section -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Upload JSON File</h5>
+                <input type="file" class="form-control" id="jsonFileInput" accept=".json">
+            </div>
+        </div>
+
+        <!-- Parameters Table -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Custom Parameters</h5>
+                <table class="table table-bordered custom-table">
+                    <thead>
+                        <tr>
+                            <th>Command Type</th>
+                            <th>Parameter</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody id="paramsTable">
+                        <tr>
+                            <td>dispense</td>
+                            <td>pushOut</td>
+                            <td contenteditable="true">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons text-center">
+            <button class="btn btn-primary me-2" onclick="updateJSON()">Update JSON</button>
+            <button class="btn btn-success" onclick="downloadJSON()">Download JSON</button>
+        </div>
+
+        <!-- Video Tutorial Section -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">How to Use</h5>
+                <div class="tutorial-video">
+                    <!-- Replace src with your actual tutorial video -->
+                    <div class="ratio ratio-16x9">
+                        <iframe src="opera_bmPwsjtZQy.mp4" title="Tutorial Video" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- JavaScript for file handling -->
+    <script>
+        let jsonData = null;
+
+        document.getElementById('jsonFileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                try {
+                    jsonData = JSON.parse(event.target.result);
+                    // Parse and display relevant parameters
+                    parseDispenseCommands(jsonData);
+                } catch (error) {
+                    alert('Error parsing JSON file: ' + error);
+                }
+            };
+
+            reader.readAsText(file);
+        });
+
+        function parseDispenseCommands(data) {
+            // Find all commands in the JSON structure
+            const commands = [];
+            
+            // Helper function to recursively find commands
+            function findCommands(obj) {
+                if (Array.isArray(obj)) {
+                    obj.forEach(item => findCommands(item));
+                } else if (typeof obj === 'object' && obj !== null) {
+                    if (obj.commandType === 'dispense') {
+                        commands.push(obj);
+                    }
+                    Object.values(obj).forEach(value => findCommands(value));
+                }
+            }
+
+            findCommands(data);
+
+            // Update table with values if needed
+            if (commands.length > 0) {
+                const pushOutValue = commands[0].params.pushOut || 0;
+                document.querySelector('#paramsTable tr td:last-child').textContent = pushOutValue;
+            }
+        }
+
+        function updateJSON() {
+            if (!jsonData) {
+                alert('Please upload a JSON file first');
+                return;
+            }
+
+            // Update pushOut values in dispense commands
+            const pushOutValue = document.querySelector('#paramsTable tr td:last-child').textContent;
+            
+            // Helper function to recursively update commands
+            function updateCommands(obj) {
+                if (Array.isArray(obj)) {
+                    obj.forEach(item => updateCommands(item));
+                } else if (typeof obj === 'object' && obj !== null) {
+                    if (obj.commandType === 'dispense') {
+                        obj.params.pushOut = Number(pushOutValue);
+                    }
+                    Object.values(obj).forEach(value => updateCommands(value));
+                }
+            }
+
+            updateCommands(jsonData);
+            alert('JSON updated successfully!');
+        }
+
+        function downloadJSON() {
+            if (!jsonData) {
+                alert('Please upload a JSON file first');
+                return;
+            }
+
+            const dataStr = JSON.stringify(jsonData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            
+            // Get the original filename from the file input
+            const originalFile = document.getElementById('jsonFileInput').files[0];
+            const originalName = originalFile.name.replace('.json', '');
+            
+            // Get current date and time
+            const now = new Date();
+            const dateStr = now.toISOString().slice(0,10); // YYYY-MM-DD
+            const timeStr = now.toTimeString().slice(0,8).replace(/:/g, '-'); // HH-MM-SS
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${originalName}_${dateStr}_${timeStr}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html> 
