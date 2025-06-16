@@ -2,6 +2,7 @@
 
 ## Available Tools
 
+- [HID VendorID ProductID Finder](https://anuwrag.github.io/Opentrons-Tools/HID_VendorID_ProductID_Finder)
 - [LabwareMaker](https://anuwrag.github.io/Opentrons-Tools/LabwareMaker)
 - [PD CSV Support](https://anuwrag.github.io/Opentrons-Tools/PD_CSV_Support)
 - [PD Custom Features](https://anuwrag.github.io/Opentrons-Tools/PD_Custom_Features)
