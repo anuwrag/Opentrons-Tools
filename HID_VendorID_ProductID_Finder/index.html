@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HID Device Vendor/Product ID Reader</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .barcode-container {
+      margin: 20px 0;
+      text-align: center;
+    }
+    .barcode {
+      font-family: 'Libre Barcode 39', cursive;
+      font-size: 48px;
+    }
+    .ascii-display {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+    }
+    .instructions {
+      background-color: #e9ecef;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .barcode-image-placeholder {
+      width: 300px;
+      height: 100px;
+      border: 2px dashed #ccc;
+      margin: 20px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f8f9fa;
+    }
+    .scanner-output {
+      font-family: monospace;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-4">
+    <h1 class="mb-4">HID Device Vendor & Product ID Reader</h1>
+    
+    <div class="instructions">
+      <h4>Instructions:</h4>
+      <ul>
+        <li>This tool works only in Chrome browser</li>
+        <li>To read barcode scanner product ID:
+          <ol>
+            <li>Connect your barcode scanner to your computer</li>
+            <li>Click the button below to list HID devices</li>
+            <li>Select your barcode scanner from the device list</li>
+            <li>The Vendor ID and Product ID will be displayed in the table</li>
+          </ol>
+        </li>
+      </ul>
+    </div>
+
+    <button id="request-hid" class="btn btn-primary mb-4">Press to List HID Devices</button>
+    <div id="devices" class="mb-4"></div>
+
+    <div class="barcode-container">
+      <h3>Sample Barcode:</h3>
+      <div class="barcode">*123456789*</div>
+      <div class="barcode-image-placeholder">
+        <span class="text-muted">Barcode Image Placeholder</span>
+      </div>
+    </div>
+
+    <div class="ascii-display">
+      <h3>Barcode Scanner Output:</h3>
+      <div class="mb-3">
+        <textarea id="scanner-output" class="form-control scanner-output" rows="3" readonly placeholder="Waiting for scan..."></textarea>
+      </div>
+      <h4>ASCII Values:</h4>
+      <div id="ascii-values"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const button = document.getElementById('request-hid');
+    const devicesDiv = document.getElementById('devices');
+    const scannerOutput = document.getElementById('scanner-output');
+    const asciiValues = document.getElementById('ascii-values');
+
+    // Function to display ASCII values
+    function displayAsciiValues(text) {
+      let asciiHtml = '<table class="table table-sm"><tr><th>Character</th><th>ASCII Code</th><th>Hex</th></tr>';
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const ascii = text.charCodeAt(i);
+        const hex = ascii.toString(16).toUpperCase().padStart(2, '0');
+        asciiHtml += `<tr>
+          <td>${char}</td>
+          <td>${ascii}</td>
+          <td>0x${hex}</td>
+        </tr>`;
+      }
+      asciiHtml += '</table>';
+      asciiValues.innerHTML = asciiHtml;
+    }
+
+    // Listen for keyboard input (barcode scanner)
+    document.addEventListener('keypress', (event) => {
+      if (event.key === 'Enter') {
+        // Clear the output when Enter is pressed (new scan)
+        scannerOutput.value = '';
+        asciiValues.innerHTML = '';
+      } else {
+        // Append the character to the output
+        scannerOutput.value += event.key;
+        displayAsciiValues(scannerOutput.value);
+      }
+    });
+
+    button.addEventListener('click', async () => {
+      try {
+        const devices = await navigator.hid.requestDevice({ filters: [] });
+        if (devices.length === 0) {
+          devicesDiv.innerHTML = "<p class='alert alert-warning'>No device selected.</p>";
+          return;
+        }
+
+        let html = "<table class='table table-striped'><thead><tr><th>Product Name</th><th>Vendor ID</th><th>Product ID</th></tr></thead><tbody>";
+        devices.forEach(device => {
+          html += `<tr>
+            <td>${device.productName}</td>
+            <td>0x${device.vendorId.toString(16).padStart(4, '0')}</td>
+            <td>0x${device.productId.toString(16).padStart(4, '0')}</td>
+          </tr>`;
+        });
+        html += "</tbody></table>";
+        devicesDiv.innerHTML = html;
+      } catch (err) {
+        devicesDiv.innerHTML = "<p class='alert alert-danger'>Error: " + err.message + "</p>";
+      }
+    });
+  </script>
+</body>
+</html>
